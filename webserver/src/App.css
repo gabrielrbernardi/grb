@@ -1,0 +1,41 @@
+html{
+  background-color: #0f171e;
+  color: #fff;
+  font-size: 14px;
+}
+
+.text-link{
+  text-decoration: none;
+  transition: .2s ease;
+  color: #fff;
+}
+
+.text-link:hover{
+  opacity: .5;
+}
+
+.button-primary-hover:hover{
+  background: #4b8abd !important;
+  color: #fff !important;
+}
+
+.button-secondary-hover:hover{
+  background: #78909C !important;
+  color: #fff !important;
+}
+
+.button-demo .template .p-button.discord {
+  background: linear-gradient(to left, var(--bluegray-700) 50%, var(--bluegray-800) 50%);
+  background-size: 200% 100%;
+  background-position: right bottom;
+  transition: background-position 0.35s ease-in;
+  color: #fff;
+  text-decoration: none;
+  border-color: var(--bluegray-800);
+}
+.button-demo .template .p-button.discord:hover {
+  background-position: left bottom;
+}
+.button-demo .template .p-button.discord:focus {
+  box-shadow: 0 0 0 1px var(--bluegray-500);
+}
