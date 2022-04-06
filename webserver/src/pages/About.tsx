@@ -11,6 +11,7 @@ import ToastComponent from '../components/Toast';
 import { FilterMatchMode } from 'primereact/api';
 
 import api from '../services/apiGithub';
+import { useLocation } from 'react-router-dom';
 
 const About = (props:any) => {
     const [getContentGithub, setContentGithub] = useState<any>({"lau":"al"});
@@ -35,6 +36,8 @@ const About = (props:any) => {
     const [getLoading, setLoading] = useState<boolean>(true);
     const [isHome, setIsHome] = useState<boolean>(false);
 
+    const { pathname } = useLocation();
+
     useEffect(() => {
         if(props && props.isHome){
             setIsHome(true);
@@ -47,17 +50,17 @@ const About = (props:any) => {
     function headerCard() {
         if(!getLoading){
             if(getContentGithub){
-                return <Image src={getContentGithub.avatar_url} alt="Logo" width="100%" className="mx-auto block" preview/>
+                return <div className="mx-auto"><Image src={getContentGithub.avatar_url} alt="Logo" width="100%" className="mx-auto block" preview/></div>
             }else{
-                return <Image src={"https://avatars.githubusercontent.com/u/50278200?v=4" } alt="Logo" width="100%" className="mx-auto block" preview/>                
+                return <Image src={"https://avatars.githubusercontent.com/u/50278200?v=4" } alt="Logo" width="100%" className="mx-auto block" preview/>
             }
         }else{
             return (
                 <div>
-                    <Skeleton size="30vw" className="mx-auto"/>
-                    <Skeleton height="4vh" className="mb-2"/>
-                    <Skeleton height="2vh" className="mb-2"/>
-                    <Skeleton />
+                    <Skeleton size="20vw" className="mx-auto mb-2"/>
+                    {/* <Skeleton height="4vh" width="20vw" className="mx-auto mb-2"/>
+                    <Skeleton height="2vh" width="20vw" className="mx-auto mb-2"/>
+                    <Skeleton width="20vw" className="mx-auto"/> */}
                 </div>
             )
         }
@@ -96,6 +99,9 @@ const About = (props:any) => {
         await api.get(`/users/${getUsername}`)
         .then(response => {
             setContentGithub(response.data);
+            if(pathname === "/"){
+                setLoading(false);
+            }
         })
         .catch(err => {final("error", "Erro!", err.response.data.message || "Não foi possivel retornar as informações do usuário. " + err); throw Error(err) })
     }
@@ -149,12 +155,12 @@ const About = (props:any) => {
                     </form>
             }
             <div className="grid m-0 justify-content-center">
-                <Card className="md:col-4 col-8 mt-2 p-0 align-self-start" style={{minWidth: "225px"}}>
+                <Card className="md:col-3 col-8 mt-2 p-0 align-self-start" style={{minWidth: "225px"}}>
                 {/* <Card style={{ width: '25em' }} footer={footer} header={header}> */}
                     {getContentGithub || getContentApi
                         ?
                             <>
-                                <div style={{maxWidth: "400px"}} className="m-0 p-0">
+                                <div style={{maxWidth: "400px"}} className="mx-auto my-0 p-0">
                                     {headerCard()}
                                 </div>
                                 {/* <p className="m-0" style={{lineHeight: '1.5'}}></p> */}
@@ -185,7 +191,7 @@ const About = (props:any) => {
                             </>
                         :
                             <>
-                                <Skeleton size="30vw" className="mx-auto mb-4"/>
+                                <Skeleton size="20vw" className="mx-auto mb-4"/>
                                 <Skeleton height="4vh" className="mb-2"/>
                                 <Skeleton height="2vh" className="mb-2"/>
                                 <Skeleton />
@@ -196,7 +202,7 @@ const About = (props:any) => {
                     ?
                         <></>
                     :
-                        <DataTable dataKey="id" value={getContentApi} paginator className="col-12 md:col-8 md:pl-4 mr-0 pl-0 pr-0" rows={10} rowsPerPageOptions={[5,10,25,50]} emptyMessage="Repositório inexistente." 
+                        <DataTable dataKey="id" value={getContentApi} paginator className="col-12 md:col-9 md:pl-4 mr-0 pl-0 pr-0" rows={10} rowsPerPageOptions={[5,10,25,50]} emptyMessage="Repositório inexistente." 
                             header={header2} filters={getFilter} loading={getLoading} showGridlines resizableColumns columnResizeMode="expand" removableSort>
                             <Column field="name" header="Nome" headerStyle={{ width: '3em' }} sortable></Column>
                             <Column field="created_at" header="Criado em" headerStyle={{ width: '3em' }} sortable></Column>

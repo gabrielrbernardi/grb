@@ -10,8 +10,13 @@ html{
   color: #fff;
 }
 
-.text-link:hover{
+.text-link:hover, .logo:hover{
   opacity: .5;
+  cursor: pointer;
+}
+
+.logo{
+  transition: .2s ease;
 }
 
 .button-primary-hover:hover{
