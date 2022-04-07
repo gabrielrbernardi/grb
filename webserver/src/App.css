@@ -19,6 +19,10 @@ html{
   transition: .2s ease;
 }
 
+.header, .footer{
+  background-color: #fff;
+}
+
 .button-primary-hover:hover{
   background: #4b8abd !important;
   color: #fff !important;
@@ -27,6 +31,10 @@ html{
 .button-secondary-hover:hover{
   background: #78909C !important;
   color: #fff !important;
+}
+
+.p-datatable{
+  min-width: 350px;
 }
 
 .button-demo .template .p-button.discord {

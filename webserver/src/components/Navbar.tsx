@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
-import {Navigate, useLocation, useNavigate} from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import {useLocation, useNavigate} from 'react-router-dom';
 import { Menubar } from 'primereact/menubar';
 import { BreadCrumb } from 'primereact/breadcrumb';
 import { Image } from 'primereact/image';
 // import ToastComponent from './Toast';
 import { MdCompareArrows } from 'react-icons/md';
-import { useEffect } from 'react';
+import { AiOutlineColumnWidth } from 'react-icons/ai';
+import { GiTransform } from 'react-icons/gi';
 
 const logo = require("../assets/logo.png");
 
@@ -16,23 +17,23 @@ const Navbar = () => {
     // const [value, setValue] = useState('');
 
     useEffect(() => {
-        function leu(){
+        function splitStringPathname(){
             let tempList:any = []
             let path = "";
             
             for(let x = 0; x < pathname.split("/").length; x++){
-                if(pathname.split("/")[x] == ""){
+                if(pathname.split("/")[x] === ""){
                     continue;
                 }
                 path += "/" + pathname.split("/")[x];
-                let tempPath = path
+                let tempPath = path;
                 let obj = {"label": (pathname.split("/")[x].charAt(0).toUpperCase() + pathname.split("/")[x].slice(1)), command: () => {navigate(`${tempPath}`)}};
                 tempList.push(obj);
             }
             setItemsBreadCrumb(tempList)
         }
-        leu();
-    },[pathname])
+        splitStringPathname();
+    },[pathname, navigate])
 
     const items = [
         {
@@ -57,19 +58,51 @@ const Navbar = () => {
             // }
             items: [
                 {
-                    label: 'Comparação',
+                    label: 'Comparar textos',
                     // icon: 'pi pi-fw pi-calendar-plus',
                     template: (item:any, options:any) => {
                         return (
                             /* custom element */
-                            <a className={options.className} target={item.target} onClick={options.onClick}>
+                            <p className={options.className + " my-0"} onClick={options.onClick}>
                                 <MdCompareArrows size={20} className="mr-2"/>
                                 <span className={options.labelClassName}>{item.label}</span>
-                            </a>
+                            </p>
                         );
                     },
                     command: () => {
                         navigate("/functionalities/compare")
+                    }
+                },
+                {
+                    label: 'Tamanho',
+                    // icon: 'pi pi-fw pi-calendar-plus',
+                    template: (item:any, options:any) => {
+                        return (
+                            /* custom element */
+                            <p className={options.className + " my-0"} onClick={options.onClick}>
+                                <AiOutlineColumnWidth size={20} className="mr-2"/>
+                                <span className={options.labelClassName}>{item.label}</span>
+                            </p>
+                        );
+                    },
+                    command: () => {
+                        navigate("/functionalities/length")
+                    }
+                },
+                {
+                    label: 'Transformar textos',
+                    // icon: 'pi pi-fw pi-calendar-plus',
+                    template: (item:any, options:any) => {
+                        return (
+                            /* custom element */
+                            <p className={options.className + " my-0"} onClick={options.onClick}>
+                                <GiTransform size={20} className="mr-2"/>
+                                <span className={options.labelClassName}>{item.label}</span>
+                            </p>
+                        );
+                    },
+                    command: () => {
+                        navigate("/functionalities/transform")
                     }
                 },
             ]
@@ -109,22 +142,9 @@ const Navbar = () => {
             icon: 'pi pi-fw pi-power-off'
         }
     ];
-
-    // const start = <img alt="logo" src={"./src/assets/logo.png"} height="40" className="mr-2"></img>;
-    // const end = <input placeholder="Search" type="text" />;
-    const end = <a className="logo" onClick={() => navigate('/')}><Image src={logo} width="100vw" alt="Logo"/></a>
-    // const itemsBreadCrumb = [
-    //     {label: 'Computer'},
-    //     {label: 'Notebook'},
-    //     {label: 'Accessories'},
-    //     {label: 'Backpacks'},
-    //     {label: 'Item'}
-    // ];
+    
     const home = { icon: 'pi pi-home', command: () => {navigate("/")} }
-    // function final(){
-    //     return <ToastComponent title={value}/>
-    // }
-
+    const end = <p className="logo m-0 p-0" onClick={() => navigate('/')}><Image src={logo} width="100vw" alt="Logo"/></p>
 
     return (
         <div className="card mb-2">

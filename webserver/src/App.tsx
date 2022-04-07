@@ -1,10 +1,12 @@
 import React from 'react';
 import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom';
 import './App.css';
-import Compare from './components/functionalities/Compare';
 import Navbar from './components/Navbar';
 import About from './pages/About';
 import Home from './pages/Home';
+import Compare from './pages/functionalities/Compare';
+import CheckLength from './pages/functionalities/CheckLength';
+import Transform from './pages/functionalities/Transform';
 
 function App() {
   return (
@@ -16,8 +18,10 @@ function App() {
             <Route path="/" element={<Home/>} />
             <Route path="/about" element={<About/>}/>
             <Route path="/functionalities">
-              <Route path="" element={<a>dasdasdlasjdkasjdask</a>}/>
+              <Route path="" element={<p>dasdasdlasjdkasjdask</p>}/>
               <Route path="compare" element={<Compare/>}/>
+              <Route path="length" element={<CheckLength/>}/>
+              <Route path="transform" element={<Transform/>}/>
             </Route>
             <Route path="*" element={<Navigate to="/" replace />}/>
           </Routes>
