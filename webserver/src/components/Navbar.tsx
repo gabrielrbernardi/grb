@@ -7,6 +7,7 @@ import { Image } from 'primereact/image';
 import { MdCompareArrows } from 'react-icons/md';
 import { AiOutlineColumnWidth } from 'react-icons/ai';
 import { GiTransform } from 'react-icons/gi';
+import { Button } from 'primereact/button';
 
 const logo = require("../assets/logo.png");
 
@@ -53,17 +54,24 @@ const Navbar = () => {
         {
             label: 'Funcionalidades',
             icon: 'pi pi-fw pi-ellipsis-h',
-            // command: () => {
-            //     navigate('/functionalities')
-            // }
+            template: (item:any, options:any) => {
+                return (
+                    /* custom element */
+                    <Button className={options.className + " my-0 p-button-text"} style={{width: "100%"}} onClick={options.onClick} onMouseOver={() => {}}>
+                        <span className="pi pi-fw pi-ellipsis-h mr-2"/>
+                        <span className={options.labelClassName}>{item.label}</span>
+                        <span className="p-submenu-icon pi pi-angle-down"/>
+                    </Button>
+                );
+            },
             items: [
                 {
-                    label: 'Comparar textos',
+                    label: 'Comparar',
                     // icon: 'pi pi-fw pi-calendar-plus',
                     template: (item:any, options:any) => {
                         return (
                             /* custom element */
-                            <p className={options.className + " my-0"} onClick={options.onClick}>
+                            <p className={options.className + " my-0 ml-3 lg:ml-0"} onClick={options.onClick}>
                                 <MdCompareArrows size={20} className="mr-2"/>
                                 <span className={options.labelClassName}>{item.label}</span>
                             </p>
@@ -79,7 +87,7 @@ const Navbar = () => {
                     template: (item:any, options:any) => {
                         return (
                             /* custom element */
-                            <p className={options.className + " my-0"} onClick={options.onClick}>
+                            <p className={options.className + " my-0 ml-3 lg:ml-0"} onClick={options.onClick}>
                                 <AiOutlineColumnWidth size={20} className="mr-2"/>
                                 <span className={options.labelClassName}>{item.label}</span>
                             </p>
@@ -90,12 +98,12 @@ const Navbar = () => {
                     }
                 },
                 {
-                    label: 'Transformar textos',
+                    label: 'Transformar',
                     // icon: 'pi pi-fw pi-calendar-plus',
                     template: (item:any, options:any) => {
                         return (
                             /* custom element */
-                            <p className={options.className + " my-0"} onClick={options.onClick}>
+                            <p className={options.className + " my-0 ml-3 lg:ml-0"} onClick={options.onClick}>
                                 <GiTransform size={20} className="mr-2"/>
                                 <span className={options.labelClassName}>{item.label}</span>
                             </p>
@@ -128,12 +136,7 @@ const Navbar = () => {
                 {
                     label: 'Archieve',
                     icon: 'pi pi-fw pi-calendar-times',
-                    items: [
-                        {
-                            label: 'Remove',
-                            icon: 'pi pi-fw pi-calendar-minus'
-                        }
-                    ]
+                    
                 }
             ]
         },
@@ -144,10 +147,10 @@ const Navbar = () => {
     ];
     
     const home = { icon: 'pi pi-home', command: () => {navigate("/")} }
-    const end = <p className="logo m-0 p-0" onClick={() => navigate('/')}><Image src={logo} width="100vw" alt="Logo"/></p>
+    const end = <p className="logo m-0 p-0" onClick={() => navigate('/')}><Image src={logo} width="48vh" alt="Logo"/></p>
 
     return (
-        <div className="card mb-2">
+        <div className="card mb-2 lg:sticky sm:top-0 z-1">
             {/* <Menubar model={items} end={final}/> */}
             {/* <input onChange={(e) => { setValue((e.target as HTMLInputElement).value);}}/> */}
             <Menubar model={items} end={end} className="border-none"/>

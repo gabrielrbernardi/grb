@@ -40,7 +40,7 @@ const CheckLength = () => {
                     <div className="md:col-6 col-12 p-0 mb-3">
                         <p className="text-center text-xl">Tamanho máximo</p>
                         <div className="p-inputgroup">
-                            <InputNumber value={getTextMaxLength} onChange={(e) => setTextMaxLength(e.value || 0)} mode="decimal" useGrouping={false} placeholder="Tamanho máximo" min={0} max={maxSize}/>
+                            <InputNumber value={getTextMaxLength} onChange={(e) => setTextMaxLength(e.value || 0)} mode="decimal" useGrouping={false} placeholder="Tamanho máximo" min={0} max={maxSize} autoFocus/>
                             {/* <InputNumber className="col-12" value={getTextMaxLength} onValueChange={(e) => setTextMaxLength(e.value)} mode="decimal" useGrouping={false} placeholder="Tamanho máximo" min={0} max={100} /> */}
                             <Button icon="pi pi-times" className="p-button-danger" type="button" onClick={() => {setTextMaxLength(0)}}/>
                         </div>

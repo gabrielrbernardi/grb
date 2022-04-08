@@ -17,6 +17,7 @@ html{
 
 .logo{
   transition: .2s ease;
+  width: 100%;
 }
 
 .header, .footer{

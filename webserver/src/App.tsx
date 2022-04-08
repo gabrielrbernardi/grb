@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import Compare from './pages/functionalities/Compare';
 import CheckLength from './pages/functionalities/CheckLength';
 import Transform from './pages/functionalities/Transform';
+import Functionalities from './pages/functionalities/Functionalities';
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
             <Route path="/" element={<Home/>} />
             <Route path="/about" element={<About/>}/>
             <Route path="/functionalities">
-              <Route path="" element={<p>dasdasdlasjdkasjdask</p>}/>
+              <Route path="" element={<Functionalities/>}/>
               <Route path="compare" element={<Compare/>}/>
               <Route path="length" element={<CheckLength/>}/>
               <Route path="transform" element={<Transform/>}/>

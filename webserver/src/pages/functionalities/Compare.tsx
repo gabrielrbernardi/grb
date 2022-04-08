@@ -30,7 +30,7 @@ const Compare = () => {
                     <br/>
                     <div className="md:col-5 col-12 md:mr-3 md:mb-0 p-0 mb-3">
                         <p className="text-center">Texto 01</p>
-                        <InputTextarea rows={5} className="col-12" value={getText01} onChange={(e) => {setText01(e.target.value)}} placeholder="Texto 01"/>
+                        <InputTextarea rows={5} className="col-12" value={getText01} onChange={(e) => {setText01(e.target.value)}} placeholder="Texto 01" autoFocus/>
                     </div>
                     <div className="md:col-5 col-12 md:mb-0 p-0">
                         <p className="text-center">Texto 02</p>
