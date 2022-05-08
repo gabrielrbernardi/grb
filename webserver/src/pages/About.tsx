@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {GoLocation} from 'react-icons/go';
+import {AiOutlineEye} from 'react-icons/ai';
 import {Card} from 'primereact/card';
 import {Button} from 'primereact/button';
 import { DataTable } from 'primereact/datatable';
@@ -7,15 +8,19 @@ import { Column } from 'primereact/column';
 import { InputText } from 'primereact/inputtext';
 import { Skeleton } from 'primereact/skeleton';
 import { Image } from 'primereact/image';
+import { Dialog } from 'primereact/dialog';
 import ToastComponent from '../components/Toast';
 import { FilterMatchMode } from 'primereact/api';
 
 import api from '../services/apiGithub';
+import DataTableRepositories from "../components/DataTableRepositories";
 import { useLocation } from 'react-router-dom';
 
 const About = (props:any) => {
     const [getContentGithub, setContentGithub] = useState<any>({"lau":"al"});
-    const [getContentApi, setContentApi] = useState<any>();
+    const [getContentApi, setContentApi] = useState<any>([]);
+    const [getShowRepoInfo, setShowRepoInfo] = useState<any>(false);
+    const [getRepositoryName, setRepositoryName] = useState<any>('');
     const [getUsername, setUsername] = useState<any>('gabrielrbernardi');
     
     const [getFilterValue, setFilterValue] = useState('');
@@ -108,14 +113,31 @@ const About = (props:any) => {
     
     async function getRepoData(){ 
         await api.get(`/users/${getUsername}/repos?per_page=100`)
-        .then(response => {setContentApi(response.data);})
+        .then(response => {
+            setContentApi(response.data);
+        })
         .catch(err => {final("error", "Erro!", "Não foi possivel retornar as informações do usuário. " + err) })
     }
 
-    const linkColumnTemplate = (rowData:any) => {
+    const renderFooter = () => {
+        return (
+            <div>
+                {/* <Button label="Fechar" icon="pi pi-times" onClick={() => setShowRepoInfo(false)} className="p-button-text" /> */}
+                {/* <Button label="Yes" icon="pi pi-check" onClick={() => onHide(name)} autoFocus /> */}
+            </div>
+        );
+    }
+
+    const moreColumnTemplate = (rowData:any) => {
+        return <Button className="p-button-raised p-button-outlined lg:mx-auto lg:col-12 button-primary-hover" onClick={() => {setShowRepoInfo(true); setRepositoryName(rowData.name)}}>
+            <AiOutlineEye className="mx-auto my-0 p-0" size={20}/>
+        </Button>
+    }
+
+    const redirectLinkColumnTemplate = (rowData:any) => {
         return <Button className="p-button-raised p-button-outlined lg:mx-auto block lg:col-12 button-primary-hover" label={"Acessar " + rowData.name} onClick={() => {window.open(`${rowData.html_url}`, "_blank")}}/>
     }
-    
+        
     function final(type:any, title:any, message:any){
         setType(type);
         setTitle(title);
@@ -147,8 +169,10 @@ const About = (props:any) => {
                 ? <></>
                 :
                     <form onSubmit={fetchData}>
-                        <div className="p-inputgroup">
+                        <a>Digite um usuário do GitHub para buscar:</a>
+                        <div className="mt-2 p-inputgroup">
                             {/* <Button icon="pi pi-home" className="p-button-secondary p-button-outlined button-secondary-hover" type="button" onClick={() => {setUsername('gabrielrbernardi');fetchData();}}/> */}
+                            <Button icon="pi pi-github" className="p-button-secondary" type="button"/>
                             <InputText value={getUsername} onChange={(e) => {setUsername(e.target.value)}} placeholder="Usuário"/>
                             <Button icon="pi pi-search" className="p-button-info" type="submit"/>
                         </div>
@@ -207,9 +231,13 @@ const About = (props:any) => {
                             <Column field="name" header="Nome" headerStyle={{ width: '3em' }} sortable></Column>
                             <Column field="created_at" header="Criado em" headerStyle={{ width: '3em' }} sortable></Column>
                             <Column field="language" header="Linguagem" headerStyle={{ width: '3em' }} sortable></Column>
-                            <Column field="html_url" header="Acessar" headerStyle={{ width: '3em' }} body={linkColumnTemplate}></Column>
+                            <Column field="html_url" header="Detalhes" headerStyle={{ width: '1em' }} body={moreColumnTemplate}></Column>
+                            <Column field="html_url" header="Acessar" headerStyle={{ width: '3em' }} body={redirectLinkColumnTemplate}></Column>
                         </DataTable>
                 }
+                <Dialog header={"Repositório: " + getRepositoryName} visible={getShowRepoInfo} style={{ width: '90vw' }} footer={renderFooter()} onHide={() => setShowRepoInfo(false)} draggable={false}>
+                    <DataTableRepositories username={getUsername} repositoryName={getRepositoryName}/>
+                </Dialog>
             </div>
         </div>
     );

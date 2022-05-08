@@ -3,6 +3,7 @@ import {useLocation, useNavigate} from 'react-router-dom';
 import { Menubar } from 'primereact/menubar';
 import { BreadCrumb } from 'primereact/breadcrumb';
 import { Image } from 'primereact/image';
+import { Message } from 'primereact/message';
 // import ToastComponent from './Toast';
 import { MdCompareArrows } from 'react-icons/md';
 import { AiOutlineColumnWidth } from 'react-icons/ai';
@@ -14,6 +15,7 @@ const logo = require("../assets/logo.png");
 const Navbar = () => {
     const navigate = useNavigate();
     const [getItemsBreadCrumb, setItemsBreadCrumb] = useState<any>([]);
+    const [getHideBanner, setHideBanner] = useState<boolean>(false);
     const { pathname } = useLocation();
     // const [value, setValue] = useState('');
 
@@ -34,7 +36,14 @@ const Navbar = () => {
             setItemsBreadCrumb(tempList)
         }
         splitStringPathname();
-    },[pathname, navigate])
+
+        if(!document.cookie){
+            const d = new Date();
+            d.setTime(d.getTime() + (30*24*60*60*1000));
+            let expires = "expires="+ d.toUTCString();
+            document.cookie = "banner=true; " + expires;
+        }
+    },[pathname, navigate, document.cookie])
 
     const items = [
         {
@@ -45,10 +54,17 @@ const Navbar = () => {
             },
         },
         {
-            label: 'Sobre',
+            label: 'Consultar',
             icon: 'pi pi-fw pi-info-circle',
             command: () => {
                 navigate('/about')
+            }
+        },
+        {
+            label: 'UberHub',
+            icon: 'pi pi-fw pi-desktop',
+            command: () => {
+                navigate('/uberhub')
             }
         },
         {
@@ -115,42 +131,64 @@ const Navbar = () => {
                 },
             ]
         },
-        {
-            label: 'Events',
-            icon: 'pi pi-fw pi-calendar',
-            items: [
-                {
-                    label: 'Edit',
-                    icon: 'pi pi-fw pi-pencil',
-                    items: [
-                        {
-                            label: 'Save',
-                            icon: 'pi pi-fw pi-calendar-plus'
-                        },
-                        {
-                            label: 'Delete',
-                            icon: 'pi pi-fw pi-calendar-minus'
-                        }
-                    ]
-                },
-                {
-                    label: 'Archieve',
-                    icon: 'pi pi-fw pi-calendar-times',
+        // {
+        //     label: 'Events',
+        //     icon: 'pi pi-fw pi-calendar',
+        //     items: [
+        //         {
+        //             label: 'Edit',
+        //             icon: 'pi pi-fw pi-pencil',
+        //             items: [
+        //                 {
+        //                     label: 'Save',
+        //                     icon: 'pi pi-fw pi-calendar-plus'
+        //                 },
+        //                 {
+        //                     label: 'Delete',
+        //                     icon: 'pi pi-fw pi-calendar-minus'
+        //                 }
+        //             ]
+        //         },
+        //         {
+        //             label: 'Archieve',
+        //             icon: 'pi pi-fw pi-calendar-times',
                     
-                }
-            ]
-        },
-        {
-            label: 'Quit',
-            icon: 'pi pi-fw pi-power-off'
-        }
+        //         }
+        //     ]
+        // },
+        // {
+        //     label: 'Quit',
+        //     icon: 'pi pi-fw pi-power-off'
+        // }
     ];
+
+    function clearCookie(){
+        const d = new Date();
+        d.setTime(d.getTime() + (180*24*60*60*1000));
+        let expires = "expires="+ d.toUTCString();
+        document.cookie = "banner=false; " + expires;
+        setHideBanner(true);
+    }
+
+    const teste = (
+        <>
+            <a>Acessar repositório de códigos do UberHub?</a>
+            <Button className="ml-2 p-button-secondary p-button-raised" label="Acessar" onClick={() => {navigate('/uberhub'); clearCookie()}} />
+            <Button className="ml-2 p-button-danger p-button-raised" label="Cancelar" onClick={() => {clearCookie()}} />
+        </>
+    )
     
     const home = { icon: 'pi pi-home', command: () => {navigate("/")} }
     const end = <p className="logo m-0 p-0" onClick={() => navigate('/')}><Image src={logo} width="48vh" alt="Logo"/></p>
 
     return (
         <div className="card mb-2 lg:sticky sm:top-0 z-1">
+            {document.cookie !== "banner=true" || pathname === "/uberhub" || getHideBanner
+                ?
+                    <></>
+                :
+                    <Message severity="info" className="col-12" text="Message Content" content={teste}/>
+            }
             {/* <Menubar model={items} end={final}/> */}
             {/* <input onChange={(e) => { setValue((e.target as HTMLInputElement).value);}}/> */}
             <Menubar model={items} end={end} className="border-none"/>

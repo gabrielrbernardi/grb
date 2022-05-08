@@ -10,7 +10,12 @@ html{
   color: #fff;
 }
 
-.text-link:hover, .logo:hover{
+.text-link-special{
+  transition: .2s ease;
+  color: rgb(116, 144, 255);
+}
+
+.text-link:hover, .logo:hover, .text-link-special:hover{
   opacity: .5;
   cursor: pointer;
 }

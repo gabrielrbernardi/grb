@@ -37,7 +37,10 @@ const Transform = () => {
                 <p className="text-center text-xl">Entrada</p>
                 <InputTextarea rows={5} className="col-12" value={getInputText} onChange={(e) => {setInputText(e.target.value); transformFunction()}} placeholder="Entrada" autoFocus/>
                 <p className="text-center text-lg">Tipo de transformação</p>
-                <SelectButton className="text-center" value={getTransformType} options={transformOptions} optionLabel="name" onChange={(e) => {setTransformType(e.value)}} unselectable={false}/>
+                <SelectButton className="text-center" value={getTransformType} options={transformOptions} optionLabel="name" onChange={(e) => {setTransformType(e.value);}} unselectable={false}/>
+                <div className="mt-3 text-center">
+                    <Button label="Atualizar" className="mt-2 text-center" onClick={() => {transformFunction()}} />
+                </div>
                 {getTransformType !== "none"
                     ?
                         <div className="mt-3 text-center">
