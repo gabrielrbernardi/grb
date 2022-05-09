@@ -28,6 +28,7 @@ function App() {
               <Route path="length" element={<CheckLength/>}/>
               <Route path="transform" element={<Transform/>}/>
             </Route>
+            <Route path="/grb" element={<Navigate to="/" replace />}/>
             <Route path="/404" element={<NotFound/>}/>
             <Route path="*" element={<Navigate to="/404" replace />}/>
           </Routes>
