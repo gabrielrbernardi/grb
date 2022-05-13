@@ -12,6 +12,8 @@ import { Button } from 'primereact/button';
 
 const logo = require("../assets/logo.png");
 
+const rootPath = "/grb"
+
 const Navbar = () => {
     const navigate = useNavigate();
     const [getItemsBreadCrumb, setItemsBreadCrumb] = useState<any>([]);
@@ -28,9 +30,12 @@ const Navbar = () => {
                 if(pathname.split("/")[x] === ""){
                     continue;
                 }
+                if(pathname.split("/")[x] === "grb"){
+                    continue;
+                }
                 path += "/" + pathname.split("/")[x];
                 let tempPath = path;
-                let obj = {"label": (pathname.split("/")[x].charAt(0).toUpperCase() + pathname.split("/")[x].slice(1)), command: () => {navigate(`${tempPath}`)}};
+                let obj = {"label": (pathname.split("/")[x].charAt(0).toUpperCase() + pathname.split("/")[x].slice(1)), command: () => {navigate(rootPath + `${tempPath}`)}};
                 tempList.push(obj);
             }
             setItemsBreadCrumb(tempList)
@@ -50,21 +55,21 @@ const Navbar = () => {
             label: 'Home',
             icon: 'pi pi-fw pi-home',
             command: () => {
-                navigate('/')
+                navigate(rootPath + '/')
             },
         },
         {
             label: 'Consultar',
             icon: 'pi pi-fw pi-info-circle',
             command: () => {
-                navigate('/about')
+                navigate(rootPath + '/about')
             }
         },
         {
             label: 'UberHub',
             icon: 'pi pi-fw pi-desktop',
             command: () => {
-                navigate('/uberhub')
+                navigate(rootPath + '/uberhub')
             }
         },
         {
@@ -94,7 +99,7 @@ const Navbar = () => {
                         );
                     },
                     command: () => {
-                        navigate("/functionalities/compare")
+                        navigate(rootPath + "/functionalities/compare")
                     }
                 },
                 {
@@ -110,7 +115,7 @@ const Navbar = () => {
                         );
                     },
                     command: () => {
-                        navigate("/functionalities/length")
+                        navigate(rootPath + "/functionalities/length")
                     }
                 },
                 {
@@ -126,7 +131,7 @@ const Navbar = () => {
                         );
                     },
                     command: () => {
-                        navigate("/functionalities/transform")
+                        navigate(rootPath + "/functionalities/transform")
                     }
                 },
             ]
@@ -173,21 +178,21 @@ const Navbar = () => {
     const teste = (
         <>
             <a>Acessar repositório de códigos do UberHub?</a>
-            <Button className="ml-2 p-button-secondary p-button-raised" label="Acessar" onClick={() => {navigate('/uberhub'); clearCookie()}} />
+            <Button className="ml-2 p-button-secondary p-button-raised" label="Acessar" onClick={() => {navigate(rootPath + '/uberhub'); clearCookie()}} />
             <Button className="ml-2 p-button-danger p-button-raised" label="Cancelar" onClick={() => {clearCookie()}} />
         </>
     )
     
-    const home = { icon: 'pi pi-home', command: () => {navigate("/")} }
-    const end = <p className="logo m-0 p-0" onClick={() => navigate('/')}><Image src={logo} width="48vh" alt="Logo"/></p>
+    const home = { icon: 'pi pi-home', command: () => {navigate(rootPath + "/")} }
+    const end = <p className="logo m-0 p-0" onClick={() => navigate(rootPath + '/')}><Image src={logo} width="48vh" alt="Logo"/></p>
 
     return (
-        <div className="card mb-2 lg:sticky sm:top-0 z-1">
+        <div className="card mb-2 lg:sticky sm:top-0 z-2">
             {document.cookie !== "banner=true" || pathname === "/uberhub" || getHideBanner
                 ?
                     <></>
                 :
-                    <Message severity="info" className="col-12" text="Message Content" content={teste}/>
+                    <Message severity="info" className="col-12" content={teste}/>
             }
             {/* <Menubar model={items} end={final}/> */}
             {/* <input onChange={(e) => { setValue((e.target as HTMLInputElement).value);}}/> */}

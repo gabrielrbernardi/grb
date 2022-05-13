@@ -12,7 +12,8 @@ const NotFound = () => {
                 <br/>
                 <br/>
                 <a className="text-3xl">Página não encontrada</a>
-                <Button className="mt-4" label="Voltar para Home" onClick={() => {navigate('/');}}/>
+                <br/>
+                <Button className="mt-4" label="Voltar para Home" onClick={() => {navigate('/grb');}}/>
             </Card>
         </div>       
     )

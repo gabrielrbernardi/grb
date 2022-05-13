@@ -9,6 +9,8 @@ const DataTableRepositories = (props: any) => {
     var repositoryName = "";
     var username = "";
     const [getRepositoryContent, setRepositoryContent] = useState<any>([]);
+    const [getPath, setPath] = useState(false);
+    var pathUhcc = false;
     const { pathname } = useLocation();
     
     useEffect(() => {
@@ -18,6 +20,7 @@ const DataTableRepositories = (props: any) => {
         if(props.repositoryName){ repositoryName = props.repositoryName; }
         else{ repositoryName = "UberHub-Code-Club"; }
         
+        if(props.uhcc){ setPath(true) }
         getRepositoryInfo()
     },[])
 
@@ -47,13 +50,13 @@ const DataTableRepositories = (props: any) => {
 
     return (
         <>
-            {pathname === "/uberhub"
+            {/* {getPath
                 ?
                     <p className="md:ml-4 text-lg">
                         Os códigos desenvolvidos durante as aulas estão disponíveis abaixo:
                     </p>
                 : <></>
-            }
+            } */}
             <DataTable value={getRepositoryContent} className="col-12 md:col-12 md:pl-4 mr-0 pl-0 pr-0 mx-auto" emptyMessage="Repositório vazio.">
                 <Column field="name" header="Nome" headerStyle={{ width: '3em' }} body={nameRepoColumnTemplate} />
                 <Column field="type" header="Tipo" headerStyle={{ width: '3em' }} />

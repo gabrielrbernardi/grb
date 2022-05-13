@@ -59,7 +59,7 @@ const About = (props:any) => {
             }else{
                 return <Image src={"https://avatars.githubusercontent.com/u/50278200?v=4" } alt="Logo" width="100%" className="mx-auto block" preview/>
             }
-        }else{
+        }else{                
             return (
                 <div>
                     <Skeleton size="20vw" className="mx-auto mb-2"/>
@@ -104,7 +104,7 @@ const About = (props:any) => {
         await api.get(`/users/${getUsername}`)
         .then(response => {
             setContentGithub(response.data);
-            if(pathname === "/"){
+            if(pathname.indexOf("/grb") !== -1){
                 setLoading(false);
             }
         })

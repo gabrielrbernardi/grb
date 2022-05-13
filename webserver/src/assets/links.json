@@ -1,0 +1,88 @@
+{
+    "inic1": [
+        {
+            "name": "Aula 01",
+            "subject": "Conceitos básicos, variáveis, entrada e saída",
+            "url": "https://docs.google.com/presentation/d/1jJNu-ltY8Tj62PvWPny1M1cqC2Zi3RcO/edit?usp=sharing&ouid=111709091661884688005&rtpof=true&sd=true"
+        },
+        {
+            "name": "Aula 02",
+            "subject": "Estruturas condicionais. If, else if e else",
+            "url": "https://docs.google.com/presentation/d/1wBzC5-j-z-dS1wgOWgiss5zY7RnBPqMP/edit?usp=sharing&ouid=111709091661884688005&rtpof=true&sd=true"
+        },
+        {
+            "name": "Aula 03",
+            "subject": "Estruturas de repetição 1. While, for e End Of File (EOF)",
+            "url": "https://docs.google.com/presentation/d/1dMuh3X3eHvVPGAIkKhfcKhA_Yyk3n6R7/edit?usp=sharing&ouid=111709091661884688005&rtpof=true&sd=true"
+        },
+        {
+            "name": "Aula 04",
+            "subject": "Estruturas de repetição 2. Continuação, Loop infinito, break",
+            "url": "https://drive.google.com/file/d/1V5NgYoq8qmJg31_CpDscC0xnOcMNgWDV/view?usp=sharing"
+        }
+    ],
+    "inic2": [
+        {
+            "name": "Aula 05",
+            "subject": "Revisão do Inciante 1",
+            "url": "https://docs.google.com/presentation/d/1fbMIeeME54_CtLTFEfVBXNvOzsCIH_L-/edit?usp=sharing&ouid=111709091661884688005&rtpof=true&sd=true"
+        },    
+        {
+            "name": "Aula 05",
+            "subject": "Vetores (Arrays) e C++",
+            "url": "https://docs.google.com/presentation/d/1rzuEuarI3kJxZFYg6un3hBV_GwM8Yv11/edit?usp=sharing&ouid=111709091661884688005&rtpof=true&sd=true"
+        },
+        {
+            "name": "Aula 06",
+            "subject": "Vetores em C++",
+            "url": "https://docs.google.com/presentation/d/1PkSrp1qo-xfMLMhs1rHs1RcKoEwe_YrG/edit?usp=sharing&ouid=111709091661884688005&rtpof=true&sd=true"
+        },
+        {
+            "name": "Aula 07",
+            "subject": "String",
+            "url": "https://docs.google.com/presentation/d/1tQz19KnpxfFpD41raBNuX36dMLXhTab8/edit?usp=sharing&ouid=111709091661884688005&rtpof=true&sd=true"
+        },
+        {
+            "name": "Aula 08",
+            "subject": "Funções",
+            "url": "https://docs.google.com/presentation/d/1Brssyu9a9znemytnuxXb_LzyBEkhGKlw/edit?usp=sharing&ouid=111709091661884688005&rtpof=true&sd=true"
+        },
+        {
+            "name": "Aula 09",
+            "subject": "Revisão Inciante 2",
+            "url": "https://docs.google.com/presentation/d/1crcJRA3wrDjAKvK3eBZGLHmhXNIjbKtX/edit?usp=sharing&ouid=111709091661884688005&rtpof=true&sd=true"
+        }
+    ],
+    "inter1": [
+        {
+            "name": "Aula 09",
+            "subject": "Revisão Iniciante 2",
+            "url": "https://docs.google.com/presentation/d/1crcJRA3wrDjAKvK3eBZGLHmhXNIjbKtX/edit?usp=sharing&ouid=111709091661884688005&rtpof=true&sd=true"
+        },
+        {
+            "name": "Aula 09",
+            "subject": "Ordenação",
+            "url": "https://docs.google.com/presentation/d/1jrzbxG4BTLIe3vB8fI6X6EgFEclM5ivc/edit?usp=sharing&ouid=111709091661884688005&rtpof=true&sd=true"
+        },
+        {
+            "name": "Aula 10",
+            "subject": "Structs",
+            "url": "https://docs.google.com/presentation/d/1Wss_YmMl1ZHpnODGJo_Qxs-nr5pZmMu-/edit?usp=sharing&ouid=111709091661884688005&rtpof=true&sd=true"
+        },
+        {
+            "name": "Aula 11",
+            "subject": "Map",
+            "url": "https://docs.google.com/presentation/d/1HRIzMMMKf2wsPHGyoL3AnT2gu5lW30PJ/edit?usp=sharing&ouid=111709091661884688005&rtpof=true&sd=true"
+        },
+        {
+            "name": "Aula 12",
+            "subject": "Soma acumulada e Counting Sort",
+            "url": "https://docs.google.com/presentation/d/1PxntxBf9Vo7f99xBUfaErXeKQPeTYdLG/edit?usp=sharing&ouid=111709091661884688005&rtpof=true&sd=true"
+        },
+        {
+            "name": "Aula 13",
+            "subject": "Revisão Intermediário 1",
+            "url": "https://docs.google.com/presentation/d/1YliJFWQsxNwAOr3uoxCCeMwx5yy-2vve/edit?usp=sharing&ouid=111709091661884688005&rtpof=true&sd=true"
+        }
+    ]
+}

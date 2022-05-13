@@ -15,8 +15,13 @@ html{
   color: rgb(116, 144, 255);
 }
 
-.text-link:hover, .logo:hover, .text-link-special:hover{
-  opacity: .5;
+.text-link-special-class{
+  transition: .2s ease;
+  color: rgb(54, 171, 86);
+}
+
+.text-link:hover, .logo:hover, .text-link-special:hover, .text-link-special-class:hover{
+  opacity: .6;
   cursor: pointer;
 }
 
