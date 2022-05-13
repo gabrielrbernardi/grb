@@ -41,7 +41,7 @@ const Navbar = () => {
             setItemsBreadCrumb(tempList)
         }
         splitStringPathname();
-
+        
         if(!document.cookie){
             const d = new Date();
             d.setTime(d.getTime() + (30*24*60*60*1000));
