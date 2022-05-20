@@ -23,6 +23,9 @@ function App() {
             <Route path="/grb">
               <Route path="" element={<Home/>} />
               <Route path="about" element={<About/>}/>
+              <Route path="index.html" element={<Navigate to="/grb/" replace />}>
+                <Route path="?source=uberhub" element={<UHCC/>} />
+              </Route>
               <Route path="uberhub" element={<UHCC/>}/>
               <Route path="functionalities">
                 <Route path="" element={<Functionalities/>}/>

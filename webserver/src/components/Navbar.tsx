@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import {useLocation, useNavigate} from 'react-router-dom';
+import {useLocation, useNavigate, useSearchParams} from 'react-router-dom';
 import { Menubar } from 'primereact/menubar';
 import { BreadCrumb } from 'primereact/breadcrumb';
 import { Image } from 'primereact/image';
 import { Message } from 'primereact/message';
-// import ToastComponent from './Toast';
 import { MdCompareArrows } from 'react-icons/md';
 import { AiOutlineColumnWidth } from 'react-icons/ai';
 import { GiTransform } from 'react-icons/gi';
@@ -18,6 +17,8 @@ const Navbar = () => {
     const navigate = useNavigate();
     const [getItemsBreadCrumb, setItemsBreadCrumb] = useState<any>([]);
     const [getHideBanner, setHideBanner] = useState<boolean>(false);
+    const [getValidSource, setValidSource] = useState<boolean>(true);
+    const [ queryParams ] = useSearchParams();
     const { pathname } = useLocation();
     // const [value, setValue] = useState('');
 
@@ -47,6 +48,17 @@ const Navbar = () => {
             d.setTime(d.getTime() + (30*24*60*60*1000));
             let expires = "expires="+ d.toUTCString();
             document.cookie = "banner=true; " + expires;
+        }
+        if(queryParams.get("source") === "uberhub"){
+            navigate(rootPath + '/uberhub')
+        }else if(!queryParams.get("source")){
+            setValidSource(true)
+        }
+        else{
+            setValidSource(false)
+            setTimeout(() => {
+                setValidSource(true)
+            }, 8000)
         }
     },[pathname, navigate, document.cookie])
 
@@ -175,11 +187,19 @@ const Navbar = () => {
         setHideBanner(true);
     }
 
-    const teste = (
+    const bannerUHCC = (
         <>
             <a>Acessar repositório de códigos do UberHub?</a>
             <Button className="ml-2 p-button-secondary p-button-raised" label="Acessar" onClick={() => {navigate(rootPath + '/uberhub'); clearCookie()}} />
             <Button className="ml-2 p-button-danger p-button-raised" label="Cancelar" onClick={() => {clearCookie()}} />
+        </>
+    )
+    
+    const bannerSource = (
+        <>
+            <a>Parâmetro de origem inválido</a>
+            {/* <Button className="ml-2 p-button-secondary p-button-raised" label="Acessar" onClick={() => {navigate(rootPath + '/uberhub'); clearCookie()}} />
+            <Button className="ml-2 p-button-danger p-button-raised" label="Cancelar" onClick={() => {clearCookie()}} /> */}
         </>
     )
     
@@ -188,12 +208,20 @@ const Navbar = () => {
 
     return (
         <div className="card mb-2 lg:sticky sm:top-0 z-2">
+            {getValidSource
+                ? <></>
+                : 
+                    <>
+                        <Message severity="error" className="col-12" content={bannerSource}/>
+                    </>
+            }
+
             {document.cookie !== "banner=true" || pathname === "/uberhub" || getHideBanner
                 ?
                     <></>
                 :
-                    <Message severity="info" className="col-12" content={teste}/>
-            }
+                    <Message severity="info" className="col-12" content={bannerUHCC}/>
+                }
             {/* <Menubar model={items} end={final}/> */}
             {/* <input onChange={(e) => { setValue((e.target as HTMLInputElement).value);}}/> */}
             <Menubar model={items} end={end} className="border-none"/>
