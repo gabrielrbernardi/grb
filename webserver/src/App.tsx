@@ -11,6 +11,7 @@ import Functionalities from './pages/functionalities/Functionalities';
 import DataTableRepositories from './components/DataTableRepositories';
 import NotFound from './pages/NotFound';
 import UHCC from './pages/UHCC';
+import Footer from './components/Footer';
 
 function App() {
   
@@ -18,7 +19,7 @@ function App() {
     <div className="mx-0 mt-0 mb-3">
       <BrowserRouter>
         <Navbar/>
-        <div className="mx-3">
+        <div className="mx-3 mb-4">
           <Routes>
             <Route path="/grb">
               <Route path="" element={<Home/>} />
@@ -40,6 +41,7 @@ function App() {
             <Route path="/" element={<Navigate to="/grb/" replace />} />
           </Routes>
         </div>
+        {/* <Footer/> */}
       </BrowserRouter>
     </div>
 

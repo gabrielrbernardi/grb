@@ -72,7 +72,7 @@ const Navbar = () => {
         },
         {
             label: 'Consultar',
-            icon: 'pi pi-fw pi-info-circle',
+            icon: 'pi pi-fw pi-github',
             command: () => {
                 navigate(rootPath + '/about')
             }
@@ -148,35 +148,6 @@ const Navbar = () => {
                 },
             ]
         },
-        // {
-        //     label: 'Events',
-        //     icon: 'pi pi-fw pi-calendar',
-        //     items: [
-        //         {
-        //             label: 'Edit',
-        //             icon: 'pi pi-fw pi-pencil',
-        //             items: [
-        //                 {
-        //                     label: 'Save',
-        //                     icon: 'pi pi-fw pi-calendar-plus'
-        //                 },
-        //                 {
-        //                     label: 'Delete',
-        //                     icon: 'pi pi-fw pi-calendar-minus'
-        //                 }
-        //             ]
-        //         },
-        //         {
-        //             label: 'Archieve',
-        //             icon: 'pi pi-fw pi-calendar-times',
-                    
-        //         }
-        //     ]
-        // },
-        // {
-        //     label: 'Quit',
-        //     icon: 'pi pi-fw pi-power-off'
-        // }
     ];
 
     function clearCookie(){
@@ -207,7 +178,7 @@ const Navbar = () => {
     const end = <p className="logo m-0 p-0" onClick={() => navigate(rootPath + '/')}><Image src={logo} width="48vh" alt="Logo"/></p>
 
     return (
-        <div className="card mb-2 lg:sticky sm:top-0 z-2">
+        <div className="card mb-2 sm:sticky sm:top-0 z-2">
             {getValidSource
                 ? <></>
                 : 
@@ -216,11 +187,11 @@ const Navbar = () => {
                     </>
             }
 
-            {document.cookie !== "banner=true" || pathname === "/uberhub" || getHideBanner
+            {document.cookie !== "banner=true" || pathname === "/grb/uberhub" || getHideBanner
                 ?
                     <></>
                 :
-                    <Message severity="info" className="col-12" content={bannerUHCC}/>
+                    <Message severity="info" className="col-12 fadeinup animation-duration-1000 animation-ease-in-out" content={bannerUHCC}/>
                 }
             {/* <Menubar model={items} end={final}/> */}
             {/* <input onChange={(e) => { setValue((e.target as HTMLInputElement).value);}}/> */}
