@@ -27,7 +27,13 @@ const DataTableRepositories = (props: any) => {
     async function getRepositoryInfo(){ 
         await api.get(`repos/${username}/${repositoryName}/contents`)
         .then(response => {
-            setRepositoryContent(response.data)
+            if(repositoryName == "UberHub-Code-Club"){
+                let lista = response.data
+                lista = lista.reverse()
+                setRepositoryContent(lista)
+            }else{
+                setRepositoryContent(response.data)
+            }
         })
         .catch(err => {console.log(err) })
     }

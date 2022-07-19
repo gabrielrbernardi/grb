@@ -10,7 +10,7 @@ const UHCC = () => {
     
     return (
         <>
-            <Accordion multiple activeIndex={[1]}>
+            <Accordion multiple activeIndex={[0,1]}>
                 <AccordionTab header="Slides">
                     <Accordion multiple>
                         <AccordionTab header="Iniciante 1">

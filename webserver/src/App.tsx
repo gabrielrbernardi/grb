@@ -26,6 +26,7 @@ function App() {
               <Route path="about" element={<About/>}/>
               <Route path="index.html" element={<Navigate to="/grb/" replace />}>
                 <Route path="?source=uberhub" element={<UHCC/>} />
+                <Route path="?source=length" element={<CheckLength/>} />
               </Route>
               <Route path="uberhub" element={<UHCC/>}/>
               <Route path="functionalities">

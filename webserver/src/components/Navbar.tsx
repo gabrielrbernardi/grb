@@ -51,7 +51,14 @@ const Navbar = () => {
         }
         if(queryParams.get("source") === "uberhub"){
             navigate(rootPath + '/uberhub')
-        }else if(!queryParams.get("source")){
+        }else if(queryParams.get("source") === "compare"){
+            navigate(rootPath + '/functionalities/compare')
+        }else if(queryParams.get("source") === "length"){
+            navigate(rootPath + '/functionalities/length')
+        }else if(queryParams.get("source") === "transform"){
+            navigate(rootPath + '/functionalities/transform')
+        }
+        else if(!queryParams.get("source")){
             setValidSource(true)
         }
         else{
