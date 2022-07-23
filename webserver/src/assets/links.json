@@ -84,5 +84,27 @@
             "subject": "Revisão Intermediário 1",
             "url": "https://docs.google.com/presentation/d/1YliJFWQsxNwAOr3uoxCCeMwx5yy-2vve/edit?usp=sharing&ouid=111709091661884688005&rtpof=true&sd=true"
         }
+    ],
+    "aula": [
+        {
+            "name": "Link",
+            "subject": "Beecrowd",
+            "url": "https://www.beecrowd.com.br/"
+        },
+        {
+            "name": "Link",
+            "subject": "Neps Academy",
+            "url": "https://neps.academy/br"
+        },
+        {
+            "name": "Grupo WhatsApp Manhã",
+            "subject": "Turma Presencial",
+            "url": "https://chat.whatsapp.com/DVBkVvW8CXkIGwb8gz1W4C"
+        },
+        {
+            "name": "Grupo WhatsApp Tarde",
+            "subject": "Turma Presencial",
+            "url": "https://chat.whatsapp.com/I4V6dLISFLBIJbxOxH8dgA"
+        }
     ]
 }

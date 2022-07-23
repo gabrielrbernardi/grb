@@ -11,6 +11,10 @@ const UHCC = () => {
     return (
         <>
             <Accordion multiple activeIndex={[0,1]}>
+                <AccordionTab header="Links usados nas aulas">
+                    {linkData.aula.map( (value:any, id: any) => <><a key={id} className="text-link-special-class" onClick={() => {window.open(`${value.url}`, "_blank")}}>{value.name + " - " + value.subject}</a><br/></> )}            
+                </AccordionTab>
+                
                 <AccordionTab header="Slides">
                     <Accordion multiple>
                         <AccordionTab header="Iniciante 1">
