@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { DataTable } from 'primereact/datatable';
-import api from '../services/apiGithub';
-import { Column } from 'primereact/column';
+import { Tag } from 'primereact/tag';
 import { useLocation } from 'react-router-dom';
+import { Column } from 'primereact/column';
+import api from '../services/apiGithub';
 
+const cicloAtual = "2022-3";
 
 const DataTableRepositories = (props: any) => {
     var repositoryName = "";
@@ -40,7 +42,14 @@ const DataTableRepositories = (props: any) => {
     
     const nameRepoColumnTemplate = (rowData:any) => {
         if(rowData.type === "dir"){
-            return <a className="font-bold text-link-special" onClick={() => {window.open(`${rowData.html_url}`, "_blank")}}>{rowData.name}</a>
+            if(rowData.name === cicloAtual){
+                return (<>
+                    <a className="font-bold text-link-special" onClick={() => {window.open(`${rowData.html_url}`, "_blank")}}>{rowData.name}</a>
+                    <Tag value={"Ciclo atual"} severity={""} className="ml-2"/>
+                </>)
+            }else{
+                return <a className="font-bold text-link-special" onClick={() => {window.open(`${rowData.html_url}`, "_blank")}}>{rowData.name}</a>
+            }
         }else{
             return <a className="text-link-special" onClick={() => {window.open(`${rowData.html_url}`, "_blank")}}>{rowData.name}</a>
         }

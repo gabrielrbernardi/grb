@@ -12,12 +12,12 @@ html{
 
 .text-link-special{
   transition: .2s ease;
-  color: rgb(116, 144, 255);
+  color: rgb(153, 173, 255);
 }
 
 .text-link-special-class{
   transition: .2s ease;
-  color: rgb(54, 171, 86);
+  color: rgb(93, 255, 136);
 }
 
 .text-link:hover, .logo:hover, .text-link-special:hover, .text-link-special-class:hover{

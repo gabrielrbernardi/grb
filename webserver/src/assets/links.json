@@ -25,17 +25,26 @@
         {
             "name": "Aula 05",
             "subject": "Revisão do Inciante 1",
-            "url": "https://ufubr-my.sharepoint.com/:p:/g/personal/gabriel_bernardi_ufu_br/Ee8dDi1HehlMr8I8Tm6vLGEBm087DVIuoVBHwYQiL54muA?e=sHbZT4"
+            "url": "https://ufubr-my.sharepoint.com/:p:/g/personal/gabriel_bernardi_ufu_br/Ee8dDi1HehlMr8I8Tm6vLGEBm087DVIuoVBHwYQiL54muA?e=sHbZT4",
+            "badge": true,
+            "badgeLabel": "Atualizado",
+            "badgeType": "success"
         },    
         {
             "name": "Aula 05",
             "subject": "Vetores (Arrays) e C++",
-            "url": "https://ufubr-my.sharepoint.com/:p:/g/personal/gabriel_bernardi_ufu_br/EYUN5JoNaiJKm648A1xp42ABUHLngb5_zFry3ST8rZUzjA?e=W4WmbP"
+            "url": "https://ufubr-my.sharepoint.com/:p:/g/personal/gabriel_bernardi_ufu_br/EYUN5JoNaiJKm648A1xp42ABUHLngb5_zFry3ST8rZUzjA?e=W4WmbP",
+            "badge": true,
+            "badgeLabel": "Atualizado",
+            "badgeType": "success"
         },
         {
             "name": "Aula 06",
             "subject": "Vetores em C++ e Matrizes",
-            "url": "https://ufubr-my.sharepoint.com/:p:/g/personal/gabriel_bernardi_ufu_br/EVAJZXJLDl5EgfDuCpP9BbgBOXu2AtyklZVqCHTXgBrqeg?e=2BgmQ8"
+            "url": "https://ufubr-my.sharepoint.com/:p:/g/personal/gabriel_bernardi_ufu_br/EVAJZXJLDl5EgfDuCpP9BbgBOXu2AtyklZVqCHTXgBrqeg?e=2BgmQ8",
+            "badge": true,
+            "badgeLabel": "Atualizado",
+            "badgeType": "success"
         },
         {
             "name": "Aula 07",
@@ -104,12 +113,18 @@
         {
             "name": "Grupo WhatsApp Manhã",
             "subject": "Turma Presencial",
-            "url": "https://chat.whatsapp.com/DVBkVvW8CXkIGwb8gz1W4C"
+            "url": "https://chat.whatsapp.com/DVBkVvW8CXkIGwb8gz1W4C",
+            "badge": true,
+            "badgeLabel": "Temporário",
+            "badgeType": "warning"
         },
         {
             "name": "Grupo WhatsApp Tarde",
             "subject": "Turma Presencial",
-            "url": "https://chat.whatsapp.com/I4V6dLISFLBIJbxOxH8dgA"
+            "url": "https://chat.whatsapp.com/I4V6dLISFLBIJbxOxH8dgA",
+            "badge": true,
+            "badgeLabel": "Temporário",
+            "badgeType": "warning"
         }
     ]
 }
