@@ -34,8 +34,8 @@
         },
         {
             "name": "Aula 06",
-            "subject": "Vetores em C++",
-            "url": "https://docs.google.com/presentation/d/1PkSrp1qo-xfMLMhs1rHs1RcKoEwe_YrG/edit?usp=sharing&ouid=111709091661884688005&rtpof=true&sd=true"
+            "subject": "Vetores em C++ e Matrizes",
+            "url": "https://ufubr-my.sharepoint.com/:p:/g/personal/gabriel_bernardi_ufu_br/EVAJZXJLDl5EgfDuCpP9BbgBOXu2AtyklZVqCHTXgBrqeg?e=2BgmQ8"
         },
         {
             "name": "Aula 07",
@@ -95,6 +95,11 @@
             "name": "Link",
             "subject": "Neps Academy",
             "url": "https://neps.academy/br"
+        },
+        {
+            "name": "Youtube",
+            "subject": "UberHub Code Club",
+            "url": "https://www.youtube.com/uberhubcodeclub"
         },
         {
             "name": "Grupo WhatsApp Manhã",
