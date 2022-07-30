@@ -20,6 +20,11 @@ html{
   color: rgb(93, 255, 136);
 }
 
+.text-link-special-class-danger{
+  transition: .2s ease;
+  color: rgb(245, 124, 0);
+}
+
 .text-link:hover, .logo:hover, .text-link-special:hover, .text-link-special-class:hover{
   opacity: .6;
   cursor: pointer;

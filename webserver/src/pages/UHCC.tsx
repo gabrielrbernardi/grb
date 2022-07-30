@@ -7,6 +7,7 @@ import axios from 'axios';
 import { Skeleton } from 'primereact/skeleton';
 import Toast from '../components/Toast';
 import { render } from '@testing-library/react';
+import ExercisesUHCC from '../components/ExercisesUHCC';
 
 const linkConfig = "https://raw.githubusercontent.com/gabrielrbernardi/grb/main/webserver/src/assets/links.json";
 const errorDataAxiosJson = ["error", "Erro!", "Erro ao buscar arquivo de configurações."]
@@ -50,7 +51,10 @@ const UHCC = () => {
     
     return (
         <>
-            <Accordion multiple activeIndex={[0,1,2]}>
+            <Accordion multiple activeIndex={[1,2,3]}>
+                <AccordionTab header="Gerador de links Neps/Beecrowd">
+                    <ExercisesUHCC/>
+                </AccordionTab>
                 <AccordionTab header="Links usados nas aulas">
                     {renderComponent(getLinkData.aula)}
                 </AccordionTab>
