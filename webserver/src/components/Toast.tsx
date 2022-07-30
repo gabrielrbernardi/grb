@@ -22,7 +22,7 @@ const ToastComponent = (props: any) => {
     }
     
     const showToast = () => {
-        toast.current.show({severity: checkSeverity(), summary: checkTitle(), detail: checkMessage(), life: 3000, closable: true});
+        toast.current.show({severity: checkSeverity(), summary: checkTitle(), detail: checkMessage(), life: 4000, closable: true});
     }
 
     return (

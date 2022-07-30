@@ -1,5 +1,6 @@
 import React from 'react';
 import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom';
+import { ScrollTop } from 'primereact/scrolltop';
 import './App.css';
 import Navbar from './components/Navbar';
 import About from './pages/About';
@@ -19,6 +20,7 @@ function App() {
     <div className="mx-0 mt-0 mb-3">
       <BrowserRouter>
         <Navbar/>
+        <ScrollTop threshold={50}/>
         <div className="mx-3 mb-4">
           <Routes>
             <Route path="/grb">

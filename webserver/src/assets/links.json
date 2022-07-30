@@ -1,4 +1,6 @@
 {
+    "actualCycle": "2022-3",
+    "rootRepo": ["https://github.com/gabrielrbernardi/UberHub-Code-Club", "Github UberHub Code Club GRB"],
     "inic1": [
         {
             "name": "Aula 01",

@@ -42,7 +42,7 @@ const DataTableRepositories = (props: any) => {
     
     const nameRepoColumnTemplate = (rowData:any) => {
         if(rowData.type === "dir"){
-            if(rowData.name === cicloAtual){
+            if(rowData.name === props.actualCycle){
                 return (<>
                     <a className="font-bold text-link-special" onClick={() => {window.open(`${rowData.html_url}`, "_blank")}}>{rowData.name}</a>
                     <Tag value={"Ciclo atual"} severity={""} className="ml-2"/>
