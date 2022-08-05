@@ -50,8 +50,11 @@
         },
         {
             "name": "Aula 07",
-            "subject": "String",
-            "url": "https://docs.google.com/presentation/d/1tQz19KnpxfFpD41raBNuX36dMLXhTab8/edit?usp=sharing&ouid=111709091661884688005&rtpof=true&sd=true"
+            "subject": "Strings",
+            "url": "https://ufubr-my.sharepoint.com/:p:/g/personal/gabriel_bernardi_ufu_br/EVbHORIhlpZGiGPQt6ZF5LgBqch6-o6M6aa_TlZVe74VLQ?e=filJSW",
+            "badge": true,
+            "badgeLabel": "Atualizado",
+            "badgeType": "success"
         },
         {
             "name": "Aula 08",
