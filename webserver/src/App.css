@@ -25,7 +25,12 @@ html{
   color: rgb(245, 124, 0);
 }
 
-.text-link:hover, .logo:hover, .text-link-special:hover, .text-link-special-class:hover{
+.text-footer{
+  transition: .2s ease;
+  color: white;
+}
+
+.text-link:hover, .logo:hover, .text-link-special:hover, .text-link-special-class:hover, .text-footer:hover{
   opacity: .6;
   cursor: pointer;
 }

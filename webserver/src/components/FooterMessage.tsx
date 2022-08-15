@@ -5,15 +5,13 @@ import { BreadCrumb } from 'primereact/breadcrumb';
 import { Image } from 'primereact/image';
 import { Message } from 'primereact/message';
 import { MdCompareArrows } from 'react-icons/md';
-import { AiOutlineColumnWidth, AiOutlineGithub } from 'react-icons/ai';
-import { BsGithub } from 'react-icons/bs';
+import { AiOutlineColumnWidth } from 'react-icons/ai';
 import { GiTransform } from 'react-icons/gi';
 import { Button } from 'primereact/button';
 
 const logo = require("../assets/logo.png");
 
-const githubLink = "https://github.com/gabrielrbernardi/grb"
-
+const rootPath = "/grb"
 
 const Footer = () => {
     const navigate = useNavigate();
@@ -26,22 +24,16 @@ const Footer = () => {
             <Button className="ml-2 p-button-danger p-button-raised" label="Cancelar" onClick={() => {clearCookie()}} /> */}
         </>
     )
+    
+    const home = { icon: 'pi pi-home', command: () => {navigate(rootPath + "/")} }
+    const end = <p className="logo m-0 p-0" onClick={() => navigate(rootPath + '/')}><Image src={logo} width="48vh" alt="Logo"/></p>
 
     return (
-        <div className="mx-auto text-center py-4" style={{"backgroundColor": "rgba(56, 56, 56, 0.4)"}}>
-            <div>
-                <a className={"text-link-special-class"} onClick={() => {window.open(githubLink, "_blank")}}>{"Repositório GRB"}</a>
-                <a className={"text-footer ml-4"} onClick={() => {window.open(githubLink, "_blank")}}>
-                    <text>Gabriel Bernardi</text>
-                    <BsGithub className="ml-2" size={20}/>
-                </a>
+        <div className="fadeindown animation-duration-1000 animation-ease-in-out fixed mx-auto text-center mb-3 w-full bottom-0 left-0 bg-red-500">
+            <div style={{"backgroundColor": "#FF0000"}}>
+                TESTE DE MENSAGEM
             </div>
         </div>
-        // <div className="fadeindown animation-duration-1000 animation-ease-in-out fixed mx-auto text-center mb-3 w-full bottom-0 left-0 bg-red-500">
-        //     <div style={{"backgroundColor": "#FF0000"}}>
-        //         TESTE DE MENSAGEM
-        //     </div>
-        // </div>
     );
 }
 

@@ -13,6 +13,7 @@ import DataTableRepositories from './components/DataTableRepositories';
 import NotFound from './pages/NotFound';
 import UHCC from './pages/UHCC';
 import Footer from './components/Footer';
+import FooterMessage from './components/FooterMessage';
 
 function App() {
   
@@ -44,7 +45,8 @@ function App() {
             <Route path="/" element={<Navigate to="/grb/" replace />} />
           </Routes>
         </div>
-        {/* <Footer/> */}
+        <Footer/>
+        {/* <FooterMessage/> */}
       </BrowserRouter>
     </div>
 
