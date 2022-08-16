@@ -35,15 +35,15 @@ const UHCC = () => {
                 arrayComponent.map( (value:any, id: any) => {
                     if(value.badge == true){
                         return (
-                        <div className="mt-1">
-                            <a key={id} className="text-link-special-class" onClick={() => {window.open(`${value.url}`, "_blank")}}>{value.name + " - " + value.subject}</a>
+                            <tr className="mt-1">
+                            <td key={id} className="text-link-special-class" onClick={() => {window.open(`${value.url}`, "_blank")}}>{value.name + " - " + value.subject}</td>
                             <Tag value={value.badgeLabel} severity={value.badgeType} className="ml-2"/>
                             <br/>
-                        </div>
-                        )
-                    }else{
-                        return <div className="mt-1"><a key={id} className="text-link-special-class" onClick={() => {window.open(`${value.url}`, "_blank")}}>{value.name + " - " + value.subject}</a><br/></div>
-                    }
+                            </tr>
+                            )
+                        }else{
+                            return <tr className="mt-1"><a key={id} className="text-link-special-class" onClick={() => {window.open(`${value.url}`, "_blank")}}>{value.name + " - " + value.subject}</a><br/></tr>
+                        }
                 })
             )
         }
@@ -56,19 +56,27 @@ const UHCC = () => {
                     <ExercisesUHCC/>
                 </AccordionTab>
                 <AccordionTab header="Links usados nas aulas">
-                    {renderComponent(getLinkData.aula)}
+                    <table>
+                        {renderComponent(getLinkData.aula)}
+                    </table>
                 </AccordionTab>
                 
                 <AccordionTab header="Slides">
                     <Accordion multiple>
                         <AccordionTab header="Iniciante 1">
-                            {renderComponent(getLinkData.inic1)}
+                            <table>
+                                {renderComponent(getLinkData.inic1)}
+                            </table>
                         </AccordionTab>
                         <AccordionTab header="Iniciante 2">
-                            {renderComponent(getLinkData.inic2)}
+                            <table>
+                                {renderComponent(getLinkData.inic2)}
+                            </table>
                         </AccordionTab>
                         <AccordionTab header="Intermediário 1">
-                            {renderComponent(getLinkData.inter1)}
+                            <table>
+                                {renderComponent(getLinkData.inter1)}
+                            </table>
                         </AccordionTab>
                     </Accordion>
                 </AccordionTab>

@@ -40,6 +40,10 @@ html{
   width: 100%;
 }
 
+.logo-middle{
+  vertical-align: middle;
+}
+
 .header, .footer{
   background-color: #fff;
 }

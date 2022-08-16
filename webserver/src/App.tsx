@@ -16,7 +16,6 @@ import Footer from './components/Footer';
 import FooterMessage from './components/FooterMessage';
 
 function App() {
-  
   return (
     <div className="mx-0 mt-0 mb-3">
       <BrowserRouter>
