@@ -9,15 +9,15 @@ const RestrictedContents = (props: any) => {
     const [getValues, setValues] = useState<any>([])
 
     useEffect(() => {
-        setInstructorOptions(props?.data?.instructors)
-        setFiles(props?.data?.restrictedFiles)
+        setTimeout(() => {
+            setInstructorOptions(props?.data?.instructors)
+            setFiles(props?.data?.restrictedFiles)
+        }, 1000)
+        console.log(props?.data?.instructors)
     }, [])
 
     function submitForm(event?:any){
         event?.preventDefault();
-        console.log(getInstructor)
-        console.log(getFiles)
-
         setValues(getFiles)
     }
 

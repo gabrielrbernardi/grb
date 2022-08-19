@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {useLocation, useNavigate, useSearchParams} from 'react-router-dom';
+import {Link, useLocation, useNavigate, useSearchParams} from 'react-router-dom';
 import { Menubar } from 'primereact/menubar';
 import { BreadCrumb } from 'primereact/breadcrumb';
 import { Image } from 'primereact/image';
@@ -57,6 +57,8 @@ const Navbar = () => {
             navigate(rootPath + '/functionalities/length')
         }else if(queryParams.get("source") === "transform"){
             navigate(rootPath + '/functionalities/transform')
+        }else if(queryParams.get("options") == "restricted"){
+            navigate(rootPath + '/uberhub?options=restricted')
         }
         else if(!queryParams.get("source")){
             setValidSource(true)
@@ -182,7 +184,11 @@ const Navbar = () => {
     )
     
     const home = { icon: 'pi pi-home', command: () => {navigate(rootPath + "/")} }
-    const end = <p className="logo m-0 p-0" onClick={() => navigate(rootPath + '/')}><Image src={logo} width="48vh" alt="Logo"/></p>
+    const end = ( 
+        <p className="logo m-0 p-0" onClick={() => navigate(rootPath + '/')}>
+            <Image src={logo} width="48vh" alt="Logo"/>
+        </p>
+    )
 
     return (
         <div className="card mb-2 sm:sticky sm:top-0 z-2">

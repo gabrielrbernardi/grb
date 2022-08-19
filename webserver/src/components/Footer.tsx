@@ -12,7 +12,7 @@ import { Button } from 'primereact/button';
 
 const logo = require("../assets/logo.png");
 
-const githubLink = "https://github.com/gabrielrbernardi/grb"
+const githubLink = "https://github.com/gabrielrbernardi"
 
 
 const Footer = () => {
@@ -30,7 +30,7 @@ const Footer = () => {
     return (
         <div className="mx-3 text-center py-2 sticky bottom-0 border-1 border-100" style={{"backgroundColor": "rgba(30, 30, 30, 0.7)"}}>
             <div>
-                <a className={"text-link-special-class"} onClick={() => {window.open(githubLink, "_blank")}}>{"Repositório GRB"}</a>
+                <a className={"text-link-special-class"} onClick={() => {window.open(githubLink + "/grb", "_blank")}}>{"Repositório GRB"}</a>
                 <a className={"text-footer ml-4"} onClick={() => {window.open(githubLink, "_blank")}}>
                     <text>Gabriel Bernardi</text>
                     <BsGithub className="ml-2 logo-middle" size={20}/>

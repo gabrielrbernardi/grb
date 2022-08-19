@@ -28,10 +28,14 @@ const UHCC = () => {
     }, [])
 
     function renderRestrictedComponent(){
-        console.log(queryParams.get("options") )
         if(queryParams.get("options") == "restricted"){
             return(<>
-                <RestrictedContents data={getLinkData}/>
+                {getLoading
+                    ?
+                        <></>
+                    :
+                        <RestrictedContents data={getLinkData}/>
+                }
             </>)
         }else{
             <></>
@@ -54,11 +58,10 @@ const UHCC = () => {
                             <tr className="mt-1">
                             <td key={id} className="text-link-special-class" onClick={() => {window.open(`${value.url}`, "_blank")}}>{value.name + " - " + value.subject}</td>
                             <Tag value={value.badgeLabel} severity={value.badgeType} className="ml-2"/>
-                            <br/>
                             </tr>
                             )
                         }else{
-                            return <tr className="mt-1"><a key={id} className="text-link-special-class" onClick={() => {window.open(`${value.url}`, "_blank")}}>{value.name + " - " + value.subject}</a><br/></tr>
+                            return <tr className="mt-1"><a key={id} className="text-link-special-class" onClick={() => {window.open(`${value.url}`, "_blank")}}>{value.name + " - " + value.subject}</a></tr>
                         }
                 })
             )

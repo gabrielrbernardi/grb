@@ -19,82 +19,82 @@
         {
             "name": "Aryanne",
             "obs": "Manhã Presencial",
-            "url": ""
+            "url": "https://github.com/gabrielrbernardi/grb/blob/main/webserver/src/assets/textFiles/Usuarios%20Aryanne%20M%20P.txt"
         }, 
         {
             "name": "Gabriel",
             "obs": "Manhã Presencial",
-            "url": ""
+            "url": "https://github.com/gabrielrbernardi/grb/blob/main/webserver/src/assets/textFiles/Usuarios%20Gabriel%20M%20P.txt"
         },
         {
             "name": "Gabriel",
             "obs": "Tarde Presencial",
-            "url": ""
+            "url": "https://github.com/gabrielrbernardi/grb/blob/main/webserver/src/assets/textFiles/Usuarios%20Gabriel%20T%20P.txt"
         }, 
         {
             "name": "Gabryelle",
             "obs": "Tarde Presencial",
-            "url": ""
+            "url": "https://github.com/gabrielrbernardi/grb/blob/main/webserver/src/assets/textFiles/Usuarios%20Gabryelle%20T%20P.txt"
         }, 
         {
             "name": "Giovana",
             "obs": "Manhã Presencial",
-            "url": ""
+            "url": "https://github.com/gabrielrbernardi/grb/blob/main/webserver/src/assets/textFiles/Usuarios%20Giovana%20M%20P.txt"
         }, 
         {
             "name": "Giullia",
             "obs": "Manhã Online",
-            "url": ""
+            "url": "https://github.com/gabrielrbernardi/grb/blob/main/webserver/src/assets/textFiles/Usuarios%20Giullia%20M%20O.txt"
         }, 
         {
             "name": "Giullia",
             "obs": "Tarde Online",
-            "url": ""
+            "url": "https://github.com/gabrielrbernardi/grb/blob/main/webserver/src/assets/textFiles/Usuarios%20Giullia%20T%20O.txt"
         }, 
         {
             "name": "Guilherme",
             "obs": "Tarde Online",
-            "url": ""
+            "url": "https://github.com/gabrielrbernardi/grb/blob/main/webserver/src/assets/textFiles/Usuarios%20Guilherme%20T%20O.txt"
         }, 
         {
             "name": "Joao",
             "obs": "Manhã Presencial",
-            "url": ""
+            "url": "https://github.com/gabrielrbernardi/grb/blob/main/webserver/src/assets/textFiles/Usuarios%20Joao%20M%20P.txt"
         }, 
         {
             "name": "Lucas",
             "obs": "Tarde Online",
-            "url": ""
+            "url": "https://github.com/gabrielrbernardi/grb/blob/main/webserver/src/assets/textFiles/Usuarios%20Lucas%20T%20O.txt"
         }, 
         {
             "name": "Marcus",
             "obs": "Manhã Online",
-            "url": ""
+            "url": "https://github.com/gabrielrbernardi/grb/blob/main/webserver/src/assets/textFiles/Usuarios%20Marcus%20M%20O.txt"
         }, 
         {
             "name": "Pedro",
             "obs": "Manhã Online",
-            "url": ""
+            "url": "https://github.com/gabrielrbernardi/grb/blob/main/webserver/src/assets/textFiles/Usuarios%20Pedro%20M%20O.txt"
         }, 
         {
             "name": "Pedro",
             "obs": "Tarde Online",
-            "url": ""
+            "url": "https://github.com/gabrielrbernardi/grb/blob/main/webserver/src/assets/textFiles/Usuarios%20Pedro%20T%20O.txt"
         },
         {
             "name": "Ricardo",
             "obs": "Manhã Online",
-            "url": ""
+            "url": "https://github.com/gabrielrbernardi/grb/blob/main/webserver/src/assets/textFiles/Usuarios%20Ricardo%20M%20O.txt"
         }, 
         {
             "name": "Ricardo",
             "obs": "Tarde Presencial",
-            "url": ""
+            "url": "https://github.com/gabrielrbernardi/grb/blob/main/webserver/src/assets/textFiles/Usuarios%20Ricardo%20T%20P.txt"
         }, 
         {
             "name": "Victor",
             "obs": "Manhã Online",
-            "url": ""
+            "url": "https://github.com/gabrielrbernardi/grb/blob/main/webserver/src/assets/textFiles/Usuarios%20SIsterolli%20M%20O.txt"
         }
     ],
     "inic1": [

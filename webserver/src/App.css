@@ -18,6 +18,7 @@ html{
 .text-link-special-class{
   transition: .2s ease;
   color: rgb(93, 255, 136);
+  text-decoration: none;
 }
 
 .text-link-special-class-danger{
