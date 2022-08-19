@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Accordion, AccordionTab } from 'primereact/accordion';
 import { Tag } from 'primereact/tag';
-import DataTableRepositories from '../components/DataTableRepositories';
-import axios from 'axios';
-// import getLinkData from '../assets/links.json'; //dev
-import { Skeleton } from 'primereact/skeleton';
-import Toast from '../components/Toast';
 import { render } from '@testing-library/react';
+import { useSearchParams } from 'react-router-dom';
+import { Skeleton } from 'primereact/skeleton';
+import axios from 'axios';
+import Toast from '../components/Toast';
 import ExercisesUHCC from '../components/ExercisesUHCC';
+import DataTableRepositories from '../components/DataTableRepositories';
+import RestrictedContents from '../components/RestrictedContents';
+
+// import getLinkData from '../assets/links.json'; //dev
 
 const linkConfig = "https://raw.githubusercontent.com/gabrielrbernardi/grb/main/webserver/src/assets/links.json";
 const errorDataAxiosJson = ["error", "Erro!", "Erro ao buscar arquivo de configurações."]
@@ -15,12 +18,25 @@ const errorDataAxiosJson = ["error", "Erro!", "Erro ao buscar arquivo de configu
 const UHCC = () => {
     const [getLinkData, setLinkData] = useState({actualCycle: "", rootRepo: "", aula:[], inic1:[], inic2:[], inter1:[]});
     const [getLoading, setLoading] = useState(true);
+    const [ queryParams ] = useSearchParams();
+    
     useEffect( () => {
         const fetchData = async () => {
             await axios.get(linkConfig).then((response) => {setLinkData(response.data); setLoading(false)}).catch(err => render(<><Toast type={errorDataAxiosJson[0]} title={errorDataAxiosJson[1]} message={errorDataAxiosJson[2]}/></>))
         }
         fetchData()
     }, [])
+
+    function renderRestrictedComponent(){
+        console.log(queryParams.get("options") )
+        if(queryParams.get("options") == "restricted"){
+            return(<>
+                <RestrictedContents data={getLinkData}/>
+            </>)
+        }else{
+            <></>
+        }
+    }
 
     function renderComponent(arrayComponent: any){
         if(getLoading){
@@ -51,6 +67,7 @@ const UHCC = () => {
     
     return (
         <>
+            {renderRestrictedComponent()}
             <Accordion multiple activeIndex={[1,2,3]}>
                 <AccordionTab header="Gerador de links Neps/Beecrowd">
                     <ExercisesUHCC/>
@@ -62,7 +79,7 @@ const UHCC = () => {
                 </AccordionTab>
                 
                 <AccordionTab header="Slides">
-                    <Accordion multiple>
+                    <Accordion multiple activeIndex={[1]}>
                         <AccordionTab header="Iniciante 1">
                             <table>
                                 {renderComponent(getLinkData.inic1)}

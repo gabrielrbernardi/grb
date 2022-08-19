@@ -1,6 +1,102 @@
 {
     "actualCycle": "2022-3",
     "rootRepo": ["https://github.com/gabrielrbernardi/UberHub-Code-Club", "GitHub UberHub Code Club GRB"],
+    "instructors":[
+        {"name": "Aryanne", "code": "aryanne"},
+        {"name": "Gabriel", "code": "gabriel"},
+        {"name": "Gabryelle", "code": "gabriel"},
+        {"name": "Giovana", "code": "giovana"},
+        {"name": "Giullia", "code": "giullia"},
+        {"name": "Guilherme Cabral", "code": "guilherme"},
+        {"name": "Joao Daniel", "code": "joao"},
+        {"name": "Lucas Gabriel", "code": "lucas"},
+        {"name": "Marcus", "code": "marcus"},
+        {"name": "Pedro Henrique", "code": "pedro"},
+        {"name": "Ricardo", "code": "ricardo"},
+        {"name": "Victor Sisterolli", "code": "victor"}
+    ],
+    "restrictedFiles": [
+        {
+            "name": "Aryanne",
+            "obs": "Manhã Presencial",
+            "url": ""
+        }, 
+        {
+            "name": "Gabriel",
+            "obs": "Manhã Presencial",
+            "url": ""
+        },
+        {
+            "name": "Gabriel",
+            "obs": "Tarde Presencial",
+            "url": ""
+        }, 
+        {
+            "name": "Gabryelle",
+            "obs": "Tarde Presencial",
+            "url": ""
+        }, 
+        {
+            "name": "Giovana",
+            "obs": "Manhã Presencial",
+            "url": ""
+        }, 
+        {
+            "name": "Giullia",
+            "obs": "Manhã Online",
+            "url": ""
+        }, 
+        {
+            "name": "Giullia",
+            "obs": "Tarde Online",
+            "url": ""
+        }, 
+        {
+            "name": "Guilherme",
+            "obs": "Tarde Online",
+            "url": ""
+        }, 
+        {
+            "name": "Joao",
+            "obs": "Manhã Presencial",
+            "url": ""
+        }, 
+        {
+            "name": "Lucas",
+            "obs": "Tarde Online",
+            "url": ""
+        }, 
+        {
+            "name": "Marcus",
+            "obs": "Manhã Online",
+            "url": ""
+        }, 
+        {
+            "name": "Pedro",
+            "obs": "Manhã Online",
+            "url": ""
+        }, 
+        {
+            "name": "Pedro",
+            "obs": "Tarde Online",
+            "url": ""
+        },
+        {
+            "name": "Ricardo",
+            "obs": "Manhã Online",
+            "url": ""
+        }, 
+        {
+            "name": "Ricardo",
+            "obs": "Tarde Presencial",
+            "url": ""
+        }, 
+        {
+            "name": "Victor",
+            "obs": "Manhã Online",
+            "url": ""
+        }
+    ],
     "inic1": [
         {
             "name": "Aula 01",
