@@ -43,7 +43,7 @@ const RestrictedContents = (props: any) => {
             <a>Selecione o instrutor:</a>
             <div className="mt-2 p-inputgroup col-6 pl-0">
                 <Button icon="pi pi-file" className="p-button-secondary" type="button"/>
-                <Dropdown optionLabel="name" value={getInstructor} options={getInstructorOptions} onChange={(e) => setInstructor(e.value)} placeholder="Selecione o instrutor"/>
+                <Dropdown optionLabel="name" value={getInstructor} options={getInstructorOptions} filter onChange={(e) => setInstructor(e.value)} placeholder="Selecione o instrutor"/>
                 <Button icon="pi pi-search" className="p-button-info" type="submit"/>
             </div>
             {renderComponent(getValues)}
