@@ -16,7 +16,7 @@ const linkConfig = "https://raw.githubusercontent.com/gabrielrbernardi/grb/main/
 const errorDataAxiosJson = ["error", "Erro!", "Erro ao buscar arquivo de configurações."]
 
 const UHCC = () => {
-    const [getLinkData, setLinkData] = useState({actualCycle: "", rootRepo: "", aula:[], inic1:[], inic2:[], inter1:[]});
+    const [getLinkData, setLinkData] = useState({actualCycle: "", actualClass: "", rootRepo: "", aula:[], inic1:[], inic2:[], inter1:[]});
     const [getLoading, setLoading] = useState(true);
     const [ queryParams ] = useSearchParams();
     
@@ -82,7 +82,7 @@ const UHCC = () => {
                 </AccordionTab>
                 
                 <AccordionTab header="Slides">
-                    <Accordion multiple activeIndex={[1]}>
+                    <Accordion multiple activeIndex={parseInt(getLinkData.actualClass)}>
                         <AccordionTab header="Iniciante 1">
                             <table>
                                 {renderComponent(getLinkData.inic1)}
