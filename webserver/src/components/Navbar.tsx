@@ -155,6 +155,22 @@ const Navbar = () => {
                         navigate(rootPath + "/functionalities/transform")
                     }
                 },
+                {
+                    label: 'Transformar',
+                    // icon: 'pi pi-fw pi-calendar-plus',
+                    template: (item:any, options:any) => {
+                        return (
+                            /* custom element */
+                            <p className={options.className + " my-0 ml-3 lg:ml-0"} onClick={options.onClick}>
+                                <GiTransform size={20} className="mr-2"/>
+                                <span className={options.labelClassName}>{item.label}</span>
+                            </p>
+                        );
+                    },
+                    command: () => {
+                        navigate("?options=restricted")
+                    }
+                },
             ]
         },
     ];

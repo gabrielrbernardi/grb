@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from 'primereact/button';
 import { Dropdown } from 'primereact/dropdown';
+import apiGrb from '../services/apiGrb';
+import { render } from '@testing-library/react';
+import Toast from './Toast';
+import Loading from './Loading';
 
 const RestrictedContents = (props: any) => {
-    const [getInstructor, setInstructor] = useState<any>('');
+    const [getInstructor, setInstructor] = useState<any>();
     const [getInstructorOptions, setInstructorOptions] = useState<any>([])
     const [getFiles, setFiles] = useState<any>({})
     const [getValues, setValues] = useState<any>([])
+    const [getLoading, setLoading] = useState<any>(false)
+
 
     useEffect(() => {
-        setTimeout(() => {
-            setInstructorOptions(props?.data?.instructors)
-            setFiles(props?.data?.restrictedFiles)
-        }, 1000)
-        console.log(props?.data?.instructors)
+        fetchInstructorsData()
+
     }, [])
 
     function submitForm(event?:any){
@@ -21,14 +24,27 @@ const RestrictedContents = (props: any) => {
         setValues(getFiles)
     }
 
+    const fetchInstructorsData = async () => {
+        setLoading(true)
+        await apiGrb.get("instructors",)
+            .then(response => {
+                setInstructorOptions(response.data.data)
+                setFiles(response.data.data)
+                setLoading(false)
+            })
+            .catch(err => {
+                setLoading(false)
+                render(<Toast type={"error"} title={"Error"} message={err?.message + " " + err?.response?.status || "Error"}/>)
+            })
+    }
+
     function renderComponent(arrayComponent: any){
         return (
             arrayComponent.map( (value:any, id: any) => {
-                console.log(value.name.toLowerCase())
-                if(value.name.toLowerCase().includes(getInstructor?.code)){
+                if(value.Name.toLowerCase().includes(getInstructor?.Name)){
                     return (
                         <tr className="mt-1">
-                            <td key={id} className="text-link-special-class" onClick={() => {window.open(`${value.url}`, "_blank")}}>{value.name + " - " + value.obs}</td>
+                            <td key={id} className="text-link-special-class" onClick={() => {window.open(`${value.Url}`, "_blank")}}>{value.Name + " - " + value.Description}</td>
                         {/* <Tag value={value.badgeLabel} severity={value.badgeType} className="ml-2"/> */}
                         </tr>
                     )
@@ -39,12 +55,15 @@ const RestrictedContents = (props: any) => {
 
 
     return (<>
+        {getLoading
+            ? <><Loading/></>
+            : <></>
+        }
         <form onSubmit={submitForm} className="mb-3">
-            <a>Selecione o instrutor:</a>
-            <div className="mt-2 p-inputgroup col-6 pl-0">
-                <Button icon="pi pi-file" className="p-button-secondary" type="button"/>
-                <Dropdown optionLabel="name" value={getInstructor} options={getInstructorOptions} filter onChange={(e) => setInstructor(e.value)} placeholder="Selecione o instrutor"/>
-                <Button icon="pi pi-search" className="p-button-info" type="submit"/>
+            <a>TESTE -&gt; Selecione o instrutor:</a>
+            <div className="mt-2 p-inputgroup lg:col-6 col-12 pl-0">
+                <Button icon="pi pi-file" className="p-button-secondary" type="button" onClick={fetchInstructorsData} loading={getLoading}/>
+                <Dropdown optionLabel="Name" value={getInstructor} options={getInstructorOptions} filter onChange={(e) => {setInstructor(e.value); submitForm()}} placeholder="Selecione o instrutor"/>
             </div>
             {renderComponent(getValues)}
         </form>

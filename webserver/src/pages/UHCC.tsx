@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { Accordion, AccordionTab } from 'primereact/accordion';
 import { Tag } from 'primereact/tag';
 import { render } from '@testing-library/react';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Skeleton } from 'primereact/skeleton';
 import axios from 'axios';
 import Toast from '../components/Toast';
 import ExercisesUHCC from '../components/ExercisesUHCC';
 import DataTableRepositories from '../components/DataTableRepositories';
 import RestrictedContents from '../components/RestrictedContents';
+import { Button } from 'primereact/button';
 
 // import getLinkData from '../assets/links.json'; //dev
 
@@ -16,17 +17,21 @@ const linkConfig = "https://raw.githubusercontent.com/gabrielrbernardi/grb/main/
 const errorDataAxiosJson = ["error", "Erro!", "Erro ao buscar arquivo de configurações."]
 
 const UHCC = () => {
+    const navigate = useNavigate();
     const [getLinkData, setLinkData] = useState({actualCycle: "", actualClass: "", rootRepo: "", aula:[], inic1:[], inic2:[], inter1:[]});
     const [getLoading, setLoading] = useState(true);
-    const [ queryParams ] = useSearchParams();
+    const [getInstructorsData, setInstructorsData] = useState();
+    const [ queryParams, setSearchParams ] = useSearchParams();
     
     useEffect( () => {
         const fetchData = async () => {
-            await axios.get(linkConfig).then((response) => {setLinkData(response.data); setLoading(false)}).catch(err => render(<><Toast type={errorDataAxiosJson[0]} title={errorDataAxiosJson[1]} message={errorDataAxiosJson[2]}/></>))
+            await axios.get(linkConfig).then((response) => {setLinkData(response.data); setLoading(false);}).catch(err => render(<><Toast type={errorDataAxiosJson[0]} title={errorDataAxiosJson[1]} message={errorDataAxiosJson[2]}/></>))
         }
+        
+        setLoading(true)
         fetchData()
     }, [])
-
+    
     function renderRestrictedComponent(){
         if(queryParams.get("options") == "restricted"){
             return(<>
@@ -34,7 +39,7 @@ const UHCC = () => {
                     ?
                         <></>
                     :
-                        <RestrictedContents data={getLinkData}/>
+                        <RestrictedContents data={getInstructorsData}/>
                 }
             </>)
         }else{
@@ -44,12 +49,11 @@ const UHCC = () => {
 
     function renderComponent(arrayComponent: any){
         if(getLoading){
-            return (<>
-                <Skeleton className="mb-2" />
-                <Skeleton className="mb-2"/>
-                <Skeleton className="mb-2"/>
-                <Skeleton />
-            </>)
+            return (<div>
+                <Skeleton width='50%' />
+                <Button />
+            </div>)
+            // return <Skeleton width="50%" />
         }else{
             return (
                 arrayComponent.map( (value:any, id: any) => {
@@ -76,27 +80,27 @@ const UHCC = () => {
                     <ExercisesUHCC/>
                 </AccordionTab>
                 <AccordionTab header="Links usados nas aulas">
-                    <table>
+                    {/* <table> */}
                         {renderComponent(getLinkData.aula)}
-                    </table>
+                    {/* </table> */}
                 </AccordionTab>
                 
                 <AccordionTab header="Slides">
                     <Accordion multiple activeIndex={parseInt(getLinkData.actualClass)}>
                         <AccordionTab header="Iniciante 1">
-                            <table>
+                            {/* <table> */}
                                 {renderComponent(getLinkData.inic1)}
-                            </table>
+                            {/* </table> */}
                         </AccordionTab>
                         <AccordionTab header="Iniciante 2">
-                            <table>
+                            {/* <table> */}
                                 {renderComponent(getLinkData.inic2)}
-                            </table>
+                            {/* </table> */}
                         </AccordionTab>
                         <AccordionTab header="Intermediário 1">
-                            <table>
+                            {/* <table> */}
                                 {renderComponent(getLinkData.inter1)}
-                            </table>
+                            {/* </table> */}
                         </AccordionTab>
                     </Accordion>
                 </AccordionTab>
