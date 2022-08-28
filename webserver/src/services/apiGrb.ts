@@ -8,8 +8,8 @@ declare module 'axios' {
 }
 
 const apiGrb = axios.create({
-    // baseURL: 'http://localhost:3333/',
-    baseURL: 'https://grbbackend.herokuapp.com/',
+    baseURL: 'http://localhost:3333/',
+    // baseURL: 'https://grbbackend.herokuapp.com/',
     // timeout: 10000,
     headers: {token: 'senha'}
 });

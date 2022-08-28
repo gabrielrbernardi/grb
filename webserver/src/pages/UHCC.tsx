@@ -32,21 +32,6 @@ const UHCC = () => {
         fetchData()
     }, [])
     
-    function renderRestrictedComponent(){
-        if(queryParams.get("options") == "restricted"){
-            return(<>
-                {getLoading
-                    ?
-                        <></>
-                    :
-                        <RestrictedContents data={getInstructorsData}/>
-                }
-            </>)
-        }else{
-            <></>
-        }
-    }
-
     function renderComponent(arrayComponent: any){
         if(getLoading){
             return (<div>
@@ -74,7 +59,6 @@ const UHCC = () => {
     
     return (
         <>
-            {renderRestrictedComponent()}
             <Accordion multiple activeIndex={[1,2,3]}>
                 <AccordionTab header="Gerador de links Neps/Beecrowd">
                     <ExercisesUHCC/>

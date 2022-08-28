@@ -72,6 +72,20 @@ const Navbar = () => {
         }
     },[pathname, navigate, document.cookie])
 
+    const restrictedMenuItem = () => {
+        if(!checkCookie()){
+            return {
+                label: 'Área restrita',
+                icon: 'pi pi-fw pi-lock',
+                command: () => {
+                    navigate(rootPath + '/internal')
+                },
+            }
+        }else{
+            return{}
+        }        
+    }
+
     const items = [
         {
             label: 'Home',
@@ -156,24 +170,10 @@ const Navbar = () => {
                         navigate(rootPath + "/functionalities/transform")
                     }
                 },
-                {
-                    label: 'Transformar',
-                    // icon: 'pi pi-fw pi-calendar-plus',
-                    template: (item:any, options:any) => {
-                        return (
-                            /* custom element */
-                            <p className={options.className + " my-0 ml-3 lg:ml-0"} onClick={options.onClick}>
-                                <GiTransform size={20} className="mr-2"/>
-                                <span className={options.labelClassName}>{item.label}</span>
-                            </p>
-                        );
-                    },
-                    command: () => {
-                        navigate("?options=restricted")
-                    }
-                },
             ]
         },
+        restrictedMenuItem()
+
     ];
 
     function clearCookie(){
@@ -182,6 +182,19 @@ const Navbar = () => {
         let expires = "expires="+ d.toUTCString();
         document.cookie = "banner=false; " + expires;
         setHideBanner(true);
+    }
+
+    function handleLogout(){
+        document.cookie = "isAuth=false; path=/"
+        const d = new Date();
+        document.cookie = "name=false; path=/grb/internal"
+        document.cookie = "username=false; path=/grb/internal"
+        document.cookie = "active=false; path=/grb/internal"
+        navigate("grb/login")
+    }
+
+    function checkCookie(){
+        return document.cookie.indexOf("isAuth=true") === -1;
     }
 
     const bannerUHCC = (
@@ -203,9 +216,14 @@ const Navbar = () => {
     const home = { icon: 'pi pi-home', command: () => {navigate(rootPath + "/")} }
     const end = ( 
         <div className="inline-flex">
-            <Button icon="pi pi-times" className="p-button-rounded p-button-outlined mr-2 p-button-danger" aria-label="Submit" onClick={() => navigate("internal/uhcc")} />
-            <Button icon="pi pi-sign-in" className="p-button-rounded p-button-outlined mr-2" aria-label="Submit" onClick={() => navigate("grb/login")} />
-            {/* <Button icon="pi pi-sign-in" className="p-button-rounded p-button-outlined mr-2" aria-label="Submit" onClick={() => navigate("/internal")} /> */}
+            {/* <Button icon="pi pi-times" className="p-button-rounded p-button-outlined mr-2 p-button-danger" aria-label="Submit" onClick={() => navigate("internal/uhcc")} /> */}
+            {checkCookie() 
+                ?
+                    <Button icon="pi pi-sign-in" className="p-button-rounded p-button-outlined mr-2" aria-label="Submit" onClick={() => navigate("grb/login")} />
+                :
+                    <Button icon="pi pi-sign-out" className="p-button-rounded p-button-outlined mr-2 p-button-danger" aria-label="Submit" onClick={handleLogout} />
+
+            }
             <div className="logo m-0 p-0 flex-1" onClick={() => navigate(rootPath + '/')}>
                 <Image src={logo} width="48vh" alt="Logo"/>
             </div>
@@ -222,12 +240,12 @@ const Navbar = () => {
                     </>
             }
 
-            {document.cookie !== "banner=true" || pathname === "/grb/uberhub" || getHideBanner
+            {/* {document.cookie !== "banner=true" || pathname === "/grb/uberhub" || getHideBanner
                 ?
                     <></>
                 :
                     <Message severity="info" className="col-12 fadeinup animation-duration-1000 animation-ease-in-out" content={bannerUHCC}/>
-                }
+            } */}
             {/* <Menubar model={items} end={final}/> */}
             {/* <input onChange={(e) => { setValue((e.target as HTMLInputElement).value);}}/> */}
             <Menubar model={items} end={end} className="border-none"/>

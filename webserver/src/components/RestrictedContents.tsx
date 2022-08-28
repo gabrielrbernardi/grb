@@ -61,7 +61,7 @@ const RestrictedContents = (props: any) => {
         }
         <form onSubmit={submitForm} className="mb-3">
             <a>TESTE -&gt; Selecione o instrutor:</a>
-            <div className="mt-2 p-inputgroup lg:col-6 col-12 pl-0">
+            <div className="mt-2 p-inputgroup col-12 pl-0">
                 <Button icon="pi pi-file" className="p-button-secondary" type="button" onClick={fetchInstructorsData} loading={getLoading}/>
                 <Dropdown optionLabel="Name" value={getInstructor} options={getInstructorOptions} filter onChange={(e) => {setInstructor(e.value); submitForm()}} placeholder="Selecione o instrutor"/>
             </div>

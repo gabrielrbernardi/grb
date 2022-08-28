@@ -96,3 +96,12 @@ html{
 .login{
   height: calc(100vh - 167px);
 }
+
+.logo-background{
+  /* background-color: white; */
+  background-image: url("assets/uhcc/uhccLogo.png");
+  /* height: 100vh; */
+  background-position: bottom left; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: auto;
+}

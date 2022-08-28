@@ -16,22 +16,24 @@ import Footer from './components/Footer';
 import FooterMessage from './components/FooterMessage';
 import { useCookies } from 'react-cookie';
 import Login from './pages/Login';
+import HomeInternal from './pages/internal/Home';
 
 function App() {
-  const [cookies, setCookie] = useCookies();
   const [getAuth, setAuth] = useState<boolean>();
 
   useEffect(() => {
     teste()
     setInterval(() => {
       teste()
-    }, 5000)
+    }, 2000)
 
-  }, [])
+  }, [document.cookie])
     
-  function teste(){
+  async function teste(){
     // console.log(document.cookie.split("isAuth=")[1] === 'true')
+    // console.log((document.cookie.split("isAuth=")[1]) === 'true' ? true : false)
     setAuth((document.cookie.split("isAuth=")[1]) === 'true' ? true : false)
+    return true
   }
 
   return (
@@ -58,21 +60,21 @@ function App() {
               {/* <Route path="/grb" element={<Navigate to="/" replace />}/> */}
               <Route path="404" element={<NotFound/>}/>
               <Route path="login" element={<Login/>}/>
-            </Route>
               <Route path="internal">
                 {getAuth
                   ?
                     <>
-                      <Route path="" element={<>{cookies.teste}</>}/>
+                      <Route path="" element={<HomeInternal/>}/>
                       <Route path="uhcc" element={<UHCC/>}/>
                     </>
                   : 
                     <>
-                      <Route path="" element={<Navigate to="/grb/404" replace />}/>
-                      <Route path="*" element={<Navigate to="/grb/404" replace />}/>
+                      <Route path="" element={document.cookie.indexOf("isAuth=true") === -1 && <Navigate to="/grb/404" replace />}/>
+                      {/* <Route path="*" element={<Navigate to="/grb/404" replace />}/> */}
                     </>
                 }
               </Route>
+            </Route>
             {/* <Route path="*" element={<Navigate to="/grb/404" replace />} /> */}
             <Route path="/" element={<Navigate to="/grb/" replace />} />
           </Routes>
