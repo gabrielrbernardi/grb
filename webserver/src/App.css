@@ -92,3 +92,7 @@ html{
 .button-demo .template .p-button.discord:focus {
   box-shadow: 0 0 0 1px var(--bluegray-500);
 }
+
+.login{
+  height: calc(100vh - 167px);
+}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom';
 import { ScrollTop } from 'primereact/scrolltop';
 import './App.css';
@@ -14,8 +14,26 @@ import NotFound from './pages/NotFound';
 import UHCC from './pages/UHCC';
 import Footer from './components/Footer';
 import FooterMessage from './components/FooterMessage';
+import { useCookies } from 'react-cookie';
+import Login from './pages/Login';
 
 function App() {
+  const [cookies, setCookie] = useCookies();
+  const [getAuth, setAuth] = useState<boolean>();
+
+  useEffect(() => {
+    teste()
+    setInterval(() => {
+      teste()
+    }, 5000)
+
+  }, [])
+    
+  function teste(){
+    // console.log(document.cookie.split("isAuth=")[1] === 'true')
+    setAuth((document.cookie.split("isAuth=")[1]) === 'true' ? true : false)
+  }
+
   return (
     <div className="mx-0 mt-0 mb-3">
       <BrowserRouter>
@@ -39,8 +57,23 @@ function App() {
               </Route>
               {/* <Route path="/grb" element={<Navigate to="/" replace />}/> */}
               <Route path="404" element={<NotFound/>}/>
+              <Route path="login" element={<Login/>}/>
             </Route>
-            <Route path="*" element={<Navigate to="/grb/404" replace />} />
+              <Route path="internal">
+                {getAuth
+                  ?
+                    <>
+                      <Route path="" element={<>{cookies.teste}</>}/>
+                      <Route path="uhcc" element={<UHCC/>}/>
+                    </>
+                  : 
+                    <>
+                      <Route path="" element={<Navigate to="/grb/404" replace />}/>
+                      <Route path="*" element={<Navigate to="/grb/404" replace />}/>
+                    </>
+                }
+              </Route>
+            {/* <Route path="*" element={<Navigate to="/grb/404" replace />} /> */}
             <Route path="/" element={<Navigate to="/grb/" replace />} />
           </Routes>
         </div>

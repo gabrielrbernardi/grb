@@ -41,6 +41,7 @@ const Navbar = () => {
             }
             setItemsBreadCrumb(tempList)
         }
+        // document.cookie = "isAuth=true; ";
         splitStringPathname();
         
         if(!document.cookie){
@@ -201,9 +202,14 @@ const Navbar = () => {
     
     const home = { icon: 'pi pi-home', command: () => {navigate(rootPath + "/")} }
     const end = ( 
-        <p className="logo m-0 p-0" onClick={() => navigate(rootPath + '/')}>
-            <Image src={logo} width="48vh" alt="Logo"/>
-        </p>
+        <div className="inline-flex">
+            <Button icon="pi pi-times" className="p-button-rounded p-button-outlined mr-2 p-button-danger" aria-label="Submit" onClick={() => navigate("internal/uhcc")} />
+            <Button icon="pi pi-sign-in" className="p-button-rounded p-button-outlined mr-2" aria-label="Submit" onClick={() => navigate("grb/login")} />
+            {/* <Button icon="pi pi-sign-in" className="p-button-rounded p-button-outlined mr-2" aria-label="Submit" onClick={() => navigate("/internal")} /> */}
+            <div className="logo m-0 p-0 flex-1" onClick={() => navigate(rootPath + '/')}>
+                <Image src={logo} width="48vh" alt="Logo"/>
+            </div>
+        </div>
     )
 
     return (
