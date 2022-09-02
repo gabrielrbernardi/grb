@@ -27,7 +27,7 @@ const ToastComponent = (props: any) => {
 
     return (
         <>
-            <Toast position="bottom-right" ref={toast} style={{zIndex: 9}} />
+            <Toast position="bottom-right" ref={toast} style={{zIndex: 6}} />
         </>
     );
 }

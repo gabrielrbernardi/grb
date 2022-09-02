@@ -23,13 +23,21 @@ const Login = () => {
         apiGrb.post("login", {Username: getUser, Password: getPass}).then(response => {
             document.cookie = "isAuth=true;path=/"
             setTimeout(() => {
-                setLoading(false);
+                if(response?.data?.data?.Admin){
+                    document.cookie = `isAdmin=true; path=/`;
+                }else{
+                    document.cookie = `isAdmin=false; path=/`;
+                }
+                if(response?.data?.data?.id){
+                    document.cookie = `id=${response?.data?.data?.id}; path=/`
+                    apiGrb.defaults.headers.common['id_usuario'] = response?.data?.data?.id;
+                }
                 // console.log(response?.data?.data?.Username)
                 // console.log(response?.data?.data?.Name)
                 // console.log(response?.data?.data?.Active)
-                // document.cookie = `username=${response?.data?.data?.Username}; path=/grb/internal`
                 // document.cookie = `name=${response?.data?.data?.Name}; path=/grb/internal`
                 // document.cookie = `active=${response?.data?.data?.Active}; path=/grb/internal`
+                setLoading(false);
                 navigate("/grb/internal")
             }, 2000);
             // return
@@ -51,12 +59,12 @@ const Login = () => {
                     : <></>
                 }
                 <span className="p-float-label mb-4">
-                    <InputText id="user" className="w-12" value={getUser} onChange={(e) => {setUser(e.target.value)}} autoFocus/>
+                    <InputText id="user" className="w-12" value={getUser} onChange={(e) => {setUser(e.target.value)}} autoFocus disabled={getLoading}/>
                     <label htmlFor="user">Usuário</label>
                 </span>
 
                 <span className="p-float-label">
-                    <InputText id="user" className="w-12" type={'password'} value={getPass} onChange={(e) => {setPass(e.target.value)}}/>
+                    <InputText id="user" className="w-12" type={'password'} value={getPass} onChange={(e) => {setPass(e.target.value)}} disabled={getLoading}/>
                     <label htmlFor="pass">Senha</label>
                 </span>
                 <br/>

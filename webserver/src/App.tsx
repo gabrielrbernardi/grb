@@ -22,18 +22,24 @@ function App() {
   const [getAuth, setAuth] = useState<boolean>();
 
   useEffect(() => {
-    teste()
+    checkAuth()
     setInterval(() => {
-      teste()
+      checkAuth()
     }, 2000)
 
   }, [document.cookie])
     
-  async function teste(){
+  async function checkAuth(){
     // console.log(document.cookie.split("isAuth=")[1] === 'true')
     // console.log((document.cookie.split("isAuth=")[1]) === 'true' ? true : false)
-    setAuth((document.cookie.split("isAuth=")[1]) === 'true' ? true : false)
+    setAuth(getCookie("isAuth") === 'true' ? true : false)
     return true
+  }
+
+  function getCookie(name:any) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop()?.split(';')?.shift();
   }
 
   return (

@@ -118,6 +118,16 @@ const About = (props:any) => {
         })
         .catch(err => {final("error", "Erro!", "Não foi possivel retornar as informações do usuário. " + err) })
     }
+    
+    function fetchData(event?:any){
+        event?.preventDefault();
+        setLoading(true);
+        setContentApi(null);
+        setContentGithub(null);
+        setTimeout(() => {
+            getUserData().then(() => getRepoData().then(() => setLoading(false)).catch(() => setLoading(false))).catch(() => setLoading(false));
+        }, 500);
+    }
 
     const renderFooter = () => {
         return (
@@ -146,16 +156,6 @@ const About = (props:any) => {
         setTimeout(() => {
             setShow(false);
         }, 3500);
-    }
-
-    function fetchData(event?:any){
-        event?.preventDefault();
-        setLoading(true);
-        setContentApi(null);
-        setContentGithub(null);
-        setTimeout(() => {
-            getUserData().then(() => getRepoData().then(() => setLoading(false)).catch(() => setLoading(true))).catch(() => setLoading(true));
-        }, 500);
     }
     
     return (

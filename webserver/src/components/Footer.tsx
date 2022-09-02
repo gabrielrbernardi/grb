@@ -28,7 +28,8 @@ const Footer = () => {
     )
 
     return (
-        <div className="mx-3 text-center py-2 sticky bottom-0 border-1 border-100" style={{"backgroundColor": "rgba(30, 30, 30, 0.7)"}}>
+        // <div className="mx-3 text-center py-2 sticky bottom-0 border-1 border-100" style={{"backgroundColor": "rgba(30, 30, 30, 0.7)"}} style={{"backgroundColor": "var(--surface-card)" }}>
+        <div className="mx-3 text-center py-2 sticky bottom-0 border-1 border-100 surface-card border-round">
             <div>
                 <a className={"text-link-special-class"} onClick={() => {window.open(githubLink + "/grb", "_blank")}}>{"Repositório GRB"}</a>
                 <a className={"text-footer ml-4"} onClick={() => {window.open(githubLink, "_blank")}}>

@@ -26,10 +26,10 @@ const RestrictedContents = (props: any) => {
 
     const fetchInstructorsData = async () => {
         setLoading(true)
-        await apiGrb.get("instructors",)
+        await apiGrb.get("instructors/filtered",)
             .then(response => {
-                setInstructorOptions(response.data.data)
-                setFiles(response.data.data)
+                setInstructorOptions(response.data.instructors)
+                setFiles(response.data.instructors)
                 setLoading(false)
             })
             .catch(err => {
@@ -59,10 +59,11 @@ const RestrictedContents = (props: any) => {
             ? <><Loading/></>
             : <></>
         }
+        <h2>Lista de usuários para minimaratona</h2>
         <form onSubmit={submitForm} className="mb-3">
-            <a>TESTE -&gt; Selecione o instrutor:</a>
+            <a>Selecione o instrutor:</a>
             <div className="mt-2 p-inputgroup col-12 pl-0">
-                <Button icon="pi pi-file" className="p-button-secondary" type="button" onClick={fetchInstructorsData} loading={getLoading}/>
+                <Button icon="pi pi-refresh" className="p-button-secondary" type="button" onClick={fetchInstructorsData} loading={getLoading}/>
                 <Dropdown optionLabel="Name" value={getInstructor} options={getInstructorOptions} filter onChange={(e) => {setInstructor(e.value); submitForm()}} placeholder="Selecione o instrutor"/>
             </div>
             {renderComponent(getValues)}
