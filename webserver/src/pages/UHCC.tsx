@@ -1,37 +1,41 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef, useContext, createContext  } from 'react';
+import ReactDOM from 'react-dom/client';
 import { Accordion, AccordionTab } from 'primereact/accordion';
-import { Tag } from 'primereact/tag';
 import { render } from '@testing-library/react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Skeleton } from 'primereact/skeleton';
 import { Toolbar } from 'primereact/toolbar';
 import { Button } from 'primereact/button';
-import Toast from '../components/Toast';
 import ExercisesUHCC from '../components/ExercisesUHCC';
 import DataTableRepositories from '../components/DataTableRepositories';
 import apiGrb from '../services/apiGrb';
+import Toast from '../components/Toast';
 
 // import getLinkData from '../assets/links.json'; //dev
-
 const linkConfig = "https://raw.githubusercontent.com/gabrielrbernardi/grb/main/webserver/src/assets/links.json";
 const errorDataAxiosJson = ["error", "Erro!", "Erro ao buscar arquivo de configurações."]
 
 const UHCC = () => {
     const navigate = useNavigate();
     const [getLinkData, setLinkData] = useState({actualCycle: "", actualClass: "", rootRepo: "", aula:[], inic1:[], inic2:[], inter1:[]});
-    const [getLoading, setLoading] = useState(true);
-    const [getInstructorsData, setInstructorsData] = useState();
-    const [ queryParams, setSearchParams ] = useSearchParams();
+    const [getLoading, setLoading] = useState(true);   
     
     useEffect( () => {
-        
         fetchData()
     }, [])
     
     const fetchData = async () => {
         setLoading(true)
-        await apiGrb.get("links/filtered").then((response) => {setLinkData(response.data.links); setLoading(false)}).catch((err) => render(<><Toast type={errorDataAxiosJson[0]} title={errorDataAxiosJson[1]} message={errorDataAxiosJson[2]}/></>));
+        await apiGrb.get("links/filtered")
+        .then((response) => {setLinkData(response.data.links); setLoading(false)})
+        .catch((err) => {
+            setLoading(false);
+            // <Toast type={errorDataAxiosJson[0]} title={errorDataAxiosJson[1]} message={errorDataAxiosJson[2]}/>
 
+
+            //@ts-ignore
+            ReactDOM.hydrateRoot(document.getElementById("root") as HTMLElement, <Toast type={errorDataAxiosJson[0]} title={errorDataAxiosJson[1]} message={errorDataAxiosJson[2]}/>);
+        });
         // await axios.get(linkConfig).then((response) => {console.log(response); setLinkData(response.data); setLoading(false);}).catch(err => render(<><Toast type={errorDataAxiosJson[0]} title={errorDataAxiosJson[1]} message={errorDataAxiosJson[2]}/></>))
     }
 
@@ -86,6 +90,7 @@ const UHCC = () => {
 
     return (
         <>
+            <div id="appa"></div>
             <Accordion className="scalein animation-ease-out animation-duration-500">
                 <AccordionTab header="Gerador de links Neps/Beecrowd">
                     <ExercisesUHCC/>

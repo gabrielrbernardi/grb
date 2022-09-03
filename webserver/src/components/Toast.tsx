@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { Toast } from 'primereact/toast';
 import { useEffect } from 'react';
 
-const ToastComponent = (props: any) => {
+function ToastComponent (props: any) {
     const toast: any = useRef(null);
     
     useEffect(() => {
@@ -21,7 +21,7 @@ const ToastComponent = (props: any) => {
         return (props.message ? props.message : "Error Message");
     }
     
-    const showToast = () => {
+    function showToast() {
         toast.current.show({severity: checkSeverity(), summary: checkTitle(), detail: checkMessage(), life: 4000, closable: true});
     }
 

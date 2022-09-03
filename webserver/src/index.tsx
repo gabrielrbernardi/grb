@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import * as ReactDOMClient from 'react-dom';
 import './index.css';
 import App from './App';
 
@@ -12,9 +12,12 @@ import "/node_modules/primeflex/primeflex.css"
 
 PrimeReact.ripple = true;
 
-ReactDOM.render(
+const container = document.getElementById('root')!;
+// @ts-ignore
+const root = ReactDOMClient.createRoot(container);
+
+root.render(
   <React.StrictMode>
     <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+  </React.StrictMode>
 );
