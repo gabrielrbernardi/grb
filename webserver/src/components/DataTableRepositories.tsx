@@ -12,8 +12,6 @@ const DataTableRepositories = (props: any) => {
     var username = "";
     const [getRepositoryContent, setRepositoryContent] = useState<any>([]);
     const [getPath, setPath] = useState(false);
-    var pathUhcc = false;
-    const { pathname } = useLocation();
     
     useEffect(() => {
         if(props.username){ username = props.username;}

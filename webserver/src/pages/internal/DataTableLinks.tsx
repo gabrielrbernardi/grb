@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from 'react';
+import ReactDOM from 'react-dom';
 import { Column } from 'primereact/column';
 import { DataTable } from 'primereact/datatable';
-import { render } from '@testing-library/react';
 import { FilterMatchMode } from 'primereact/api';
 import { InputText } from 'primereact/inputtext';
 import { Dialog } from 'primereact/dialog';
 import { Button } from 'primereact/button';
 import { Dropdown } from 'primereact/dropdown';
+import { Tag } from 'primereact/tag';
 import apiGrb from '../../services/apiGrb';
 import Toast from '../../components/Toast';
 import UpdateLink from './Links/UpdateLink';
 import UpdateLinkStatus from './Links/UpdateLinkStatus';
 import CreateNewLink from './Links/CreateNewLink';
 import DeleteLink from './Links/DeleteLink';
+import UpdateLinkBadge from './Links/UpdateLinkBadge';
 
 const DataTableLinks = () => {
     const [getCycles, setCycles] = useState();
@@ -28,6 +30,9 @@ const DataTableLinks = () => {
     const [getLevel, setLevel] = useState<any>();
     const [getLinkUrl, setLinkUrl] = useState<any>();
     const [getActive, setActive] = useState<any>();
+    const [getBadge, setBadge] = useState<any>();
+    const [getBadgeLabel, setBadgeLabel] = useState<any>();
+    const [getBadgeType, setBadgeType] = useState<any>();
 
     const [getFilterValue, setFilterValue] = useState('');
     const [getFilter, setFilter] = useState({
@@ -42,6 +47,7 @@ const DataTableLinks = () => {
     const statusPossibilitiesUpdate = [
         {label: 'Atualizar Link', value: "updateLevel"},
         {label: 'Atualizar Status', value: "updateLevelStatus"},
+        {label: 'Atualizar Badge', value: "updateLevelBadge"},
         {label: 'Excluir Link', value: "deleteLevel"},
     ];
 
@@ -57,12 +63,33 @@ const DataTableLinks = () => {
             setLoading(false);
         }).catch(err => {
             setLoading(false);
-            render(<><Toast type={"error"} title={"Erro!"} message={"Erro ao buscar os valores."}/></>);
+            //@ts-ignore
+            ReactDOM.hydrateRoot(document.getElementById("root") as HTMLElement, <Toast type={"error"} title={"Erro!"} message={"Erro ao buscar os valores."}/>);
         })
     }
 
     const statusActiveTemplate = (rowData: any) => {
-        return <span className={``}>{rowData.Active === true ? "Sim" : "Não"}</span>;
+        if(rowData.Active === true){
+            return <Tag value={"Sim"} icon="pi pi-check" severity={"success"} className="ml-2"/>
+        }else{
+            return <Tag value={"Não"} icon="pi pi-times" severity={"danger"} className="ml-2"/>            
+        }
+    }
+
+    const statusBadgeTemplate = (rowData: any) => {
+        if(rowData.Badge === true){
+            return <Tag value={"Sim"} icon="pi pi-check" severity={"success"} className="ml-2"/>
+        }else{
+            return <Tag value={"Não"} icon="pi pi-times" severity={"danger"} className="ml-2"/>            
+        }
+    }
+
+    const statusBadgeTypeTemplate = (rowData: any) => {
+        if(rowData.Badge){
+            return <Tag value={rowData.BadgeLabel} severity={rowData.BadgeType} className="ml-2"/>;
+        }else{
+            return <></>
+        }
     }
 
     const handleFilterChange = (e:any) => {
@@ -96,6 +123,9 @@ const DataTableLinks = () => {
         setLevel(event.data.Level);
         setLinkUrl(event.data.Link);
         setActive(event.data.Active);
+        setBadge(event.data.Badge);
+        setBadgeLabel(event.data.BadgeLabel);
+        setBadgeType(event.data.BadgeType);
         setShowDialogUpdate(true);
     }
 
@@ -117,6 +147,8 @@ const DataTableLinks = () => {
                 <Column field="Level" header="Nível" sortable></Column>
                 <Column field="Link" header="Link" sortable></Column>
                 <Column field="Active" header="Ativo?" body={statusActiveTemplate} sortable></Column>
+                <Column field="Badge" header="Badge" body={statusBadgeTemplate} sortable></Column>
+                <Column field="BadgeType" header="Link" body={statusBadgeTypeTemplate} sortable></Column>
             </DataTable>
 
             <Dialog className="z-1" header="Criar Link" visible={getShowDialogCreate} onHide={() => {handleHide()}} breakpoints={{'960px': '75vw'}} style={{width: '50vw'}} draggable={false} maximizable dismissableMask>
@@ -130,6 +162,7 @@ const DataTableLinks = () => {
                 </div>
                 {getEditableStatus === "updateLevel" && <UpdateLink id={getId} nameLink={getNameLink} descriptionLink={getDescription} levelLink={getLevel} urlLink={getLinkUrl}/>}
                 {getEditableStatus === "updateLevelStatus" && <UpdateLinkStatus id={getId} linkActive={getActive}/>}
+                {getEditableStatus === "updateLevelBadge" && <UpdateLinkBadge id={getId} linkBadge={getBadge} linkBadgeLabel={getBadgeLabel} linkBadgeType={getBadgeType}/>}
                 {getEditableStatus === "deleteLevel" && <DeleteLink id={getId}/>}
             </Dialog>
         </>

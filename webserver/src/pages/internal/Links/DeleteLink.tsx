@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from 'primereact/button';
 import { confirmDialog } from 'primereact/confirmdialog';
-import { render } from '@testing-library/react';
+import ReactDOM from 'react-dom/client';
 import { Dropdown } from 'primereact/dropdown';
 
 import Toast from '../../../components/Toast';
@@ -26,7 +26,8 @@ const DeleteLevel = (props:any) => {
         if(getOption === true){
             confirm2();
         }else{
-            render(<><Toast type={"error"} title={"Erro!"} message={"Operação cancelada!"}/></>)
+            //@ts-ignore
+            ReactDOM.hydrateRoot(document.getElementById("root") as HTMLElement, <Toast type={"error"} title={"Erro!"} message={"Operação cancelada!"}/>);
         }
     }
     
@@ -35,10 +36,12 @@ const DeleteLevel = (props:any) => {
         await apiGrb.delete(`/link/${getId}`)
             .then((response:any) => {
                 setLoading(false);
-                render(<><Toast type={"success"} title={"Excluído!"} message={response?.data?.data || "Excluído com sucesso!"}/></>)
+                //@ts-ignore
+                ReactDOM.hydrateRoot(document.getElementById("root") as HTMLElement, <Toast type={"success"} title={"Excluído!"} message={response?.data?.data || "Excluído com sucesso!"}/>);
             }).catch(err => {
                 setLoading(false);
-                render(<><Toast type={"error"} title={"Erro!"} message={err?.response?.data?.error || "Erro na exclusão!"}/></>)
+                //@ts-ignore
+                ReactDOM.hydrateRoot(document.getElementById("root") as HTMLElement, <Toast type={"error"} title={"Erro!"} message={err?.response?.data?.error || "Erro na exclusão!"}/>);
             })    
     }
 
@@ -49,7 +52,8 @@ const DeleteLevel = (props:any) => {
             icon: 'pi pi-info-circle',
             acceptClassName: 'p-button-danger',
             accept: () => {handleDelete()},
-            reject: () => {<><Toast type={"error"} title={"Erro!"} message={"Operação cancelada!"}/></>}
+            reject: () => {//@ts-ignore
+                ReactDOM.hydrateRoot(document.getElementById("root") as HTMLElement, <Toast type={"error"} title={"Erro!"} message={"Operação cancelada!"}/>)}
         });
     };
 

@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import ReactDOM from 'react-dom';
 import { Column } from 'primereact/column';
 import { DataTable } from 'primereact/datatable';
-import { render } from '@testing-library/react';
 import { FilterMatchMode } from 'primereact/api';
 import { InputText } from 'primereact/inputtext';
 import { Dialog } from 'primereact/dialog';
 import { Button } from 'primereact/button';
 import { Dropdown } from 'primereact/dropdown';
+import { Tag } from 'primereact/tag';
 import apiGrb from '../../services/apiGrb';
 import Toast from '../../components/Toast';
 import UpdateLevel from './Levels/UpdateLevel';
@@ -55,12 +56,17 @@ const DataTableLevels = () => {
             setLoading(false);
         }).catch(err => {
             setLoading(false);
-            render(<><Toast type={"error"} title={"Erro!"} message={"Erro ao buscar os valores."}/></>);
+            //@ts-ignore
+            ReactDOM.hydrateRoot(document.getElementById("root") as HTMLElement, <Toast type={"error"} title={"Erro!"} message={"Erro ao buscar os valores."}/>);
         })
     }
 
     const statusActiveTemplate = (rowData: any) => {
-        return <span className={``}>{rowData.Active === true ? "Sim" : "Não"}</span>;
+        if(rowData.Active === true){
+            return <Tag value={"Sim"} icon="pi pi-check" severity={"success"} className="ml-2"/>
+        }else{
+            return <Tag value={"Não"} icon="pi pi-times" severity={"danger"} className="ml-2"/>            
+        }
     }
 
     const handleFilterChange = (e:any) => {

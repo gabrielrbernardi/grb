@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from 'primereact/button';
-import { render } from '@testing-library/react';
+import ReactDOM from 'react-dom/client';
 import { Dropdown } from 'primereact/dropdown';
 
 import apiGrb from '../../../services/apiGrb';
@@ -26,10 +26,12 @@ const UpdateLevelStatus = (props:any) => {
         setLoading(true);
         await apiGrb.put("/level/status", {id: getId, Active: getActive}).then((response:any) => {
             setLoading(false);
-            render(<><Toast type={"success"} title={"Atualizado!"} message={response?.data?.data || "Atualizado com sucesso!"}/></>);
+            //@ts-ignore
+            ReactDOM.hydrateRoot(document.getElementById("root") as HTMLElement, <Toast type={"success"} title={"Atualizado!"} message={response?.data?.data || "Atualizado com sucesso!"}/>);
         }).catch(err => {
             setLoading(false);
-            render(<><Toast type={"error"} title={"Erro!"} message={err?.response?.data?.error || "Erro na atualização!"}/></>)
+            //@ts-ignore
+            ReactDOM.hydrateRoot(document.getElementById("root") as HTMLElement, <Toast type={"error"} title={"Erro!"} message={err?.response?.data?.error || "Erro na atualização!"}/>);
         })
     }
 
