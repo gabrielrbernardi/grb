@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from 'primereact/button';
-import { render } from '@testing-library/react';
+import ReactDOM from 'react-dom/client';
 import InstructorsListLinks from '../../components/InstructorsListLinks';
 import apiGrb from '../../services/apiGrb';
 import Toast from '../../components/Toast';
@@ -13,6 +13,7 @@ import DataTableInstructors from './DataTableInstructors';
 
 const HomeInternal = (props:any) => {
     const [getAdminStatus, setAdminStatus] = useState<boolean>();
+    const [getInstructorStatus, setInstructorStatus] = useState<boolean>();
 
     useEffect(() => {
         checkAuth()
@@ -23,7 +24,28 @@ const HomeInternal = (props:any) => {
     }, [document.cookie])
         
     async function checkAuth(){
-        await apiGrb.get(`/user/checkAdmin/${getCookie("id")}`).then(response => {setAdminStatus(response.data.isAdmin)}).catch(err => render(<><Toast type={"error"} title={"Erro!"} message={"Erro ao buscar os valores"}/></>));
+        let id_usuario = getCookie("id")
+        await apiGrb.get(`/user/checkAdmin/${id_usuario}`)
+        .then(async (response) => {
+            if(response){
+                setAdminStatus(response.data.isAdmin)
+                if(response.data.isAdmin === false){
+                    await apiGrb.get(`/user/checkInstructor/${id_usuario}`)
+                    .then((res) => {
+                        if(res){
+                            console.log(res)
+                            setInstructorStatus(res.data.isInstructor)
+                        }
+                    }).catch(err => {
+                        //@ts-ignore
+                        ReactDOM.hydrateRoot(document.getElementById("root") as HTMLElement, <Toast type={"error"} title={"Erro!"} message={"Erro ao buscar os valores"}/>);
+                    })
+                }
+            }
+        }).catch(err => {
+            //@ts-ignore
+            ReactDOM.hydrateRoot(document.getElementById("root") as HTMLElement, <Toast type={"error"} title={"Erro!"} message={"Erro ao buscar os valores"}/>);
+        });
         // console.log(document.cookie.split("isAuth=")[1] === 'true')
         // console.log((document.cookie.split("isAuth=")[1]) === 'true' ? true : false)
         // setAdminStatus(getCookie("isAdmin") === 'true' ? true : false)
@@ -39,7 +61,16 @@ const HomeInternal = (props:any) => {
     return (
         <>
             <div className="grid md:col-9 block mx-auto mt-2">
-                {!getAdminStatus && <InstructorsListLinks/>}
+                {!getAdminStatus && !getInstructorStatus && <InstructorsListLinks/>}
+                {getInstructorStatus &&
+                    <Accordion multiple activeIndex={[]}>
+                        <AccordionTab header="Links">
+                        <>
+                            <DataTableLinks isAdmin={getAdminStatus}/>
+                        </>
+                        </AccordionTab>
+                    </Accordion>
+                }
                 {getAdminStatus && 
                     <Accordion multiple activeIndex={[]}>
                             <AccordionTab header="Usuários">
@@ -54,7 +85,7 @@ const HomeInternal = (props:any) => {
                             </AccordionTab>
                             <AccordionTab header="Links">
                                 <>
-                                    <DataTableLinks/>
+                                    <DataTableLinks isAdmin={getAdminStatus}/>
                                 </>
                             </AccordionTab>
                             <AccordionTab header="Instrutores">

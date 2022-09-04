@@ -15,8 +15,11 @@ import UpdateLinkStatus from './Links/UpdateLinkStatus';
 import CreateNewLink from './Links/CreateNewLink';
 import DeleteLink from './Links/DeleteLink';
 import UpdateLinkBadge from './Links/UpdateLinkBadge';
+import UpdateLinkOwner from './Links/UpdateLinkOwner';
 
-const DataTableLinks = () => {
+const DataTableLinks = (props: any) => {
+    const [getIsAdmin, setIsAdmin] = useState<any>();
+    
     const [getCycles, setCycles] = useState();
     const [getLoading, setLoading] = useState(true);
     const [getSelectedLink, setSelectedLinnk] = useState({});
@@ -33,6 +36,7 @@ const DataTableLinks = () => {
     const [getBadge, setBadge] = useState<any>();
     const [getBadgeLabel, setBadgeLabel] = useState<any>();
     const [getBadgeType, setBadgeType] = useState<any>();
+    const [getOwner, setOwner] = useState<any>();
 
     const [getFilterValue, setFilterValue] = useState('');
     const [getFilter, setFilter] = useState({
@@ -48,24 +52,39 @@ const DataTableLinks = () => {
         {label: 'Atualizar Link', value: "updateLevel"},
         {label: 'Atualizar Status', value: "updateLevelStatus"},
         {label: 'Atualizar Badge', value: "updateLevelBadge"},
+        {label: 'Atualizar Propriedade', value: "updateLevelOwner"},
         {label: 'Excluir Link', value: "deleteLevel"},
     ];
 
-    useEffect(() => {   
+    useEffect(() => {
+        setIsAdmin(props?.isAdmin || false)
         fetchData();
     }, []);
 
     async function fetchData(){
         setLoading(true);
-        await apiGrb.get("links")
-        .then(response => {
-            setCycles(response.data.links);
-            setLoading(false);
-        }).catch(err => {
-            setLoading(false);
-            //@ts-ignore
-            ReactDOM.hydrateRoot(document.getElementById("root") as HTMLElement, <Toast type={"error"} title={"Erro!"} message={"Erro ao buscar os valores."}/>);
-        })
+        if(props?.isAdmin === true){
+            await apiGrb.get(`links`)
+            .then(response => {
+                setCycles(response.data.links);
+                setLoading(false);
+            }).catch(err => {
+                setLoading(false);
+                //@ts-ignore
+                ReactDOM.hydrateRoot(document.getElementById("root") as HTMLElement, <Toast type={"error"} title={"Erro!"} message={"Erro ao buscar os valores."}/>);
+            })
+        }else{
+            await apiGrb.get(`links/instructor`)
+            .then(response => {
+                setCycles(response.data.links);
+                setLoading(false);
+            }).catch(err => {
+                setLoading(false);
+                //@ts-ignore
+                ReactDOM.hydrateRoot(document.getElementById("root") as HTMLElement, <Toast type={"error"} title={"Erro!"} message={"Erro ao buscar os valores."}/>);
+            })
+
+        }
     }
 
     const statusActiveTemplate = (rowData: any) => {
@@ -126,6 +145,7 @@ const DataTableLinks = () => {
         setBadge(event.data.Badge);
         setBadgeLabel(event.data.BadgeLabel);
         setBadgeType(event.data.BadgeType);
+        setOwner(event.data.UsernameCreation);
         setShowDialogUpdate(true);
     }
 
@@ -148,7 +168,8 @@ const DataTableLinks = () => {
                 <Column field="Link" header="Link" sortable></Column>
                 <Column field="Active" header="Ativo?" body={statusActiveTemplate} sortable></Column>
                 <Column field="Badge" header="Badge" body={statusBadgeTemplate} sortable></Column>
-                <Column field="BadgeType" header="Link" body={statusBadgeTypeTemplate} sortable></Column>
+                <Column field="BadgeType" header="Tipo Badge" body={statusBadgeTypeTemplate} sortable></Column>
+                <Column field="UsernameCreation" header="Criado por" sortable></Column>
             </DataTable>
 
             <Dialog className="z-1" header="Criar Link" visible={getShowDialogCreate} onHide={() => {handleHide()}} breakpoints={{'960px': '75vw'}} style={{width: '50vw'}} draggable={false} maximizable dismissableMask>
@@ -163,6 +184,7 @@ const DataTableLinks = () => {
                 {getEditableStatus === "updateLevel" && <UpdateLink id={getId} nameLink={getNameLink} descriptionLink={getDescription} levelLink={getLevel} urlLink={getLinkUrl}/>}
                 {getEditableStatus === "updateLevelStatus" && <UpdateLinkStatus id={getId} linkActive={getActive}/>}
                 {getEditableStatus === "updateLevelBadge" && <UpdateLinkBadge id={getId} linkBadge={getBadge} linkBadgeLabel={getBadgeLabel} linkBadgeType={getBadgeType}/>}
+                {getEditableStatus === "updateLevelOwner" && <UpdateLinkOwner id={getId} linkOwner={getOwner}/>}
                 {getEditableStatus === "deleteLevel" && <DeleteLink id={getId}/>}
             </Dialog>
         </>

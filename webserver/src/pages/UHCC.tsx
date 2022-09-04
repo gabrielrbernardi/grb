@@ -9,6 +9,7 @@ import DataTableRepositories from '../components/DataTableRepositories';
 import apiGrb from '../services/apiGrb';
 import Toast from '../components/Toast';
 import { Tag } from 'primereact/tag';
+import { Dropdown } from 'primereact/dropdown';
 
 // import getLinkData from '../assets/links.json'; //dev
 const linkConfig = "https://raw.githubusercontent.com/gabrielrbernardi/grb/main/webserver/src/assets/links.json";
@@ -17,14 +18,37 @@ const errorDataAxiosJson = ["error", "Erro!", "Erro ao buscar arquivo de configu
 const UHCC = () => {
     const [getLinkData, setLinkData] = useState({actualCycle: "", actualClass: "", rootRepo: "", aula:[], inic1:[], inic2:[], inter1:[]});
     const [getLoading, setLoading] = useState(true);   
+    const [getUserOptions, setUserOptions] = useState<any>();
+    const [getUser, setUser] = useState<any>('');
     
     useEffect( () => {
+        fetchUsers()
         fetchData()
     }, [])
     
+    const fetchUsers = async () => {
+        setLoading(true);
+        await apiGrb.get("/user/filtered")
+        .then(response => {
+            let list = [{}];
+            list.pop();
+            list.push({label: "Todos", value: ""})
+            response.data.users.map((valor:any, id:any) => {
+                list.push({label: valor.Name, value: valor.Username})
+            })
+            setUserOptions(list)
+            setLoading(false);
+        })
+        .catch(err => {
+            setLoading(false);
+            //@ts-ignore
+            ReactDOM.hydrateRoot(document.getElementById("root") as HTMLElement, <Toast type={"error"} title={"Erro!"} message={err?.response?.data?.error || "Erro na listagem de níveis!"}/>)
+        });
+    }
+
     const fetchData = async () => {
         setLoading(true)
-        apiGrb.get("links/filtered")
+        await apiGrb.get(`links/filtered/${getUser}`)
         .then((response) => {setLinkData(response.data.links); setLoading(false)})
         .catch((err) => {
             setLoading(false);
@@ -76,10 +100,19 @@ const UHCC = () => {
             <Button icon="pi pi-times" className="p-button-danger p-button-sm" /> */}
         </React.Fragment>
     );
+
+    const onUserChange = (e: { value: any}) => {
+        setUser(e.value);
+    }
     
     const leftContents = (
         <React.Fragment>
-            <>Links</>
+            {/* <>Links</> */}
+            {/* <p className="mb-2">Instrutor</p> */}
+            <>
+            <Dropdown className="col-12 w-full my-0 py-0" value={getUser} options={getUserOptions} onChange={onUserChange} placeholder="Selecione o Instrutor" disabled={getLoading}/>
+            <Button onClick={fetchData} icon="pi pi-search" className="col-1 p-button-sm"/>
+            </>
         </React.Fragment>
     );
 
