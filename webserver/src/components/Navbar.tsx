@@ -82,7 +82,12 @@ const Navbar = () => {
                 },
             }
         }else{
-            return{}
+            return {
+                label: '',
+                icon: '',
+                className: "hidden"
+            }
+            // return {}
         }        
     }
 

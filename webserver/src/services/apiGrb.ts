@@ -10,7 +10,7 @@ declare module 'axios' {
 function getCookie(name:any) {
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) {let res = parts.pop()?.split(';')?.shift(); return res;}else{return name}
+    if (parts.length === 2) {let res = parts.pop()?.split(';')?.shift(); return res;}else{return null}
 }
 
 const apiGrb = axios.create({
@@ -24,6 +24,6 @@ const apiGrb = axios.create({
     }
 });
 
-apiGrb.defaults.headers.common['id_usuario'] = getCookie("id");
+apiGrb.defaults.headers.common['id_usuario'] = getCookie("id") || "";
 
 export default apiGrb;

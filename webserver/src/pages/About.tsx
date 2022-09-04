@@ -55,7 +55,7 @@ const About = (props:any) => {
     function headerCard() {
         if(!getLoading){
             if(getContentGithub){
-                return <div className="mx-auto"><Image src={getContentGithub.avatar_url} alt="Logo" width="100%" className="mx-auto block" preview/></div>
+                return <div className="mx-auto"><Image src={getContentGithub.avatar_url} alt="Logo" width="100%" className="mx-auto md:block hidden" preview/></div>
             }else{
                 return <Image src={"https://avatars.githubusercontent.com/u/50278200?v=4" } alt="Logo" width="100%" className="mx-auto block" preview/>
             }
@@ -179,12 +179,12 @@ const About = (props:any) => {
                     </form>
             }
             <div className="grid m-0 justify-content-center">
-                <Card className="md:col-3 col-8 mt-2 p-0 align-self-start" style={{minWidth: "225px"}}>
+                <Card className="md:col-3 col-12 mt-2 p-0 align-self-start" style={{minWidth: "225px"}}>
                 {/* <Card style={{ width: '25em' }} footer={footer} header={header}> */}
                     {getContentGithub || getContentApi
                         ?
                             <>
-                                <div style={{maxWidth: "400px"}} className="mx-auto my-0 p-0">
+                                <div style={{maxWidth: "400px"}} className="sm:mx-auto my-0 p-0">
                                     {headerCard()}
                                 </div>
                                 {/* <p className="m-0" style={{lineHeight: '1.5'}}></p> */}

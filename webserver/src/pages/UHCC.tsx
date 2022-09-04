@@ -10,6 +10,8 @@ import apiGrb from '../services/apiGrb';
 import Toast from '../components/Toast';
 import { Tag } from 'primereact/tag';
 import { Dropdown } from 'primereact/dropdown';
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
 
 // import getLinkData from '../assets/links.json'; //dev
 const linkConfig = "https://raw.githubusercontent.com/gabrielrbernardi/grb/main/webserver/src/assets/links.json";
@@ -19,7 +21,8 @@ const UHCC = () => {
     const [getLinkData, setLinkData] = useState({actualCycle: "", actualClass: "", rootRepo: "", aula:[], inic1:[], inic2:[], inter1:[]});
     const [getLoading, setLoading] = useState(true);   
     const [getUserOptions, setUserOptions] = useState<any>();
-    const [getUser, setUser] = useState<any>('');
+    const [getUserName, setUserName] = useState<any>('');
+    const [getSelectedLink, setSelectedLink] = useState<any>('');
     
     useEffect( () => {
         fetchUsers()
@@ -48,14 +51,19 @@ const UHCC = () => {
 
     const fetchData = async () => {
         setLoading(true)
-        await apiGrb.get(`links/filtered/${getUser}`)
+        await apiGrb.get(`links/filtered/${getUserName}`)
         .then((response) => {setLinkData(response.data.links); setLoading(false)})
         .catch((err) => {
             setLoading(false);
             // <Toast type={errorDataAxiosJson[0]} title={errorDataAxiosJson[1]} message={errorDataAxiosJson[2]}/>
             //@ts-ignore
-            ReactDOM.hydrateRoot(document.getElementById("root") as HTMLElement, <Toast type={errorDataAxiosJson[0]} title={errorDataAxiosJson[1]} message={errorDataAxiosJson[2]}/>);
+            ReactDOM.hydrateRoot(document.getElementById("root") as HTMLElement, <Toast type={errorDataAxiosJson[0]} title={errorDataAxiosJson[1]} message={err?.response?.data?.error || errorDataAxiosJson[2]}/>);
         });
+    }
+
+    const onRowSelect = async (event:any) => {
+        window.open(`${event.data.Link}`, "_blank");
+        setTimeout(()=>{setSelectedLink('')}, 500)
     }
 
     function renderComponent(arrayComponent: any){
@@ -77,41 +85,55 @@ const UHCC = () => {
             // return <Skeleton width="50%" />
         }else{
             return (
-                arrayComponent.map( (value:any, id: any) => {
-                    if(value?.Badge == true){
-                        return (
-                            <tr className="mt-1 fadein animation-duration-400">
-                                <td key={id} className="text-link-special-class" onClick={() => {window.open(`${value.Link}`, "_blank")}}>{value.NameLink + " - " + value.Description}</td>
-                                <Tag value={value.BadgeLabel} severity={value.BadgeType} className="ml-2"/>
-                            </tr>
-                            )
-                        }else{
-                            return <tr className="mt-1 fadein animation-duration-400"><a key={id} className="text-link-special-class" onClick={() => {window.open(`${value.Link}`, "_blank")}}>{value.NameLink + " - " + value.Description}</a></tr>
-                        }
-                })
+                <DataTable className='outline-none' value={arrayComponent} responsiveLayout="stack" selectionMode="single" 
+                    onRowSelect={onRowSelect} size="small" removableSort sortField="NameLink" sortOrder={1}
+                    selection={getSelectedLink} onSelectionChange={e => setSelectedLink(e.value)}
+                >
+                    <Column field="NameLink" header="Nome" style={{width:'15%'}}></Column>
+                    <Column field="Description" header="Descrição" style={{width:'20%'}}></Column>
+                    <Column field="BadgeType" header="Status" body={statusBadgeTypeTemplate} style={{width:'35%'}}></Column>
+                    {/* <Column field="Link" header="Link"></Column> */}
+                    {!getUserName && 
+                        <Column field="UsernameCreation" header="Instrutor" body={UserLinkTemplate}></Column>
+                    }
+                </DataTable>
             )
+        }
+    }
+
+    const statusBadgeTypeTemplate = (rowData: any) => {
+        if(rowData.Badge){
+            return <Tag value={rowData.BadgeLabel} severity={rowData.BadgeType} className="ml-2"/>;
+        }else{
+            return <></>
+        }
+    }
+
+    const UserLinkTemplate = (rowData: any) => {
+        if(rowData.UsernameCreation === "admin") {
+            rowData.UsernameCreation = "";
+        }
+        if(rowData.UsernameCreation){
+            return <>{getUserOptions.find((x:any) => x.value == rowData.UsernameCreation).label}</>;
+        }else{
+            return <></>
         }
     }
 
     const rightContents = (
         <React.Fragment>
             <Button icon="pi pi-refresh" loading={getLoading} onClick={fetchData} className="mr-2 p-button-sm" />
-            {/* <Button icon="pi pi-calendar" className="p-button-success mr-2 p-button-sm" />
-            <Button icon="pi pi-times" className="p-button-danger p-button-sm" /> */}
         </React.Fragment>
     );
 
-    const onUserChange = (e: { value: any}) => {
-        setUser(e.value);
+    const onUserChange = (e: { label?: any, value: any }) => {
+        setUserName(e.value);
     }
     
     const leftContents = (
         <React.Fragment>
-            {/* <>Links</> */}
-            {/* <p className="mb-2">Instrutor</p> */}
             <>
-            <Dropdown className="col-12 w-full my-0 py-0" value={getUser} options={getUserOptions} onChange={onUserChange} placeholder="Selecione o Instrutor" disabled={getLoading}/>
-            <Button onClick={fetchData} icon="pi pi-search" className="col-1 p-button-sm"/>
+            <Dropdown className="col-12 w-full my-0 py-0" value={getUserName} options={getUserOptions} onHide={fetchData} onChange={e => {onUserChange(e)}} placeholder="Selecione o Instrutor" disabled={getLoading}/>
             </>
         </React.Fragment>
     );
