@@ -8,6 +8,7 @@ import { Dialog } from 'primereact/dialog';
 import { Button } from 'primereact/button';
 import { Dropdown } from 'primereact/dropdown';
 import { Tag } from 'primereact/tag';
+import { ToggleButton } from 'primereact/togglebutton';
 import apiGrb from '../../services/apiGrb';
 import Toast from '../../components/Toast';
 import UpdateLink from './Links/UpdateLink';
@@ -67,6 +68,7 @@ const DataTableLinks = (props: any) => {
             await apiGrb.get(`links`)
             .then(response => {
                 setCycles(response.data.links);
+                setAdminStatus(response.data.links[0].AdminActive);
                 setLoading(false);
             }).catch(err => {
                 setLoading(false);
@@ -119,11 +121,35 @@ const DataTableLinks = (props: any) => {
         setFilter(_filters2);
         setFilterValue(value);
     }
+    const [getAdminStatus, setAdminStatus] = useState(false);
+    const options = [
+        {name: 'Visível', value: true},
+        {name: 'Não Visível', value: false},
+    ];
+
+    async function handleChangeAdminStatus(e:any){
+        setLoading(true);
+        await apiGrb.put("link/adminStatusView", {AdminActive: Boolean(e.value)})
+            .then(response => {
+                setLoading(false);
+                //@ts-ignore
+                ReactDOM.hydrateRoot(document.getElementById("root") as HTMLElement, <Toast type={"success"} title={"Atualizado!"} message={response?.data?.data}/>);
+            })
+            .catch(err => {
+                setLoading(false);
+                //@ts-ignore
+                ReactDOM.hydrateRoot(document.getElementById("root") as HTMLElement, <Toast type={"error"} title={"Erro!"} message={"Erro ao buscar os valores."}/>);
+            });
+    }
 
     const renderHeader2 = () => {
         return (
             <div className="flex justify-content-between">
-                <a>Links</a>
+                <div>
+                    {getIsAdmin ? 
+                    <ToggleButton className="w-full sm:w-10rem" checked={getAdminStatus} onChange={(e:any) => {setAdminStatus(e.value); handleChangeAdminStatus(e);}} onLabel="Visível" offLabel="Não Visível" onIcon="pi pi-check" offIcon="pi pi-times" aria-label="Confirmation" />
+                    : <a>Links</a>}
+                </div>
                 <span className="p-input-icon-left">
                     <i className="pi pi-search" />
                     <InputText value={getFilterValue} onChange={handleFilterChange} placeholder="Busca" />

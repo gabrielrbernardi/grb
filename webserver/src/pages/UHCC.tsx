@@ -55,6 +55,7 @@ const UHCC = () => {
         .then((response) => {setLinkData(response.data.links); setLoading(false)})
         .catch((err) => {
             setLoading(false);
+            setLinkData(err?.response?.data?.links || null);
             // <Toast type={errorDataAxiosJson[0]} title={errorDataAxiosJson[1]} message={errorDataAxiosJson[2]}/>
             //@ts-ignore
             ReactDOM.hydrateRoot(document.getElementById("root") as HTMLElement, <Toast type={errorDataAxiosJson[0]} title={errorDataAxiosJson[1]} message={err?.response?.data?.error || errorDataAxiosJson[2]}/>);
@@ -114,7 +115,11 @@ const UHCC = () => {
             rowData.UsernameCreation = "";
         }
         if(rowData.UsernameCreation){
-            return <>{getUserOptions.find((x:any) => x.value == rowData.UsernameCreation).label}</>;
+            if(getUserOptions){
+                return <>{getUserOptions?.find((x:any) => x.value == rowData.UsernameCreation).label}</>;
+            }else{
+                return <></>
+            }
         }else{
             return <></>
         }
