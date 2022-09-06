@@ -33,25 +33,10 @@ const UpdateLinkBadge = (props:any) => {
     useEffect(() => {
         // fetchData()
         setId(props?.id || undefined);
-        setBadge(props?.linkBadge || undefined);
+        setBadge((props?.linkBadge == true || props?.linkBadge == false) ? Boolean(props?.linkBadge) : undefined);
         setBadgeLabel(props?.linkBadgeLabel || undefined);
         setBadgeType(props?.linkBadgeType || undefined);
     }, []);
-
-    async function fetchData(){
-        setLoading(true);
-        await apiGrb.get("levels/simple")
-        .then(response => {
-            let list = [{}];
-            list.pop();
-            response.data.levels.map((valor:any, id:any) => {
-                list.push({label: valor.Name, value: valor.Value})
-            })
-            setLevelOptions(list)
-            setLoading(false);
-        })
-        .catch(err => console.log(err));
-    }
 
     async function handleSubmit(event:any){
         event?.preventDefault();

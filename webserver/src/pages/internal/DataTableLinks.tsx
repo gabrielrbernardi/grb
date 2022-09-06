@@ -89,6 +89,18 @@ const DataTableLinks = (props: any) => {
         }
     }
 
+    const DescriptionTemplate = (rowData: any) => {
+        if(rowData?.Description?.length > 40){
+            return rowData?.Description?.slice(0, 40) + "..." || ""
+        }else{
+            return rowData?.Description || ""
+        }
+    }
+
+    const LinkTemplate = (rowData: any) => {
+        return rowData.Link.split(".com/")[0] + ".com/" || rowData.Link
+    }
+
     const statusActiveTemplate = (rowData: any) => {
         if(rowData.Active === true){
             return <Tag value={"Sim"} icon="pi pi-check" severity={"success"} className="ml-2"/>
@@ -106,11 +118,11 @@ const DataTableLinks = (props: any) => {
     }
 
     const statusBadgeTypeTemplate = (rowData: any) => {
-        if(rowData.Badge){
+        // if(rowData.Badge){
             return <Tag value={rowData.BadgeLabel} severity={rowData.BadgeType} className="ml-2"/>;
-        }else{
-            return <></>
-        }
+        // }else{
+            // return <></>
+        // }
     }
 
     const handleFilterChange = (e:any) => {
@@ -187,26 +199,36 @@ const DataTableLinks = (props: any) => {
         <>
             <DataTable value={getCycles} responsiveLayout="stack" paginator rows={10} rowsPerPageOptions={[5,10,25,50]} emptyMessage="Link não encontrado." 
                             header={header2} filters={getFilter} loading={getLoading} resizableColumns columnResizeMode="expand" removableSort selectionMode="single" 
-                            selection={getSelectedLink} onSelectionChange={e => setSelectedLinnk(e.value)} dataKey="id" onRowSelect={onRowSelect} metaKeySelection={false}>
-                <Column field="NameLink" header="Nome" sortable></Column>
-                <Column field="Description" header="Descrição" sortable></Column>
-                <Column field="Level" header="Nível" sortable></Column>
-                <Column field="Link" header="Link" sortable></Column>
-                <Column field="Active" header="Ativo?" body={statusActiveTemplate} sortable></Column>
-                <Column field="Badge" header="Badge" body={statusBadgeTemplate} sortable></Column>
-                <Column field="BadgeType" header="Tipo Badge" body={statusBadgeTypeTemplate} sortable></Column>
-                <Column field="UsernameCreation" header="Criado por" sortable></Column>
+                            selection={getSelectedLink} onSelectionChange={e => setSelectedLinnk(e.value)} dataKey="id" onRowSelect={onRowSelect} metaKeySelection={false} breakpoint="768px">
+                <Column field="NameLink" header="Nome" sortable style={{width:'10%'}}></Column>
+                <Column field="Description" header="Descrição" sortable style={{width:'10%'}} body={DescriptionTemplate}></Column>
+                {/* <Column className="columnWrap" field="Description" header="Descrição" sortable style={{width:'10%'}}></Column> */}
+                <Column field="Level" header="Nível" sortable style={{width:'10%'}}></Column>
+                <Column field="Link" header="Link" sortable body={LinkTemplate} style={{width:'10%'}}></Column>
+                <Column field="Active" header="Ativo?" body={statusActiveTemplate} sortable style={{width:'6%'}}></Column>
+                <Column field="Badge" header="Badge" body={statusBadgeTemplate} sortable style={{width:'6%'}}></Column>
+                <Column field="BadgeType" header="Tipo Badge" body={statusBadgeTypeTemplate} sortable style={{width:'5%'}}></Column>
+                <Column field="UsernameCreation" header="Criado por" sortable style={{width:'10%'}}></Column>
             </DataTable>
 
-            <Dialog className="z-1" header="Criar Link" visible={getShowDialogCreate} onHide={() => {handleHide()}} breakpoints={{'960px': '75vw'}} style={{width: '50vw'}} draggable={false} maximizable dismissableMask>
+            <Dialog className="z-1" header="Criar Link" visible={getShowDialogCreate} onHide={() => {handleHide()}} breakpoints={{'960px': '75vw'}} style={{width: '50vw'}} draggable={false} dismissableMask>
                 <CreateNewLink/>
             </Dialog>
 
-            <Dialog className="z-1" header={`Gerenciar Link ${getNameLink}`} visible={getShowDialogUpdate} onHide={() => {handleHide()}} breakpoints={{'960px': '75vw'}} style={{width: '50vw'}} draggable={false} maximizable dismissableMask>
+            <Dialog className="" header={`Gerenciar Link ${getNameLink}`} visible={getShowDialogUpdate} onHide={() => {handleHide()}} breakpoints={{'768px': '100vw'}} style={{width: '50vw'}} draggable={false} dismissableMask>
                 <div className="mb-5">
                     <p className="my-2">Tipo:</p>
                     <Dropdown className="col-12" value={getEditableStatus} options={statusPossibilitiesUpdate} onChange={(e) => setEditableStatus(e.value)} optionLabel="label" placeholder="Selecione um tipo de gerenciamento" />
                 </div>
+                {!getEditableStatus && 
+                    <>
+                        <div className="font-bold mb-2">Nome: <a className="font-normal">{getNameLink}</a></div>
+                        <div className="font-bold my-2">Descrição: <a className="font-normal">{getDescription}</a></div>
+                        <div className="font-bold my-2">Nível: <a className="font-normal">{getLevel}</a></div>
+                        <div className="font-bold mt-2" onClick={() => {window.open(getLinkUrl)}}>URL: <a className="font-normal text-link-special-class">{getLinkUrl}</a></div>
+                        
+                    </>
+                }
                 {getEditableStatus === "updateLevel" && <UpdateLink id={getId} nameLink={getNameLink} descriptionLink={getDescription} levelLink={getLevel} urlLink={getLinkUrl}/>}
                 {getEditableStatus === "updateLevelStatus" && <UpdateLinkStatus id={getId} linkActive={getActive}/>}
                 {getEditableStatus === "updateLevelBadge" && <UpdateLinkBadge id={getId} linkBadge={getBadge} linkBadgeLabel={getBadgeLabel} linkBadgeType={getBadgeType}/>}

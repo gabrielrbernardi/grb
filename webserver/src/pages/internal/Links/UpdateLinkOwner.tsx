@@ -11,7 +11,7 @@ const UpdateLinkOwner = (props:any) => {
     const [getOwner, setOwner] = useState<any>('');
     const [getLoading, setLoading] = useState(false);
 
-    const [getLevelOptions, setLevelOptions] = useState<any>();
+    const [getUserOptions, setUserOptions] = useState<any>();
     
     useEffect(() => {
         fetchData()
@@ -34,7 +34,7 @@ const UpdateLinkOwner = (props:any) => {
             response.data.users.map((valor:any, id:any) => {
                 list.push({label: valor.Name, value: valor.Username})
             })
-            setLevelOptions(list)
+            setUserOptions(list)
             setLoading(false);
         })
         .catch(err => console.log(err));
@@ -58,7 +58,7 @@ const UpdateLinkOwner = (props:any) => {
         <>
             <form onSubmit={handleSubmit}>
                 <p className="mb-2">Propriedade</p>
-                <Dropdown className="col-12 mb-3" value={getOwner} options={getLevelOptions} optionValue="value" onChange={(e) => setOwner(e.value)} placeholder="Selecione o proprietário" disabled={getLoading}/>
+                <Dropdown className="col-12 mb-3" value={getOwner} options={getUserOptions} optionValue="value" onChange={(e) => setOwner(e.value)} placeholder="Selecione o proprietário" disabled={getLoading}/>
                 <Button type="submit" label="Atualizar" loading={getLoading}/>
             </form>
         </>

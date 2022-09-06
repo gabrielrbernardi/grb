@@ -128,7 +128,7 @@ const DataTableUsers = () => {
         <>
             <DataTable value={getUsers} responsiveLayout="stack" paginator rows={10} rowsPerPageOptions={[5,10,25,50]} emptyMessage="Usuário não encontrado." 
                             header={header2} filters={getFilter} loading={getLoading} resizableColumns columnResizeMode="expand" removableSort selectionMode="single" 
-                            selection={getSelectedUser} onSelectionChange={e => setSelectedUser(e.value)} dataKey="id" onRowSelect={onRowSelect} metaKeySelection={false}>
+                            selection={getSelectedUser} onSelectionChange={e => setSelectedUser(e.value)} dataKey="id" onRowSelect={onRowSelect} metaKeySelection={false} sortField="Name" sortOrder={1}>
                 <Column field="Name" header="Nome" sortable></Column>
                 <Column field="Username" header="Usuário" sortable></Column>
                 <Column field="Admin" header="É Admin?" body={statusAdminTemplate} sortable></Column>

@@ -14,6 +14,7 @@ import DataTableInstructors from './DataTableInstructors';
 const HomeInternal = (props:any) => {
     const [getAdminStatus, setAdminStatus] = useState<boolean>();
     const [getInstructorStatus, setInstructorStatus] = useState<boolean>();
+    const [getOtherStatus, setOtherStatus] = useState<boolean>();
 
     useEffect(() => {
         checkAuth()
@@ -33,8 +34,10 @@ const HomeInternal = (props:any) => {
                     await apiGrb.get(`/user/checkInstructor/${id_usuario}`)
                     .then((res) => {
                         if(res){
-                            console.log(res)
                             setInstructorStatus(res.data.isInstructor)
+                            if(res.data.isInstructor === false){
+                                setOtherStatus(res.data.isInstructor)
+                            }
                         }
                     }).catch(err => {
                         //@ts-ignore
@@ -46,9 +49,6 @@ const HomeInternal = (props:any) => {
             //@ts-ignore
             ReactDOM.hydrateRoot(document.getElementById("root") as HTMLElement, <Toast type={"error"} title={"Erro!"} message={"Erro ao buscar os valores"}/>);
         });
-        // console.log(document.cookie.split("isAuth=")[1] === 'true')
-        // console.log((document.cookie.split("isAuth=")[1]) === 'true' ? true : false)
-        // setAdminStatus(getCookie("isAdmin") === 'true' ? true : false)
         return true
     }
 
@@ -60,8 +60,8 @@ const HomeInternal = (props:any) => {
 
     return (
         <>
-            <div className="grid md:col-9 block mx-auto mt-2">
-                {!getAdminStatus && !getInstructorStatus && <InstructorsListLinks/>}
+            <div className="grid md:col-11 block mx-auto mt-2">
+                {!getAdminStatus && !getInstructorStatus && getOtherStatus && <InstructorsListLinks/>}
                 {getInstructorStatus &&
                     <Accordion multiple activeIndex={[]}>
                         <AccordionTab header="Links">

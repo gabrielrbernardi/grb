@@ -105,3 +105,19 @@ html{
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: auto;
 }
+
+.toolbar-uhcc{
+  top: 0px;
+}
+
+@media screen and (min-width: 768px){
+  .toolbar-uhcc{
+    top:91px;
+  }
+}
+
+@media screen and (min-width: 992px){
+  .toolbar-uhcc{
+    top:94px;
+  }
+}

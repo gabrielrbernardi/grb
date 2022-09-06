@@ -5,10 +5,11 @@ import ReactDOM from 'react-dom/client';
 
 import apiGrb from '../../../services/apiGrb';
 import Toast from '../../../components/Toast';
+import { Dropdown } from 'primereact/dropdown';
 
 const UpdateLink = (props:any) => {
     const [getId, setId] = useState<any>();
-    const [getNameInstructor, setNameInstructor] = useState<any>();
+    const [getNameInstructor, setNameInstructor] = useState<any>('');
     const [getDescription, setDescription] = useState<any>();
     const [getLinkUrl, setLinkUrl] = useState<any>();
     const [getLoading, setLoading] = useState(false);
@@ -16,7 +17,7 @@ const UpdateLink = (props:any) => {
 
     useEffect(() => {
         setId(props?.id || undefined);
-        setNameInstructor(props?.nameInstructor || undefined);
+        setNameInstructor(props?.nameInstructor);
         setDescription(props?.descriptionInstructor || undefined);
         setLinkUrl(props?.urlInstructor || undefined);
     }, []);
@@ -39,16 +40,16 @@ const UpdateLink = (props:any) => {
         <>
             <form onSubmit={handleSubmit}>
                 <span className="p-float-label mb-4 mt-4">
-                    <InputText id="user" className="w-12" value={getNameInstructor} onChange={(e) => {setNameInstructor(e.target.value)}} disabled={getLoading}/>
-                    <label htmlFor="user">Nome</label>
+                    <InputText id="nameInstructor" className="w-12" value={getNameInstructor} onChange={(e) => {setNameInstructor(e.target.value)}} disabled={getLoading}/>
+                    <label htmlFor="nameInstructor">Nome</label>
                 </span>
                 <span className="p-float-label mb-2 mt-4">
-                    <InputText id="user" className="w-12" value={getDescription} onChange={(e) => {setDescription(e.target.value)}} disabled={getLoading}/>
-                    <label htmlFor="user">Descrição</label>
+                    <InputText id="desc" className="w-12" value={getDescription} onChange={(e) => {setDescription(e.target.value)}} disabled={getLoading}/>
+                    <label htmlFor="desc">Descrição</label>
                 </span>
                 <span className="p-float-label mb-2 mt-4">
-                    <InputText id="user" className="w-12" value={getLinkUrl} onChange={(e) => {setLinkUrl(e.target.value)}} disabled={getLoading}/>
-                    <label htmlFor="user">URL</label>
+                    <InputText id="url" className="w-12" value={getLinkUrl} onChange={(e) => {setLinkUrl(e.target.value)}} disabled={getLoading}/>
+                    <label htmlFor="url">URL</label>
                 </span>
                 <Button type="submit" label="Atualizar" loading={getLoading}/>
             </form>

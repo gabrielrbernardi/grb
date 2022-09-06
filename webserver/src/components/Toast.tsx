@@ -22,7 +22,7 @@ function ToastComponent (props: any) {
     }
     
     function showToast() {
-        toast.current.show({severity: checkSeverity(), summary: checkTitle(), detail: checkMessage(), life: 4000, closable: true});
+        toast.current.show({severity: checkSeverity(), summary: checkTitle(), detail: checkMessage(), life: 6000, closable: true});
     }
 
     return (

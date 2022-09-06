@@ -236,7 +236,7 @@ const Navbar = () => {
     )
 
     return (
-        <div className="card mb-2 sm:sticky sm:top-0 z-2">
+        <div className="card mb-2 md:sticky md:top-0 z-2">
             {getValidSource
                 ? <></>
                 : 

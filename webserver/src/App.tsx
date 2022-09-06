@@ -47,7 +47,7 @@ function App() {
       <BrowserRouter>
         <Navbar/>
         <ScrollTop threshold={50}/>
-        <div className="mx-3 mb-4">
+        <div className="md:mx-3 mx-0 mb-4">
           <Routes>
             <Route path="/grb">
               <Route path="" element={<Home/>} />

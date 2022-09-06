@@ -86,16 +86,15 @@ const UHCC = () => {
             // return <Skeleton width="50%" />
         }else{
             return (
-                <DataTable className='outline-none' value={arrayComponent} responsiveLayout="stack" selectionMode="single" 
+                <DataTable className='outline-none' value={arrayComponent} responsiveLayout="scroll" selectionMode="single" 
                     onRowSelect={onRowSelect} size="small" removableSort sortField="NameLink" sortOrder={1}
                     selection={getSelectedLink} onSelectionChange={e => setSelectedLink(e.value)}
                 >
                     <Column field="NameLink" header="Nome" style={{width:'15%'}}></Column>
-                    <Column field="Description" header="Descrição" style={{width:'20%'}}></Column>
-                    <Column field="BadgeType" header="Status" body={statusBadgeTypeTemplate} style={{width:'35%'}}></Column>
-                    {/* <Column field="Link" header="Link"></Column> */}
+                    <Column field="Description" header="Descrição" className="text-overflow-ellipsis" style={{width:'30%'}}></Column>
+                    <Column field="BadgeType" header="Status" body={statusBadgeTypeTemplate} style={{width:'20%'}}></Column>
                     {!getUserName && 
-                        <Column field="UsernameCreation" header="Instrutor" body={UserLinkTemplate}></Column>
+                        <Column field="UsernameCreation" header="Instrutor" body={UserLinkTemplate} style={{width:'35%'}}></Column>
                     }
                 </DataTable>
             )
@@ -113,6 +112,7 @@ const UHCC = () => {
     const UserLinkTemplate = (rowData: any) => {
         if(rowData.UsernameCreation === "admin") {
             rowData.UsernameCreation = "";
+            return "Todos"
         }
         if(rowData.UsernameCreation){
             if(getUserOptions){
@@ -152,7 +152,8 @@ const UHCC = () => {
             </Accordion>
 
             <div className="my-2">
-                <Toolbar className="h-auto py-2" left={leftContents} right={rightContents} />
+                <Toolbar className="sticky h-auto py-2 toolbar-uhcc z-3" left={leftContents} right={rightContents} />
+
                 <Accordion multiple activeIndex={[0,1]}>
                     <AccordionTab header="Aula">
                         {/* <table> */}
