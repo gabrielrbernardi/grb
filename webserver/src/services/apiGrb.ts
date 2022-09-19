@@ -14,9 +14,9 @@ function getCookie(name:any) {
 }
 
 const apiGrb = axios.create({
-    // baseURL: 'http://localhost:3333/',
+    baseURL: 'http://localhost:3333/',
     // baseURL: 'http://192.168.100.11:3333/',
-    baseURL: 'https://grbbackend.herokuapp.com/',
+    // baseURL: 'https://grbbackend.herokuapp.com/',
     // timeout: 1000,
     headers: {
         token: 'senha',

@@ -4,6 +4,7 @@ import { Tag } from 'primereact/tag';
 import { useLocation } from 'react-router-dom';
 import { Column } from 'primereact/column';
 import api from '../services/apiGithub';
+import apiGrb from '../services/apiGrb';
 
 const cicloAtual = "2022-3";
 
@@ -11,6 +12,7 @@ const DataTableRepositories = (props: any) => {
     var repositoryName = "";
     var username = "";
     const [getRepositoryContent, setRepositoryContent] = useState<any>([]);
+    const [getActualCycle, setActualCycle] = useState<any>("");
     const [getPath, setPath] = useState(false);
     
     useEffect(() => {
@@ -20,7 +22,7 @@ const DataTableRepositories = (props: any) => {
         if(props.repositoryName){ repositoryName = props.repositoryName; }
         else{ repositoryName = "UberHub-Code-Club"; }
         
-        if(props.uhcc){ setPath(true) }
+        if(props.uhcc){ setPath(true); getActualCycleInfo(); }
         getRepositoryInfo()
     },[])
 
@@ -37,10 +39,22 @@ const DataTableRepositories = (props: any) => {
         })
         .catch(err => {console.log(err) })
     }
+
+    async function getActualCycleInfo(){
+        await apiGrb.get("/config/name/actualCycle").then(response => {
+            if(response?.data?.config[0]?.ConfigValue){
+                setActualCycle(response.data.config[0].ConfigValue);
+            }else{
+                setActualCycle("")
+            }
+        }).catch(err => {
+            console.log(err)
+        })
+    }
     
     const nameRepoColumnTemplate = (rowData:any) => {
         if(rowData.type === "dir"){
-            if(rowData.name === props.actualCycle){
+            if(rowData.name === getActualCycle){
                 return (<>
                     <a className="font-bold text-link-special" onClick={() => {window.open(`${rowData.html_url}`, "_blank")}}>{rowData.name}</a>
                     <Tag value={"Ciclo atual"} severity={""} className="ml-2"/>

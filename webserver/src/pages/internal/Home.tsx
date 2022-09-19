@@ -10,6 +10,7 @@ import DataTableLevels from './DataTableLevels';
 import DataTableCycles from './DataTableLinks';
 import DataTableLinks from './DataTableLinks';
 import DataTableInstructors from './DataTableInstructors';
+import DataTableConfigs from './DataTableConfigs';
 
 const HomeInternal = (props:any) => {
     const [getAdminStatus, setAdminStatus] = useState<boolean>();
@@ -91,6 +92,11 @@ const HomeInternal = (props:any) => {
                             <AccordionTab header="Instrutores">
                                 <>
                                     <DataTableInstructors/>
+                                </>
+                            </AccordionTab>
+                            <AccordionTab header="Configurações">
+                                <>
+                                    <DataTableConfigs/>
                                 </>
                             </AccordionTab>
                     </Accordion>

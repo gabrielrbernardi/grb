@@ -15,7 +15,7 @@ import { Column } from 'primereact/column';
 
 // import getLinkData from '../assets/links.json'; //dev
 const linkConfig = "https://raw.githubusercontent.com/gabrielrbernardi/grb/main/webserver/src/assets/links.json";
-const errorDataAxiosJson = ["error", "Erro!", "Erro ao buscar arquivo de configurações."]
+const errorDataAxiosJson = ["error", "Erro!", "Erro ao buscar configurações."]
 
 const UHCC = () => {
     const [getLinkData, setLinkData] = useState({actualCycle: "", actualClass: "", rootRepo: "", aula:[], inic1:[], inic2:[], inter1:[]});
@@ -24,9 +24,9 @@ const UHCC = () => {
     const [getUserName, setUserName] = useState<any>('');
     const [getSelectedLink, setSelectedLink] = useState<any>('');
     
-    useEffect( () => {
+    useEffect(() => {        
         fetchUsers()
-        fetchData()
+        fetchData(true)
     }, [])
     
     const fetchUsers = async () => {
@@ -35,7 +35,7 @@ const UHCC = () => {
         .then(response => {
             let list = [{}];
             list.pop();
-            list.push({label: "Todos", value: ""})
+            list.push({label: "Todos", value: ""});
             response.data.users.map((valor:any, id:any) => {
                 list.push({label: valor.Name, value: valor.Username})
             })
@@ -49,18 +49,42 @@ const UHCC = () => {
         });
     }
 
-    const fetchData = async () => {
-        setLoading(true)
-        await apiGrb.get(`links/filtered/${getUserName}`)
-        .then((response) => {setLinkData(response.data.links); setLoading(false)})
+    async function fetchData(mode: any = false) {
+        setLoading(true);
+        if(mode !== true){
+            const d = new Date();
+            d.setTime(d.getTime() + (30*24*60*60*1000));
+            let expires = "expires="+ d.toUTCString();
+            document.cookie = `instructor=${getUserName};` + expires + ";path=/; SameSite=None; Secure";
+        }else{
+            setUserName(getCookie("instructor"))
+        }
+
+        let usuario = getUserName || getCookie("instructor");
+
+        await apiGrb.get(`links/filtered/${usuario}`)
+        .then((response) => {
+            setLinkData(response.data.links); 
+            console.log(response); 
+            setLoading(false);
+            if(response?.data?.alert){
+                //@ts-ignore
+                ReactDOM.hydrateRoot(document.getElementById("root") as HTMLElement, <Toast type="warn" title="Alerta" message={response?.data?.alert || "Usuário não encontrado."}/>);
+            }
+        })
         .catch((err) => {
             setLoading(false);
             setLinkData(err?.response?.data?.links || null);
-            // <Toast type={errorDataAxiosJson[0]} title={errorDataAxiosJson[1]} message={errorDataAxiosJson[2]}/>
             //@ts-ignore
             ReactDOM.hydrateRoot(document.getElementById("root") as HTMLElement, <Toast type={errorDataAxiosJson[0]} title={errorDataAxiosJson[1]} message={err?.response?.data?.error || errorDataAxiosJson[2]}/>);
         });
     }
+
+    function getCookie(name:any) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) {let res = parts.pop()?.split(';')?.shift(); return res;}else{return null}
+    } 
 
     const onRowSelect = async (event:any) => {
         window.open(`${event.data.Link}`, "_blank");
@@ -121,7 +145,7 @@ const UHCC = () => {
                 return <></>
             }
         }else{
-            return <></>
+            return <>Todos</>
         }
     }
 
@@ -182,20 +206,22 @@ const UHCC = () => {
                 </Accordion>
             </div>
 
-            <Accordion>
-                <AccordionTab header="Códigos">
-                    {!getLoading
-                        ?
-                            <div>
-                                <a>Repositório disponível em: </a>
-                                <a className="text-link-special-class" onClick={() => {window.open("https://github.com/gabrielrbernardi/UberHub-Code-Club", "_blank")}}>{"GitHub UberHub Code Club GRB"}</a>
-                            </div>
-                        :
-                        <Skeleton width="50%" />
-                    }
-                    <DataTableRepositories uhcc actualCycle={getLinkData.actualCycle}/>
-                </AccordionTab>
-            </Accordion>
+            {getUserName === "gabriel" && 
+                <Accordion>
+                    <AccordionTab header="Códigos">
+                        {!getLoading
+                            ?
+                                <div>
+                                    <a>Repositório disponível em: </a>
+                                    <a className="text-link-special-class" onClick={() => {window.open("https://github.com/gabrielrbernardi/UberHub-Code-Club", "_blank")}}>{"GitHub UberHub Code Club GRB"}</a>
+                                </div>
+                            :
+                            <Skeleton width="50%" />
+                        }
+                        <DataTableRepositories uhcc/>
+                    </AccordionTab>
+                </Accordion>
+            }
         </>
     )
 }
