@@ -24,11 +24,17 @@ html{
 .text-link-special-class-danger{
   transition: .2s ease;
   color: rgb(245, 124, 0);
+  text-decoration: none;
 }
 
 .text-footer{
   transition: .2s ease;
   color: white;
+}
+
+.text-link-special-class-danger:hover{
+  opacity: .85;
+  cursor: pointer;
 }
 
 .text-link:hover, .logo:hover, .text-link-special:hover, .text-link-special-class:hover, .text-footer:hover{

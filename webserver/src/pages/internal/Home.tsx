@@ -70,6 +70,11 @@ const HomeInternal = (props:any) => {
                             <DataTableLinks isAdmin={getAdminStatus}/>
                         </>
                         </AccordionTab>
+                        <AccordionTab header="Configurações">
+                            <>
+                                <DataTableConfigs isAdmin={getAdminStatus}/>
+                            </>
+                        </AccordionTab>
                     </Accordion>
                 }
                 {getAdminStatus && 
@@ -96,7 +101,7 @@ const HomeInternal = (props:any) => {
                             </AccordionTab>
                             <AccordionTab header="Configurações">
                                 <>
-                                    <DataTableConfigs/>
+                                    <DataTableConfigs isAdmin={getAdminStatus}/>
                                 </>
                             </AccordionTab>
                     </Accordion>

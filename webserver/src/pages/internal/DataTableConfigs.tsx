@@ -18,7 +18,9 @@ import UpdateConfig from './Configs/UpdateConfig';
 import DeleteConfig from './Configs/DeleteConfig';
 import CreateNewConfig from './Configs/CreateNewConfig';
 
-const DataTableConfigs = () => {
+const DataTableConfigs = (props: any) => {
+    const [getIsAdmin, setIsAdmin] = useState<any>();
+
     const [getCycles, setCycles] = useState();
     const [getLoading, setLoading] = useState(true);
     const [getSelectedLink, setSelectedLinnk] = useState({});
@@ -48,13 +50,20 @@ const DataTableConfigs = () => {
         {label: 'Excluir Configuração', value: "deleteConfig"},
     ];
 
-    useEffect(() => {   
+    useEffect(() => {  
+        setIsAdmin(props?.isAdmin || false) 
         fetchData();
     }, []);
 
     async function fetchData(){
         setLoading(true);
-        await apiGrb.get("configs")
+        let route = "";
+        if(getIsAdmin === true || props?.isAdmin === true){
+            route = "configs";
+        }else{
+            route = "config/user";
+        }
+        await apiGrb.get(`${route}`)
         .then(response => {
             setCycles(response.data.configs);
             setLoading(false);
@@ -89,7 +98,7 @@ const DataTableConfigs = () => {
                 <span className="p-input-icon-left">
                     <i className="pi pi-search" />
                     <InputText value={getFilterValue} onChange={handleFilterChange} placeholder="Busca" />
-                    <Button className="ml-4" icon="pi pi-plus" tooltip="Criar Instrutor" onClick={() => setShowDialogCreate(true)}/>
+                    <Button className="ml-4" icon="pi pi-plus" tooltip="Criar Configuração" onClick={() => setShowDialogCreate(true)}/>
                     <Button className="ml-4 p-button-success" icon="pi pi-refresh" tooltip="Atualizar lista" onClick={() => fetchData()} loading={getLoading}/>
                 </span>
             </div>
@@ -134,7 +143,7 @@ const DataTableConfigs = () => {
                     <p className="my-2">Tipo:</p>
                     <Dropdown className="col-12" value={getEditableStatus} options={statusPossibilitiesUpdate} onChange={(e) => setEditableStatus(e.value)} optionLabel="label" placeholder="Selecione um tipo de gerenciamento" />
                 </div>
-                {getEditableStatus === "updateConfig" && <UpdateConfig id={getId} nameConfig={getConfigName} valueConfig={getConfigValue}/>}
+                {getEditableStatus === "updateConfig" && <UpdateConfig id={getId} nameConfig={getConfigName} valueConfig={getConfigValue} usernameConfig={getUsernameCreation}/>}
                 {/* {getEditableStatus === "updateInstructorStatus" && <UpdateInstructorStatus id={getId} instructorActive={getActive}/>} */}
                 {getEditableStatus === "deleteConfig" && <DeleteConfig id={getId}/>}
             </Dialog>

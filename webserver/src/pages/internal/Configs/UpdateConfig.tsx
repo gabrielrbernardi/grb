@@ -11,18 +11,27 @@ const UpdateConfig = (props:any) => {
     const [getId, setId] = useState<any>();
     const [getConfigName, setConfigName] = useState<any>('');
     const [getConfigValue, setConfigValue] = useState<any>();
+    const [getUsername, setUsername] = useState<any>();
     const [getLoading, setLoading] = useState(false);
+
+    const statusPossibilities = [
+        {label: 'Ciclo Atual', value: "actualCycle"},
+        {label: 'Url do Repositório', value: "repositoryUrlGithub"},
+        // {label: 'Url do Repositório', value: "repositoryUrlGithub"},
+        {label: 'Nome a ser mostrado', value: "repositoryNameCustom"},
+    ];
 
     useEffect(() => {
         setId(props?.id || undefined);
         setConfigName(props?.nameConfig || undefined);
         setConfigValue(props?.valueConfig || undefined);
+        setUsername(props?.usernameConfig || undefined);
     }, []);
 
     async function handleSubmit(event:any){
         event?.preventDefault();
         setLoading(true);
-        await apiGrb.put("/config", {id: getId, ConfigName: getConfigName, ConfigValue: getConfigValue}).then((response:any) => {
+        await apiGrb.put("/config", {id: getId, ConfigName: getConfigName, ConfigValue: getConfigValue, Username: getUsername}).then((response:any) => {
             setLoading(false);
             //@ts-ignore
             ReactDOM.hydrateRoot(document.getElementById("root") as HTMLElement, <Toast type={"success"} title={"Atualizado!"} message={response?.data?.data || "Atualizado com sucesso!"}/>);
@@ -36,10 +45,13 @@ const UpdateConfig = (props:any) => {
     return (
         <>
             <form onSubmit={handleSubmit}>
-                <span className="p-float-label mb-4 mt-4">
+                {/* <span className="p-float-label mb-4 mt-4">
                     <InputText id="nameInstructor" className="w-12" value={getConfigName} onChange={(e) => {setConfigName(e.target.value)}} disabled={getLoading}/>
                     <label htmlFor="nameInstructor">Nome</label>
-                </span>
+                </span> */}
+                <p className="my-2">Tipo de Configuração</p>
+                <Dropdown className="col-12 mb-3" value={getConfigName} options={statusPossibilities} onChange={(e) => setConfigName(e.value)} placeholder="Selecione a configuração" disabled={getLoading}/>
+
                 <span className="p-float-label mb-2 mt-4">
                     <InputText id="desc" className="w-12" value={getConfigValue} onChange={(e) => {setConfigValue(e.target.value)}} disabled={getLoading}/>
                     <label htmlFor="desc">Valor</label>

@@ -23,6 +23,8 @@ const UHCC = () => {
     const [getUserOptions, setUserOptions] = useState<any>();
     const [getUserName, setUserName] = useState<any>('');
     const [getSelectedLink, setSelectedLink] = useState<any>('');
+
+    const [activeIndex, setActiveIndex] = useState<any>([]);
     
     useEffect(() => {        
         fetchUsers()
@@ -51,11 +53,14 @@ const UHCC = () => {
 
     async function fetchData(mode: any = false) {
         setLoading(true);
+
+        
         if(mode !== true){
             const d = new Date();
             d.setTime(d.getTime() + (30*24*60*60*1000));
             let expires = "expires="+ d.toUTCString();
             document.cookie = `instructor=${getUserName};` + expires + ";path=/; SameSite=None; Secure";
+            onClick(0);
         }else{
             setUserName(getCookie("instructor"))
         }
@@ -65,7 +70,6 @@ const UHCC = () => {
         await apiGrb.get(`links/filtered/${usuario}`)
         .then((response) => {
             setLinkData(response.data.links); 
-            console.log(response); 
             setLoading(false);
             if(response?.data?.alert){
                 //@ts-ignore
@@ -95,7 +99,7 @@ const UHCC = () => {
         if((!arrayComponent || arrayComponent.length == 0) && !getLoading){
             return(
                 <>
-                    <td className="text-link-special-class fadein animation-duration-400">Não há links cadastrados</td>
+                    <td className="text-link-special-class cursor-auto fadein animation-duration-400">Não há links cadastrados</td>
                </>
             );
         }
@@ -147,6 +151,15 @@ const UHCC = () => {
         }else{
             return <>Todos</>
         }
+    }
+    
+    const onClick = (itemIndex:any) => {
+        let _activeIndex:any = activeIndex ? [...activeIndex] : [];
+
+        const index = _activeIndex.indexOf(itemIndex);
+        _activeIndex.splice(index, 1);
+
+        setActiveIndex(_activeIndex);
     }
 
     const rightContents = (
@@ -206,22 +219,13 @@ const UHCC = () => {
                 </Accordion>
             </div>
 
-            {getUserName === "gabriel" && 
-                <Accordion>
+            {/* {getUserName === "gabriel" &&  */}
+                <Accordion multiple activeIndex={activeIndex} onTabChange={(e) => setActiveIndex(e.index)}>
                     <AccordionTab header="Códigos">
-                        {!getLoading
-                            ?
-                                <div>
-                                    <a>Repositório disponível em: </a>
-                                    <a className="text-link-special-class" onClick={() => {window.open("https://github.com/gabrielrbernardi/UberHub-Code-Club", "_blank")}}>{"GitHub UberHub Code Club GRB"}</a>
-                                </div>
-                            :
-                            <Skeleton width="50%" />
-                        }
-                        <DataTableRepositories uhcc/>
+                        <DataTableRepositories uhcc usernameChoose={getUserName}/>
                     </AccordionTab>
                 </Accordion>
-            }
+            {/* } */}
         </>
     )
 }
