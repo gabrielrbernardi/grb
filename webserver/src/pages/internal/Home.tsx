@@ -63,6 +63,12 @@ const HomeInternal = (props:any) => {
         <>
             <div className="grid md:col-11 block mx-auto mt-2">
                 {!getAdminStatus && !getInstructorStatus && getOtherStatus && <InstructorsListLinks/>}
+                {/* {getInstructorStatus || getAdminStatus ?
+                    <>
+                        <div className="block text-center text-3xl mx-auto mb-2">Painel de controle</div>
+                    </>
+                    :<></>
+                } */}
                 {getInstructorStatus &&
                     <Accordion multiple activeIndex={[]}>
                         <AccordionTab header="Links">

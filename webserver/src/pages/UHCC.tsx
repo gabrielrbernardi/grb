@@ -219,13 +219,13 @@ const UHCC = () => {
                 </Accordion>
             </div>
 
-            {/* {getUserName === "gabriel" &&  */}
+            {getUserName !== "" && 
                 <Accordion multiple activeIndex={activeIndex} onTabChange={(e) => setActiveIndex(e.index)}>
                     <AccordionTab header="Códigos">
                         <DataTableRepositories uhcc usernameChoose={getUserName}/>
                     </AccordionTab>
                 </Accordion>
-            {/* } */}
+            }
         </>
     )
 }

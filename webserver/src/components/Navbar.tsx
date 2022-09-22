@@ -8,6 +8,7 @@ import { MdCompareArrows } from 'react-icons/md';
 import { AiOutlineColumnWidth } from 'react-icons/ai';
 import { GiTransform } from 'react-icons/gi';
 import { Button } from 'primereact/button';
+import { Avatar } from 'primereact/avatar';
 
 const logo = require("../assets/logo.png");
 
@@ -189,8 +190,16 @@ const Navbar = () => {
         setHideBanner(true);
     }
 
+    function getCookie(name:any) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop()?.split(';')?.shift();
+      }
+
     function handleLogout(){
         document.cookie = "isAuth=false; path=/"
+        document.cookie = "name=; path=/"
+        document.cookie = "id=; path=/"
         const d = new Date();
         // document.cookie = "name=false; path=/grb/internal"
         // document.cookie = "username=false; path=/grb/internal"
@@ -224,10 +233,13 @@ const Navbar = () => {
             {/* <Button icon="pi pi-times" className="p-button-rounded p-button-outlined mr-2 p-button-danger" aria-label="Submit" onClick={() => navigate("internal/uhcc")} /> */}
             {checkCookie() 
                 ?
-                    <Button icon="pi pi-sign-in" className="p-button-rounded p-button-outlined mr-2" aria-label="Submit" onClick={() => navigate("grb/login")} />
+                <Button icon="pi pi-sign-in" className="p-button-rounded p-button-outlined mr-2" aria-label="Submit" onClick={() => navigate("grb/login")} />
                 :
-                    <Button icon="pi pi-sign-out" className="p-button-rounded p-button-outlined mr-2 p-button-danger" aria-label="Submit" onClick={handleLogout} />
-
+                    <>
+                        {/* <a className="my-auto mr-2">Olá {getCookie("name")}!</a> */}
+                        {/* <Avatar label={getCookie("name")} className="mr-2" size="normal" shape="circle" /> */}
+                        <Button icon="pi pi-sign-out" className="p-button-rounded p-button-outlined mr-2 p-button-danger" aria-label="Submit" onClick={handleLogout} />
+                    </>
             }
             <div className="logo m-0 p-0 flex-1" onClick={() => navigate(rootPath + '/')}>
                 <Image src={logo} width="48vh" alt="Logo"/>
@@ -236,7 +248,7 @@ const Navbar = () => {
     )
 
     return (
-        <div className="card mb-2 md:sticky md:top-0 z-2">
+        <div className="card mb-2 md:sticky md:top-0 z-4">
             {getValidSource
                 ? <></>
                 : 

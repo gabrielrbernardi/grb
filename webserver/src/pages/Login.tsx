@@ -35,7 +35,7 @@ const Login = () => {
                 // console.log(response?.data?.data?.Username)
                 // console.log(response?.data?.data?.Name)
                 // console.log(response?.data?.data?.Active)
-                // document.cookie = `name=${response?.data?.data?.Name}; path=/grb/internal`
+                document.cookie = `name=${response?.data?.data?.Name}; path=/`
                 // document.cookie = `active=${response?.data?.data?.Active}; path=/grb/internal`
                 setLoading(false);
                 navigate("/grb/internal")

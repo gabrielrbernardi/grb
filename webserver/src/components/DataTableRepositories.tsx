@@ -89,20 +89,50 @@ const DataTableRepositories = (props: any) => {
         }else{
             repoUrl = ""
         }
-        await api.get(repoUrl || `repos/${username}/${repositoryName}/contents`)
-        .then(response => {
-            if(repositoryName == "UberHub-Code-Club"){
-                let lista = response.data
-                lista = lista.reverse()
-                setRepositoryContent(lista)
+        if(uhcc){
+            if(repoUrl){
+                await api.get(repoUrl || `repos/${username}/${repositoryName}/contents`)
+                // await api.get(repoUrl || "")
+                .then(response => {
+                    if(response){
+                        if(repositoryName == "UberHub-Code-Club"){
+                            let lista = response.data
+                            lista = lista.reverse()
+                            setRepositoryContent(lista)
+                        }else{
+                            setRepositoryContent(response.data)
+                        }
+                    }
+                })
+                .catch(err => {
+                    //@ts-ignore
+                    ReactDOM.hydrateRoot(document.getElementById("root") as HTMLElement, <Toast type={"error"} title={"Erro!"} message={err?.message + ". GitHub API." || "Erro na busca do repositório! GitHub API."}/>)
+                })
             }else{
-                setRepositoryContent(response.data)
+                // //@ts-ignore
+                // ReactDOM.hydrateRoot(document.getElementById("root") as HTMLElement, <Toast type={"warn"} title={"Alerta!"} message={"Repositório não fornecido. GitHub API."}/>)
+                setRepositoryContent("")
             }
-        })
-        .catch(err => {
-            //@ts-ignore
-            ReactDOM.hydrateRoot(document.getElementById("root") as HTMLElement, <Toast type={"error"} title={"Erro!"} message={err?.message + ". GitHub API." || "Erro na busca do repositório! GitHub API."}/>)
-        })
+        }else{
+            await api.get(`repos/${username}/${repositoryName}/contents`)
+                // await api.get(repoUrl || "")
+                .then(response => {
+                    if(response){
+                        if(repositoryName == "UberHub-Code-Club"){
+                            let lista = response.data
+                            lista = lista.reverse()
+                            setRepositoryContent(lista)
+                        }else{
+                            setRepositoryContent(response.data)
+                        }
+                    }
+                })
+                .catch(err => {
+                    //@ts-ignore
+                    ReactDOM.hydrateRoot(document.getElementById("root") as HTMLElement, <Toast type={"error"} title={"Erro!"} message={err?.message + ". GitHub API." || "Erro na busca do repositório! GitHub API."}/>)
+                })
+        }
+        setLoading(false);
     }
     
     const nameRepoColumnTemplate = (rowData:any) => {
@@ -137,7 +167,7 @@ const DataTableRepositories = (props: any) => {
                     </p>
                 : <></>
             } */}
-            {getRepoUrl ?
+            {getRepositoryContent ?
                 <>
                     {getPath === true
                         ?
@@ -152,13 +182,13 @@ const DataTableRepositories = (props: any) => {
                         <Skeleton width="50%" />
                         :<></>
                     }
-                    <DataTable value={getRepositoryContent} className="col-12 md:col-12 md:pl-4 mr-0 pl-0 pr-0 mx-auto" emptyMessage="Repositório vazio.">
+                    <DataTable value={getRepositoryContent} className="col-12 md:col-12 md:pl-4 mr-0 pl-0 pr-0 mx-auto" emptyMessage="Repositório vazio." loading={getLoading}>
                         <Column field="name" header="Nome" headerStyle={{ width: '3em' }} body={nameRepoColumnTemplate} />
                         <Column field="type" header="Tipo" headerStyle={{ width: '3em' }} />
                         <Column field="size" header="Tamanho" headerStyle={{ width: '3em' }} body={sizeRepoColumnTemplate}/>
                     </DataTable>
                 </>
-                : <a className="text-link-special-class cursor-auto fadein animation-duration-400">Não há links cadastrados</a>
+                : <a className="text-link-special-class cursor-auto fadein animation-duration-400">Não há registros cadastrados</a>
             }
         </>
     )
