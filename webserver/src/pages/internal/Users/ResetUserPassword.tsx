@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom/client';
 import Toast from '../../../components/Toast';
 import apiGrb from '../../../services/apiGrb';
 
-const UpdateUserPassword = (props:any) => {
+const ResetUserPassword = (props:any) => {
     const [getId, setId] = useState<any>();
     const [getPassword, setPassword] = useState<any>('');
     const [getConfirmPassword, setConfirmPassword] = useState<any>('');
@@ -47,4 +47,4 @@ const UpdateUserPassword = (props:any) => {
     )
 }
 
-export default UpdateUserPassword;
+export default ResetUserPassword;

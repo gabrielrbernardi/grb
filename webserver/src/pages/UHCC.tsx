@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom/client';
+import ReactDOM1 from 'react-dom/';
 import { Accordion, AccordionTab } from 'primereact/accordion';
 import { Skeleton } from 'primereact/skeleton';
 import { Toolbar } from 'primereact/toolbar';
@@ -12,6 +13,7 @@ import { Tag } from 'primereact/tag';
 import { Dropdown } from 'primereact/dropdown';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
+import Loading from '../components/Loading';
 
 // import getLinkData from '../assets/links.json'; //dev
 const linkConfig = "https://raw.githubusercontent.com/gabrielrbernardi/grb/main/webserver/src/assets/links.json";
@@ -21,12 +23,13 @@ const UHCC = () => {
     const [getLinkData, setLinkData] = useState({actualCycle: "", actualClass: "", rootRepo: "", aula:[], inic1:[], inic2:[], inter1:[]});
     const [getLoading, setLoading] = useState(true);   
     const [getUserOptions, setUserOptions] = useState<any>();
-    const [getUserName, setUserName] = useState<any>('');
+    const [getUserName, setUserName] = useState<any>("");
     const [getSelectedLink, setSelectedLink] = useState<any>('');
 
     const [activeIndex, setActiveIndex] = useState<any>([]);
     
     useEffect(() => {        
+        setUserName({label: "Todos", value: ""})
         fetchUsers()
         fetchData(true)
     }, [])
@@ -41,6 +44,8 @@ const UHCC = () => {
             response.data.users.map((valor:any, id:any) => {
                 list.push({label: valor.Name, value: valor.Username})
             })
+            // @ts-ignore
+            list.sort((a, b) => (a.value > b.value) ? 1 : -1)
             setUserOptions(list)
             setLoading(false);
         })
@@ -54,7 +59,6 @@ const UHCC = () => {
     async function fetchData(mode: any = false) {
         setLoading(true);
 
-        
         if(mode !== true){
             const d = new Date();
             d.setTime(d.getTime() + (30*24*60*60*1000));
@@ -65,7 +69,16 @@ const UHCC = () => {
             setUserName(getCookie("instructor"))
         }
 
-        let usuario = getUserName || getCookie("instructor");
+        let usuario = "";
+        let cookieContent = getCookie("instructor") || "";
+
+        if(getUserName !== null && getUserName !== undefined && getUserName !== "null"){
+            usuario = getUserName;
+        }else if(cookieContent !== null && cookieContent !== undefined && cookieContent !== "null"){
+            usuario = cookieContent;
+        }else{
+            usuario = "";
+        }
 
         await apiGrb.get(`links/filtered/${usuario}`)
         .then((response) => {
@@ -78,7 +91,7 @@ const UHCC = () => {
         })
         .catch((err) => {
             setLoading(false);
-            setLinkData(err?.response?.data?.links || null);
+            setLinkData(err?.response?.data?.links || []);
             //@ts-ignore
             ReactDOM.hydrateRoot(document.getElementById("root") as HTMLElement, <Toast type={errorDataAxiosJson[0]} title={errorDataAxiosJson[1]} message={err?.response?.data?.error || errorDataAxiosJson[2]}/>);
         });
@@ -99,7 +112,7 @@ const UHCC = () => {
         if((!arrayComponent || arrayComponent.length == 0) && !getLoading){
             return(
                 <>
-                    <td className="text-link-special-class cursor-auto fadein animation-duration-400">Não há links cadastrados</td>
+                    <a className="text-link-special-class cursor-auto fadein animation-duration-400">Não há links cadastrados</a>
                </>
             );
         }
@@ -174,14 +187,21 @@ const UHCC = () => {
     
     const leftContents = (
         <React.Fragment>
-            <>
-            <Dropdown className="col-12 w-full my-0 py-0" value={getUserName} options={getUserOptions} onHide={fetchData} onChange={e => {onUserChange(e)}} placeholder="Selecione o Instrutor" disabled={getLoading}/>
-            </>
+            <div>
+                <a>Instrutor:</a>
+                <Dropdown className="col-12 w-full my-0 py-0" value={getUserName} options={getUserOptions} onHide={fetchData} onChange={e => {onUserChange(e)}} placeholder="Selecione o Instrutor" disabled={getLoading}/>
+            </div>
         </React.Fragment>
     );
 
     return (
         <>
+            {getLoading 
+                ?
+                    <Loading/>
+                :
+                    <></>
+            }
             <Accordion className="scalein animation-ease-out">
                 <AccordionTab header="Gerador de links Neps/Beecrowd">
                     <ExercisesUHCC/>

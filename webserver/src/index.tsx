@@ -8,7 +8,7 @@ import PrimeReact from 'primereact/api';
 import "primereact/resources/themes/arya-blue/theme.css";  //theme
 import "primereact/resources/primereact.min.css";                  //core css
 import "primeicons/primeicons.css";                                //icons
-import "/node_modules/primeflex/primeflex.css"
+import "/node_modules/primeflex/primeflex.css"                     //biblioteca com utilidades para CSS. similar ao bootstrap
 
 PrimeReact.ripple = true;
 

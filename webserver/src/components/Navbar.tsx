@@ -233,12 +233,14 @@ const Navbar = () => {
             {/* <Button icon="pi pi-times" className="p-button-rounded p-button-outlined mr-2 p-button-danger" aria-label="Submit" onClick={() => navigate("internal/uhcc")} /> */}
             {checkCookie() 
                 ?
-                <Button icon="pi pi-sign-in" className="p-button-rounded p-button-outlined mr-2" aria-label="Submit" onClick={() => navigate("grb/login")} />
+                    <>
+                        <Button icon="pi pi-sign-in" className="p-button-rounded p-button-outlined mr-2" tooltip="Login" tooltipOptions={{position: 'left'}} aria-label="Submit" onClick={() => navigate("grb/login")} />
+                    </>
                 :
                     <>
                         {/* <a className="my-auto mr-2">Olá {getCookie("name")}!</a> */}
                         {/* <Avatar label={getCookie("name")} className="mr-2" size="normal" shape="circle" /> */}
-                        <Button icon="pi pi-sign-out" className="p-button-rounded p-button-outlined mr-2 p-button-danger" aria-label="Submit" onClick={handleLogout} />
+                        <Button icon="pi pi-sign-out" className="p-button-rounded p-button-outlined mr-2 p-button-danger" tooltip="Sair" tooltipOptions={{position: 'left'}} aria-label="Submit" onClick={handleLogout} />
                     </>
             }
             <div className="logo m-0 p-0 flex-1" onClick={() => navigate(rootPath + '/')}>

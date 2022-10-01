@@ -11,6 +11,8 @@ import DataTableCycles from './DataTableLinks';
 import DataTableLinks from './DataTableLinks';
 import DataTableInstructors from './DataTableInstructors';
 import DataTableConfigs from './DataTableConfigs';
+import UpdateUserPassword from './Users/InstructorsArea/UpdateUserPassword';
+import HomeUsersInstructors from './Users/InstructorsArea/Home';
 
 const HomeInternal = (props:any) => {
     const [getAdminStatus, setAdminStatus] = useState<boolean>();
@@ -63,22 +65,27 @@ const HomeInternal = (props:any) => {
         <>
             <div className="grid md:col-11 block mx-auto mt-2">
                 {!getAdminStatus && !getInstructorStatus && getOtherStatus && <InstructorsListLinks/>}
-                {/* {getInstructorStatus || getAdminStatus ?
+                {getInstructorStatus || getAdminStatus ?
                     <>
-                        <div className="block text-center text-3xl mx-auto mb-2">Painel de controle</div>
+                        <div className="block text-center text-3xl mx-auto mb-2">Olá {getCookie("name") || ""}! Bem vindo ao painel de controle da plataforma.</div>
                     </>
                     :<></>
-                } */}
+                }
                 {getInstructorStatus &&
                     <Accordion multiple activeIndex={[]}>
                         <AccordionTab header="Links">
-                        <>
-                            <DataTableLinks isAdmin={getAdminStatus}/>
-                        </>
+                            <>
+                                <DataTableLinks isAdmin={getAdminStatus}/>
+                            </>
                         </AccordionTab>
-                        <AccordionTab header="Configurações">
+                        <AccordionTab header="Repositório (Códigos)">
                             <>
                                 <DataTableConfigs isAdmin={getAdminStatus}/>
+                            </>
+                        </AccordionTab>
+                        <AccordionTab header="Gerenciar Usuário">
+                            <>
+                                <HomeUsersInstructors/>
                             </>
                         </AccordionTab>
                     </Accordion>

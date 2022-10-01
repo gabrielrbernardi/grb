@@ -21,7 +21,11 @@ const Login = () => {
         event?.preventDefault();
         setLoading(true)
         apiGrb.post("login", {Username: getUser, Password: getPass}).then(response => {
-            document.cookie = "isAuth=true;path=/"
+            const d = new Date();
+            // d.setTime(d.getTime() + (10*1000));
+            d.setTime(d.getTime() + (4*60*60*1000));
+            let expires = "expires="+ d.toUTCString();
+            document.cookie = "isAuth=true; path=/;" + expires;
             setTimeout(() => {
                 if(response?.data?.data?.Admin){
                     document.cookie = `isAdmin=true; path=/`;
@@ -32,11 +36,7 @@ const Login = () => {
                     document.cookie = `id=${response?.data?.data?.id}; path=/`
                     apiGrb.defaults.headers.common['id_usuario'] = response?.data?.data?.id;
                 }
-                // console.log(response?.data?.data?.Username)
-                // console.log(response?.data?.data?.Name)
-                // console.log(response?.data?.data?.Active)
                 document.cookie = `name=${response?.data?.data?.Name}; path=/`
-                // document.cookie = `active=${response?.data?.data?.Active}; path=/grb/internal`
                 setLoading(false);
                 navigate("/grb/internal")
             }, 2000);
@@ -48,7 +48,7 @@ const Login = () => {
     }
 
     return (
-        <div className="flex grid align-content-center login logo-background">
+        <div className="flex grid align-content-center login">
             <form className="bg-black-alpha-30 text-white text-center p-4 border-round mx-auto my-auto md:col-4 col-12" onSubmit={handleSubmit}>
                 <h2 className="text-left mb-5">Login</h2>
                 {getMessageError
@@ -68,7 +68,7 @@ const Login = () => {
                     <label htmlFor="pass">Senha</label>
                 </span>
                 <br/>
-                <Button loading={getLoading} type="submit">{!getLoading && "Login"}</Button>
+                <Button loading={getLoading} className="p-button-sm" type="submit" label={!getLoading ? "Login" : "Carregando"}/>
             </form>
         </div>
     )

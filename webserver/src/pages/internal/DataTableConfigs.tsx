@@ -94,7 +94,7 @@ const DataTableConfigs = (props: any) => {
     const renderHeader2 = () => {
         return (
             <div className="flex justify-content-between">
-                <a>Configurações</a>
+                <a>Repositório (Códigos)</a>
                 <span className="p-input-icon-left">
                     <i className="pi pi-search" />
                     <InputText value={getFilterValue} onChange={handleFilterChange} placeholder="Busca" />

@@ -50,7 +50,8 @@ function App() {
         <div className="md:mx-3 mx-0 mb-4">
           <Routes>
             <Route path="/grb">
-              <Route path="" element={<Home/>} />
+              <Route path="" element={<Navigate to="uberhub" replace />} />
+              {/* <Route path="" element={<Home/>} /> */}
               <Route path="about" element={<About/>}/>
               <Route path="index.html" element={<Navigate to="/grb/" replace />}>
                 <Route path="?source=uberhub" element={<UHCC/>} />

@@ -98,7 +98,16 @@ const DataTableLinks = (props: any) => {
     }
 
     const LinkTemplate = (rowData: any) => {
-        return rowData.Link.split(".com/")[0] + ".com/" || rowData.Link
+        if(rowData.Link){
+            if(rowData.Link.indexOf("/", 8) !== -1){
+                return (rowData.Link.slice(0,rowData.Link.indexOf("/", 8))) + "/";
+            }else{
+                return rowData.Link || ""
+            }
+        }else{
+            return ""
+        }
+        // return rowData.Link.split(".com/")[0] + ".com/" || rowData.Link
     }
 
     const statusActiveTemplate = (rowData: any) => {
