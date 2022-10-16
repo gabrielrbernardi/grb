@@ -197,9 +197,9 @@ const Navbar = () => {
       }
 
     function handleLogout(){
-        document.cookie = "isAuth=false; path=/"
-        document.cookie = "name=; path=/"
-        document.cookie = "id=; path=/"
+        document.cookie = "isAuth=false; path=/; Secure"
+        document.cookie = "name=; path=/; Secure"
+        document.cookie = "id=; path=/; Secure"
         const d = new Date();
         // document.cookie = "name=false; path=/grb/internal"
         // document.cookie = "username=false; path=/grb/internal"

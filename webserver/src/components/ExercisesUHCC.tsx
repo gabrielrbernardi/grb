@@ -28,7 +28,7 @@ const ExercisesUHCC = () => {
         <div className="mx-auto text-center mb-4">
             <p className="text-center text-lg">Tipo de transformação</p>
             <SelectButton className="text-center" value={getPlatform} options={platformOptions} optionLabel="name" onChange={(e) => {setPlatform(e.value)}} unselectable={false}/>
-            {getPlatform === "uri" && <div className="text-link-special-class-danger cursor-auto">Para conseguir visualizar o exercício, é necessário que já esteja conectado ao Beecrowd!</div>}
+            {getPlatform === "uri" && <div className="text-link-special-class-danger cursor-auto mt-2">Para conseguir visualizar o exercício, é necessário que já esteja conectado ao Beecrowd!</div>}
             <p>Digite o número do exercício: </p>
             <InputNumber value={getExerciseNumber} onChange={(e) => setExerciseNumber(e.value || 0)} mode="decimal" useGrouping={false} placeholder="Tamanho máximo" min={0} max={100000} autoFocus/>
             <br/>

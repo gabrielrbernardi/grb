@@ -19,10 +19,10 @@ const CheckLength = () => {
     function checkSize(){
         if((getTextMaxLength === 0) || (getTextMaxLength === undefined) || (getInputText.length <= getTextMaxLength)){
             statusSize = "DENTRO";
-            statusColor = "text-cyan-500";
+            statusColor = "text-cyan-300";
         }else if(getInputText.length > (getTextMaxLength || 0)){
             statusSize = "FORA";
-            statusColor = "text-orange-500";
+            statusColor = "text-orange-300";
         }
 
         if(getInputText.length === 1){

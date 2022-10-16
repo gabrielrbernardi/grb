@@ -169,7 +169,7 @@ const About = (props:any) => {
                 ? <></>
                 :
                     <form onSubmit={fetchData}>
-                        <a>Digite um usuário do GitHub para buscar:</a>
+                        <a className="text-color-inverted">Digite um usuário do GitHub para buscar:</a>
                         <div className="mt-2 p-inputgroup">
                             {/* <Button icon="pi pi-home" className="p-button-secondary p-button-outlined button-secondary-hover" type="button" onClick={() => {setUsername('gabrielrbernardi');fetchData();}}/> */}
                             <Button icon="pi pi-github" className="p-button-secondary" type="button"/>

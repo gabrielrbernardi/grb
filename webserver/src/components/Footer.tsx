@@ -32,8 +32,8 @@ const Footer = () => {
         <div className="mx-3 text-center py-2 sticky bottom-0 border-1 border-100 surface-card border-round">
             <div>
                 <a className={"text-link-special-class"} onClick={() => {window.open(githubLink + "/grb", "_blank")}}>{"Repositório GRB"}</a>
-                <a className={"text-footer ml-4"} onClick={() => {window.open(githubLink, "_blank")}}>
-                    <text>Gabriel Bernardi</text>
+                <a className={"text-footer ml-4 text-primary"} onClick={() => {window.open(githubLink, "_blank")}}>
+                    <text className="h5">Gabriel Bernardi</text>
                     <BsGithub className="ml-2 logo-middle" size={20}/>
                 </a>
             </div>

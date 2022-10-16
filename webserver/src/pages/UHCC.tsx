@@ -13,6 +13,8 @@ import { Tag } from 'primereact/tag';
 import { Dropdown } from 'primereact/dropdown';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
+import { TabView } from 'primereact/tabview';
+import { TabPanel } from 'primereact/tabview';
 import Loading from '../components/Loading';
 
 // import getLinkData from '../assets/links.json'; //dev
@@ -20,7 +22,7 @@ const linkConfig = "https://raw.githubusercontent.com/gabrielrbernardi/grb/main/
 const errorDataAxiosJson = ["error", "Erro!", "Erro ao buscar configurações."]
 
 const UHCC = () => {
-    const [getLinkData, setLinkData] = useState({actualCycle: "", actualClass: "", rootRepo: "", aula:[], inic1:[], inic2:[], inter1:[]});
+    const [getLinkData, setLinkData] = useState<any>({actualCycle: "", actualClass: "", rootRepo: "", aula:[], inic1:[], inic2:[], inter1:[], inter2:[], avanc1:[], avanc2:[]});
     const [getLoading, setLoading] = useState(true);   
     const [getUserOptions, setUserOptions] = useState<any>();
     const [getUserName, setUserName] = useState<any>("");
@@ -28,6 +30,16 @@ const UHCC = () => {
 
     const [activeIndex, setActiveIndex] = useState<any>([]);
     
+    const levelPossibilities = [
+        {label: 'Aula', value: "aula"},
+        {label: 'Iniciante 1', value: "inic1"},
+        {label: 'Iniciante 2', value: "inic2"},
+        {label: 'Intermediário 1', value: "inter1"},
+        {label: 'Intermediário 2', value: "inter2"},
+        {label: 'Avançado 1', value: "avanc1"},
+        {label: 'Avançado 2', value: "avanc2"},
+    ];
+
     useEffect(() => {        
         setUserName({label: "Todos", value: ""})
         fetchUsers()
@@ -70,9 +82,9 @@ const UHCC = () => {
         }
 
         let usuario = "";
-        let cookieContent = getCookie("instructor") || "";
+        let cookieContent = getCookie("instructor");
 
-        if(getUserName !== null && getUserName !== undefined && getUserName !== "null"){
+        if(getUserName !== null && getUserName !== undefined && getUserName !== "null" && getUserName !== ""){
             usuario = getUserName;
         }else if(cookieContent !== null && cookieContent !== undefined && cookieContent !== "null"){
             usuario = cookieContent;
@@ -122,9 +134,7 @@ const UHCC = () => {
                 <Skeleton className="mb-2" width='50%' />
                 <Skeleton className="mb-2" width='50%' />
                 <Skeleton width='50%' />
-                {/* <Button /> */}
             </div>)
-            // return <Skeleton width="50%" />
         }else{
             return (
                 <DataTable className='outline-none' value={arrayComponent} responsiveLayout="scroll" selectionMode="single" 
@@ -140,6 +150,29 @@ const UHCC = () => {
                 </DataTable>
             )
         }
+    }
+
+    function findValueInArray(x: any){
+        if(x){
+            return levelPossibilities.find((y:any) => {
+                if(y.value === x){
+                    return y.value;
+                }else{
+                    return "";
+            }})?.label
+        }
+    }
+
+    function renderComponents(){
+        let componentsLabelList = []
+        let componentsList = []
+
+        for(let x in getLinkData){
+            componentsLabelList.push(findValueInArray(x))
+            componentsList.push(<TabPanel header={findValueInArray(x)}>{renderComponent(getLinkData[x])}</TabPanel>)
+        }
+        componentsList.shift()
+        return (componentsList.map((chave:any) => chave))
     }
 
     const statusBadgeTypeTemplate = (rowData: any) => {
@@ -177,7 +210,7 @@ const UHCC = () => {
 
     const rightContents = (
         <React.Fragment>
-            <Button icon="pi pi-refresh" loading={getLoading} onClick={fetchData} className="mr-2 p-button-sm" />
+            <Button icon="pi pi-refresh" loading={getLoading} onClick={() => {fetchData(); fetchUsers()}} className="mr-2 p-button-sm" />
         </React.Fragment>
     );
 
@@ -195,14 +228,14 @@ const UHCC = () => {
     );
 
     return (
-        <>
+        <div className=" fadeinup animation-duration-500 animation-ease-out">
             {getLoading 
                 ?
                     <Loading/>
                 :
                     <></>
             }
-            <Accordion className="scalein animation-ease-out">
+            <Accordion className="">
                 <AccordionTab header="Gerador de links Neps/Beecrowd">
                     <ExercisesUHCC/>
                 </AccordionTab>
@@ -213,28 +246,12 @@ const UHCC = () => {
 
                 <Accordion multiple activeIndex={[0,1]}>
                     <AccordionTab header="Aula">
-                        {/* <table> */}
                             {renderComponent(getLinkData.aula)}
-                        {/* </table> */}
                     </AccordionTab>
                     <AccordionTab header="Slides">
-                        <Accordion multiple activeIndex={[0,1,2]}>
-                            <AccordionTab header="Iniciante 1">
-                                {/* <table> */}
-                                    {renderComponent(getLinkData.inic1)}
-                                {/* </table> */}
-                            </AccordionTab>
-                            <AccordionTab header="Iniciante 2">
-                                {/* <table> */}
-                                    {renderComponent(getLinkData.inic2)}
-                                {/* </table> */}
-                            </AccordionTab>
-                            <AccordionTab header="Intermediário 1">
-                                {/* <table> */}
-                                    {renderComponent(getLinkData.inter1)}
-                                {/* </table> */}
-                            </AccordionTab>
-                        </Accordion>
+                        <TabView className="" scrollable>
+                            {renderComponents()}
+                        </TabView>
                     </AccordionTab>
                 </Accordion>
             </div>
@@ -246,7 +263,7 @@ const UHCC = () => {
                     </AccordionTab>
                 </Accordion>
             }
-        </>
+        </div>
     )
 }
 

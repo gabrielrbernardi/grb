@@ -29,6 +29,7 @@ const CreateNewLink = (props:any) => {
             response.data.levels.map((valor:any, id:any) => {
                 list.push({label: valor.Name, value: valor.Value})
             })
+            console.log(response)
             setLevelOptions(list)
             setLoading(false);
         })

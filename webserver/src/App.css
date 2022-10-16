@@ -1,7 +1,14 @@
 html{
-  background-color: #0f171e;
-  color: #fff;
+  /* background-color: #0f171e; */
+  background-color: rgb(110, 110, 110);
+  /* background-color: rgb(230, 230, 230); */
+
+  color: rgb(107, 107, 107);
   font-size: 14px;
+}
+
+.grid, .text-color-inverted{
+  color: rgb(255, 255, 255);
 }
 
 .text-link{
@@ -12,12 +19,12 @@ html{
 
 .text-link-special{
   transition: .2s ease;
-  color: rgb(153, 173, 255);
+  color: rgb(113, 126, 180);
 }
 
 .text-link-special-class{
   transition: .2s ease;
-  color: rgb(93, 255, 136);
+  color: rgb(51, 146, 76);
   text-decoration: none;
 }
 

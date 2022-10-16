@@ -25,18 +25,18 @@ const Login = () => {
             // d.setTime(d.getTime() + (10*1000));
             d.setTime(d.getTime() + (4*60*60*1000));
             let expires = "expires="+ d.toUTCString();
-            document.cookie = "isAuth=true; path=/;" + expires;
+            document.cookie = "isAuth=true; path=/;" + expires + "Secure";
             setTimeout(() => {
                 if(response?.data?.data?.Admin){
-                    document.cookie = `isAdmin=true; path=/`;
+                    document.cookie = `isAdmin=true; path=/; Secure`;
                 }else{
-                    document.cookie = `isAdmin=false; path=/`;
+                    document.cookie = `isAdmin=false; path=/; Secure`;
                 }
                 if(response?.data?.data?.id){
-                    document.cookie = `id=${response?.data?.data?.id}; path=/`
+                    document.cookie = `id=${response?.data?.data?.id}; path=/; Secure`
                     apiGrb.defaults.headers.common['id_usuario'] = response?.data?.data?.id;
                 }
-                document.cookie = `name=${response?.data?.data?.Name}; path=/`
+                document.cookie = `name=${response?.data?.data?.Name}; path=/; Secure`
                 setLoading(false);
                 navigate("/grb/internal")
             }, 2000);
@@ -49,7 +49,7 @@ const Login = () => {
 
     return (
         <div className="flex grid align-content-center login">
-            <form className="bg-black-alpha-30 text-white text-center p-4 border-round mx-auto my-auto md:col-4 col-12" onSubmit={handleSubmit}>
+            <form className="bg-white-alpha-70 text-black-alpha-50 text-center p-4 border-round shadow-8 mx-auto my-auto lg:col-4 md:col-6 col-12" onSubmit={handleSubmit}>
                 <h2 className="text-left mb-5">Login</h2>
                 {getMessageError
                     ? 

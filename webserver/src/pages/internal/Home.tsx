@@ -13,6 +13,7 @@ import DataTableInstructors from './DataTableInstructors';
 import DataTableConfigs from './DataTableConfigs';
 import UpdateUserPassword from './Users/InstructorsArea/UpdateUserPassword';
 import HomeUsersInstructors from './Users/InstructorsArea/Home';
+import Terminal from '../../components/TerminalComponent';
 
 const HomeInternal = (props:any) => {
     const [getAdminStatus, setAdminStatus] = useState<boolean>();
@@ -67,7 +68,7 @@ const HomeInternal = (props:any) => {
                 {!getAdminStatus && !getInstructorStatus && getOtherStatus && <InstructorsListLinks/>}
                 {getInstructorStatus || getAdminStatus ?
                     <>
-                        <div className="block text-center text-3xl mx-auto mb-2">Olá {getCookie("name") || ""}! Bem vindo ao painel de controle da plataforma.</div>
+                        <div className="block text-center text-3xl mx-auto mb-2">Olá {getCookie("name") || ""}! Bem-vindo ao painel de controle da plataforma.</div>
                     </>
                     :<></>
                 }
@@ -117,6 +118,11 @@ const HomeInternal = (props:any) => {
                                     <DataTableConfigs isAdmin={getAdminStatus}/>
                                 </>
                             </AccordionTab>
+                            {/* <AccordionTab header="Terminal">
+                                <>
+                                    <Terminal />
+                                </>
+                            </AccordionTab> */}
                     </Accordion>
                 }
                 
