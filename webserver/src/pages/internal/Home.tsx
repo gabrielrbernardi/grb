@@ -14,6 +14,8 @@ import DataTableConfigs from './DataTableConfigs';
 import UpdateUserPassword from './Users/InstructorsArea/UpdateUserPassword';
 import HomeUsersInstructors from './Users/InstructorsArea/Home';
 import Terminal from '../../components/TerminalComponent';
+import api from '../../services/apiGithub';
+import DataTableGithubTextLinks from './DataTableGithubTextLinks';
 
 const HomeInternal = (props:any) => {
     const [getAdminStatus, setAdminStatus] = useState<boolean>();
@@ -89,6 +91,11 @@ const HomeInternal = (props:any) => {
                                 <HomeUsersInstructors/>
                             </>
                         </AccordionTab>
+                        <AccordionTab header="Usuários BOCA">
+                            <>
+                                <DataTableGithubTextLinks/>
+                            </>
+                        </AccordionTab>
                     </Accordion>
                 }
                 {getAdminStatus && 
@@ -124,8 +131,7 @@ const HomeInternal = (props:any) => {
                                 </>
                             </AccordionTab> */}
                     </Accordion>
-                }
-                
+                }                
             </div>
         </>
     );
