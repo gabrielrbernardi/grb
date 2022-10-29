@@ -91,7 +91,7 @@ const HomeInternal = (props:any) => {
                                 <HomeUsersInstructors/>
                             </>
                         </AccordionTab>
-                        <AccordionTab header="Usuários BOCA">
+                        <AccordionTab header="Instruções Mini Maratona">
                             <>
                                 <DataTableGithubTextLinks/>
                             </>

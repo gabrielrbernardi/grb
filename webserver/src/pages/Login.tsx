@@ -59,7 +59,7 @@ const Login = () => {
                     : <></>
                 }
                 <span className="p-float-label mb-4">
-                    <InputText id="user" className="w-12" value={getUser} onChange={(e) => {setUser(e.target.value)}} autoFocus disabled={getLoading}/>
+                    <InputText id="user" className="w-12" value={getUser} onChange={(e) => {setUser(e.target.value)}} autoFocus disabled={getLoading} autoComplete="hidden"/>
                     <label htmlFor="user">Usuário</label>
                 </span>
 

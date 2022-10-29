@@ -7,6 +7,10 @@ html{
   font-size: 14px;
 }
 
+.col{
+  color: rgb(107, 107, 107);
+}
+
 .grid, .text-color-inverted{
   color: rgb(255, 255, 255);
 }
