@@ -9,6 +9,7 @@ import { AiOutlineColumnWidth } from 'react-icons/ai';
 import { GiTransform } from 'react-icons/gi';
 import { Button } from 'primereact/button';
 import { Avatar } from 'primereact/avatar';
+import { Dialog } from 'primereact/dialog';
 
 const logo = require("../assets/logo.png");
 
@@ -16,9 +17,10 @@ const rootPath = "/grb"
 
 const Navbar = () => {
     const navigate = useNavigate();
-    const [getItemsBreadCrumb, setItemsBreadCrumb] = useState<any>([]);
-    const [getHideBanner, setHideBanner] = useState<boolean>(false);
-    const [getValidSource, setValidSource] = useState<boolean>(true);
+    const [ getItemsBreadCrumb, setItemsBreadCrumb ] = useState<any>([]);
+    const [ getHideBanner, setHideBanner ] = useState<boolean>(false);
+    const [ getValidSource, setValidSource ] = useState<boolean>(true);
+    const [ getShowDialogAbout, setShowDialogAbout ] = useState<boolean>(false);
     const [ queryParams ] = useSearchParams();
     const { pathname } = useLocation();
     // const [value, setValue] = useState('');
@@ -178,6 +180,13 @@ const Navbar = () => {
                 },
             ]
         },
+        {
+            label: 'Sobre',
+            icon: 'pi pi-fw pi-info-circle',
+            command: () => {
+                showDialog()
+            },
+        },
         restrictedMenuItem()
 
     ];
@@ -211,6 +220,10 @@ const Navbar = () => {
         return document.cookie.indexOf("isAuth=true") === -1;
     }
 
+    function showDialog(){
+        getShowDialogAbout === true ? setShowDialogAbout(false) : setShowDialogAbout(true);
+    }
+
     const bannerUHCC = (
         <>
             <a>Acessar repositório de códigos do UberHub?</a>
@@ -230,7 +243,6 @@ const Navbar = () => {
     const home = { icon: 'pi pi-home', command: () => {navigate(rootPath + "/")} }
     const end = ( 
         <div className="inline-flex">
-            {/* <Button icon="pi pi-times" className="p-button-rounded p-button-outlined mr-2 p-button-danger" aria-label="Submit" onClick={() => navigate("internal/uhcc")} /> */}
             {checkCookie() 
                 ?
                     <>
@@ -238,8 +250,6 @@ const Navbar = () => {
                     </>
                 :
                     <>
-                        {/* <a className="my-auto mr-2">Olá {getCookie("name")}!</a> */}
-                        {/* <Avatar label={getCookie("name")} className="mr-2" size="normal" shape="circle" /> */}
                         <Button icon="pi pi-sign-out" className="p-button-rounded p-button-outlined mr-2 p-button-danger" tooltip="Sair" tooltipOptions={{position: 'left'}} aria-label="Submit" onClick={handleLogout} />
                     </>
             }
@@ -258,17 +268,33 @@ const Navbar = () => {
                         <Message severity="error" className="col-12" content={bannerSource}/>
                     </>
             }
-
-            {/* {document.cookie !== "banner=true" || pathname === "/grb/uberhub" || getHideBanner
-                ?
-                    <></>
-                :
-                    <Message severity="info" className="col-12 fadeinup animation-duration-1000 animation-ease-in-out" content={bannerUHCC}/>
-            } */}
-            {/* <Menubar model={items} end={final}/> */}
-            {/* <input onChange={(e) => { setValue((e.target as HTMLInputElement).value);}}/> */}
             <Menubar model={items} end={end} className="border-none"/>
             <BreadCrumb model={getItemsBreadCrumb} home={home} />
+
+            <Dialog header="Sobre" visible={getShowDialogAbout} style={{ width: '50vw' }} onHide={() => setShowDialogAbout(false)}>
+                <h3>
+                    Application Infrastructure
+                </h3>
+                <p>
+                    The Back-end of the application is stored in GitHub and running on render.com. Beside that, the Front-end is stored in GitHub and use GitHub Pages to run a deployable version of the code. Finally, the database is on MongoDB Cloud.
+                </p>
+                <h3>
+                    Libraries and Frameworks
+                </h3>
+                <p>
+                    This platform was built using MongoDB as Database, NodeJS on Back-end to serve the application and ReactJS on Front-end.
+                </p>
+                <p>
+                    As style of this application, we used Primereact and custom CSS configs. Was also used Primeicons and React-icons for the icons on buttons and labels.
+                </p>
+                <h3>
+                    Version
+                </h3>
+                <p>
+                    3.0.0
+                    {/* (Major version).(Minor version).(Revision number).(Build number) */}
+                </p>
+            </Dialog>
         </div>
     );
 }

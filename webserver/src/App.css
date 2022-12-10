@@ -1,18 +1,21 @@
 html{
   /* background-color: #0f171e; */
-  background-color: rgb(110, 110, 110);
+  --custom-background-color: rgb(230, 230, 230);
+  background-color: var(--custom-background-color);
   /* background-color: rgb(230, 230, 230); */
 
-  color: rgb(107, 107, 107);
+  --custom-font-color: rgb(60, 60, 60);
+
+  color: var(--custom-font-color);
   font-size: 14px;
 }
 
 .col{
-  color: rgb(107, 107, 107);
+  color: var(--custom-font-color);
 }
 
 .grid, .text-color-inverted{
-  color: rgb(255, 255, 255);
+  color: var(--custom-font-color);
 }
 
 .text-link{

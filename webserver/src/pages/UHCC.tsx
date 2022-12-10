@@ -245,7 +245,7 @@ const UHCC = () => {
                 <Toolbar className="sticky h-auto py-2 toolbar-uhcc z-3" left={leftContents} right={rightContents} />
 
                 <Accordion multiple activeIndex={[0,1]}>
-                    <AccordionTab header="Aula">
+                    <AccordionTab header="Links">
                             {renderComponent(getLinkData.aula)}
                     </AccordionTab>
                     <AccordionTab header="Slides">

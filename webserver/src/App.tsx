@@ -4,17 +4,14 @@ import { ScrollTop } from 'primereact/scrolltop';
 import './App.css';
 import Navbar from './components/Navbar';
 import About from './pages/About';
-import Home from './pages/Home';
 import Compare from './pages/functionalities/Compare';
 import CheckLength from './pages/functionalities/CheckLength';
 import Transform from './pages/functionalities/Transform';
 import Functionalities from './pages/functionalities/Functionalities';
-import DataTableRepositories from './components/DataTableRepositories';
 import NotFound from './pages/NotFound';
 import UHCC from './pages/UHCC';
 import Footer from './components/Footer';
 import FooterMessage from './components/FooterMessage';
-import { useCookies } from 'react-cookie';
 import Login from './pages/Login';
 import HomeInternal from './pages/internal/Home';
 
@@ -30,8 +27,6 @@ function App() {
   }, [document.cookie])
     
   async function checkAuth(){
-    // console.log(document.cookie.split("isAuth=")[1] === 'true')
-    // console.log((document.cookie.split("isAuth=")[1]) === 'true' ? true : false)
     setAuth(getCookie("isAuth") === 'true' ? true : false)
     return true
   }
@@ -50,14 +45,16 @@ function App() {
         <div className="md:mx-3 mx-0 mb-4">
           <Routes>
             <Route path="/grb">
-              <Route path="" element={<Navigate to="uberhub" replace />} />
+              {/* <Route path="" element={<Navigate to="uberhub" replace />} /> */}
               {/* <Route path="" element={<Home/>} /> */}
+              <Route path="" element={<UHCC/>} />
               <Route path="about" element={<About/>}/>
               <Route path="index.html" element={<Navigate to="/grb/" replace />}>
                 <Route path="?source=uberhub" element={<UHCC/>} />
                 <Route path="?source=length" element={<CheckLength/>} />
               </Route>
-              <Route path="uberhub" element={<UHCC/>}/>
+              {/* <Route path="uberhub" element={<UHCC/>}/> */}
+              <Route path="uberhub" element={<Navigate to="/grb/" replace />}/>
               <Route path="functionalities">
                 <Route path="" element={<Functionalities/>}/>
                 <Route path="compare" element={<Compare/>}/>
