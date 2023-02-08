@@ -10,6 +10,7 @@ import { GiTransform } from 'react-icons/gi';
 import { Button } from 'primereact/button';
 import { Avatar } from 'primereact/avatar';
 import { Dialog } from 'primereact/dialog';
+import Footer from './Footer';
 
 const logo = require("../assets/logo.png");
 
@@ -271,7 +272,7 @@ const Navbar = () => {
             <Menubar model={items} end={end} className="border-none"/>
             <BreadCrumb model={getItemsBreadCrumb} home={home} />
 
-            <Dialog header="Sobre" visible={getShowDialogAbout} style={{ width: '50vw' }} onHide={() => setShowDialogAbout(false)}>
+            <Dialog header="Sobre" visible={getShowDialogAbout} breakpoints={{'960px': '75vw', '640px': '90vw'}} style={{ width: '50vw' }} onHide={() => setShowDialogAbout(false)}>
                 <h3>
                     Application Infrastructure
                 </h3>
@@ -291,9 +292,10 @@ const Navbar = () => {
                     Version
                 </h3>
                 <p>
-                    3.0.0
+                    3.0.0 (1112e18)
                     {/* (Major version).(Minor version).(Revision number).(Build number) */}
                 </p>
+                <Footer/>
             </Dialog>
         </div>
     );

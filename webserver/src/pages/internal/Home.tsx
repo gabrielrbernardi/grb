@@ -91,11 +91,11 @@ const HomeInternal = (props:any) => {
                                 <HomeUsersInstructors/>
                             </>
                         </AccordionTab>
-                        <AccordionTab header="Instruções Mini Maratona">
+                        {/* <AccordionTab header="Instruções Mini Maratona">
                             <>
                                 <DataTableGithubTextLinks/>
                             </>
-                        </AccordionTab>
+                        </AccordionTab> */}
                     </Accordion>
                 }
                 {getAdminStatus && 
