@@ -137,7 +137,7 @@ const UHCC = () => {
             </div>)
         }else{
             return (
-                <DataTable className='outline-none' value={arrayComponent} responsiveLayout="scroll" selectionMode="single" 
+                <DataTable className='outline-none fadein animation-duration-400' value={arrayComponent} responsiveLayout="scroll" selectionMode="single" 
                     onRowSelect={onRowSelect} size="small" removableSort sortField="NameLink" sortOrder={1}
                     selection={getSelectedLink} onSelectionChange={e => setSelectedLink(e.value)}
                 >

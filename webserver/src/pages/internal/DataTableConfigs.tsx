@@ -17,6 +17,7 @@ import CreateNewInstructor from './Instructors/CreateNewInstructor';
 import UpdateConfig from './Configs/UpdateConfig';
 import DeleteConfig from './Configs/DeleteConfig';
 import CreateNewConfig from './Configs/CreateNewConfig';
+import UpdateActiveStatusConfig from './Configs/UpdateActiveStatusConfig';
 
 const DataTableConfigs = (props: any) => {
     const [getIsAdmin, setIsAdmin] = useState<any>();
@@ -46,7 +47,7 @@ const DataTableConfigs = (props: any) => {
 
     const statusPossibilitiesUpdate = [
         {label: 'Atualizar Configuração', value: "updateConfig"},
-        // {label: 'Atualizar Status', value: "updateInstructorStatus"},
+        {label: 'Atualizar Status de Configuração', value: "updateActiveStatusConfig"},
         {label: 'Excluir Configuração', value: "deleteConfig"},
     ];
 
@@ -144,6 +145,7 @@ const DataTableConfigs = (props: any) => {
                     <Dropdown className="col-12" value={getEditableStatus} options={statusPossibilitiesUpdate} onChange={(e) => setEditableStatus(e.value)} optionLabel="label" placeholder="Selecione um tipo de gerenciamento" />
                 </div>
                 {getEditableStatus === "updateConfig" && <UpdateConfig id={getId} nameConfig={getConfigName} valueConfig={getConfigValue} usernameConfig={getUsernameCreation}/>}
+                {getEditableStatus === "updateActiveStatusConfig" && <UpdateActiveStatusConfig id={getId} nameConfig={getConfigName} valueConfig={getConfigValue} usernameConfig={getUsernameCreation}/>}
                 {/* {getEditableStatus === "updateInstructorStatus" && <UpdateInstructorStatus id={getId} instructorActive={getActive}/>} */}
                 {getEditableStatus === "deleteConfig" && <DeleteConfig id={getId}/>}
             </Dialog>

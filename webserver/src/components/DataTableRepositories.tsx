@@ -175,7 +175,7 @@ const DataTableRepositories = (props: any) => {
                         ?
                             <div>
                                 <a>Repositório disponível em: </a>
-                                <a className="text-link-special-class" onClick={() => {window.open(getRepoUrlGithub, "_blank")}}>{getRepositoryNameCustom}</a>
+                                <a className="text-link-special-class" onClick={() => {window.open(getRepoUrlGithub, "_blank")}}>{getRepositoryNameCustom || getRepoUrlGithub}</a>
                                 {/* <a className="text-link-special-class" onClick={() => {window.open("https://github.com/gabrielrbernardi/UberHub-Code-Club", "_blank")}}>{getRepositoryNameCustom}</a> */}
                             </div>
                         :

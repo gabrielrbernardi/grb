@@ -261,7 +261,7 @@ const Navbar = () => {
     )
 
     return (
-        <div className="card mb-2 md:sticky md:top-0 z-4">
+        <div className="navbar-component card mb-2 md:sticky md:top-0">
             {getValidSource
                 ? <></>
                 : 
@@ -292,7 +292,7 @@ const Navbar = () => {
                     Version
                 </h3>
                 <p>
-                    3.0.0 (1112e18)
+                    3.1.0 (1112e18)
                     {/* (Major version).(Minor version).(Revision number).(Build number) */}
                 </p>
                 <Footer/>
