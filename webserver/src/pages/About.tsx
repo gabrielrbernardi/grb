@@ -104,7 +104,7 @@ const About = (props:any) => {
         await api.get(`/users/${getUsername}`)
         .then(response => {
             setContentGithub(response.data);
-            if(pathname.indexOf("/grb") !== -1){
+            if(pathname.indexOf("/") !== -1){
                 setLoading(false);
             }
         })

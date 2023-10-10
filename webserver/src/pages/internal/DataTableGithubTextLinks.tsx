@@ -12,7 +12,7 @@ const DataTableGithubTextLinks = () => {
     }, [])
     
     async function getGithubDataTextLinks(){
-        api.get(`repos/gabrielrbernardi/grb/contents/webserver/src/assets/textFiles`).then((response: any) =>{
+        api.get(`repos/gabrielrbernardi/contents/webserver/src/assets/textFiles`).then((response: any) =>{
             setTextLinks(response.data)
         })
     }

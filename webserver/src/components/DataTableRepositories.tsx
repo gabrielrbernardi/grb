@@ -31,11 +31,11 @@ const DataTableRepositories = (props: any) => {
         if(props.repositoryName){ repositoryName = props.repositoryName; }
         else{ repositoryName = "UberHub-Code-Club"; }
         
+        setUsername(props?.usernameChoose || "");
         if(props.uhcc){ setPath(true); getRepositoryInfo(true); }else{
             getRepositoryInfo(false)
         }
         // if(props.uhcc){ setPath(true);  }
-        setUsername(props?.usernameChoose || "");
     },[])
 
     async function getConfigInfo(){
@@ -167,28 +167,34 @@ const DataTableRepositories = (props: any) => {
                     </p>
                 : <></>
             } */}
-            {getRepositoryContent ?
+            {props.usernameChoose
+                ? 
                 <>
-                    {getPath === true
-                        ?
-                        !getLoading
-                        ?
-                            <div>
-                                <a>Repositório disponível em: </a>
-                                <a className="text-link-special-class" onClick={() => {window.open(getRepoUrlGithub, "_blank")}}>{getRepositoryNameCustom || getRepoUrlGithub}</a>
-                                {/* <a className="text-link-special-class" onClick={() => {window.open("https://github.com/gabrielrbernardi/UberHub-Code-Club", "_blank")}}>{getRepositoryNameCustom}</a> */}
-                            </div>
-                        :
-                        <Skeleton width="50%" />
-                        :<></>
+                    {getRepositoryContent ?
+                        <>
+                            {getPath === true
+                                ?
+                                !getLoading
+                                ?
+                                    <div>
+                                        <a>Repositório disponível em: </a>
+                                        <a className="text-link-special-class" onClick={() => {window.open(getRepoUrlGithub, "_blank")}}>{getRepositoryNameCustom || getRepoUrlGithub}</a>
+                                        {/* <a className="text-link-special-class" onClick={() => {window.open("https://github.com/gabrielrbernardi/UberHub-Code-Club", "_blank")}}>{getRepositoryNameCustom}</a> */}
+                                    </div>
+                                :
+                                <Skeleton width="50%" />
+                                :<></>
+                            }
+                            <DataTable value={getRepositoryContent} className="col-12 md:col-12 md:pl-4 mr-0 pl-0 pr-0 mx-auto" emptyMessage="Repositório vazio." loading={getLoading}>
+                                <Column field="name" header="Nome" headerStyle={{ width: '3em' }} body={nameRepoColumnTemplate} />
+                                <Column field="type" header="Tipo" headerStyle={{ width: '3em' }} />
+                                <Column field="size" header="Tamanho" headerStyle={{ width: '3em' }} body={sizeRepoColumnTemplate}/>
+                            </DataTable>
+                        </>
+                        : <a className="text-link-special-class cursor-auto fadein animation-duration-400">Não há registros cadastrados</a>
                     }
-                    <DataTable value={getRepositoryContent} className="col-12 md:col-12 md:pl-4 mr-0 pl-0 pr-0 mx-auto" emptyMessage="Repositório vazio." loading={getLoading}>
-                        <Column field="name" header="Nome" headerStyle={{ width: '3em' }} body={nameRepoColumnTemplate} />
-                        <Column field="type" header="Tipo" headerStyle={{ width: '3em' }} />
-                        <Column field="size" header="Tamanho" headerStyle={{ width: '3em' }} body={sizeRepoColumnTemplate}/>
-                    </DataTable>
                 </>
-                : <a className="text-link-special-class cursor-auto fadein animation-duration-400">Não há registros cadastrados</a>
+                : <a className="text-link-special-class cursor-auto fadein animation-duration-400">Selecione um usuário.</a>
             }
         </>
     )

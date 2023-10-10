@@ -16,11 +16,13 @@ import HomeUsersInstructors from './Users/InstructorsArea/Home';
 import Terminal from '../../components/TerminalComponent';
 import api from '../../services/apiGithub';
 import DataTableGithubTextLinks from './DataTableGithubTextLinks';
+import Loading from '../../components/Loading';
 
 const HomeInternal = (props:any) => {
     const [getAdminStatus, setAdminStatus] = useState<boolean>();
     const [getInstructorStatus, setInstructorStatus] = useState<boolean>();
     const [getOtherStatus, setOtherStatus] = useState<boolean>();
+    const [getLoading, setLoading] = useState<boolean>();
 
     useEffect(() => {
         checkAuth()
@@ -31,6 +33,7 @@ const HomeInternal = (props:any) => {
     }, [document.cookie])
         
     async function checkAuth(){
+        setLoading(true);
         let id_usuario = getCookie("id")
         await apiGrb.get(`/user/checkAdmin/${id_usuario}`)
         .then(async (response) => {
@@ -45,13 +48,17 @@ const HomeInternal = (props:any) => {
                                 setOtherStatus(res.data.isInstructor)
                             }
                         }
+                        setLoading(false);
                     }).catch(err => {
+                        setLoading(false);
                         //@ts-ignore
                         ReactDOM.hydrateRoot(document.getElementById("root") as HTMLElement, <Toast type={"error"} title={"Erro!"} message={"Erro ao buscar os valores"}/>);
                     })
                 }
+                setLoading(false);
             }
         }).catch(err => {
+            setLoading(false);
             //@ts-ignore
             ReactDOM.hydrateRoot(document.getElementById("root") as HTMLElement, <Toast type={"error"} title={"Erro!"} message={"Erro ao buscar os valores"}/>);
         });
@@ -66,6 +73,10 @@ const HomeInternal = (props:any) => {
 
     return (
         <>
+            {getLoading
+                ? <Loading/> 
+                : <></>
+            }
             <div className="grid md:col-11 block mx-auto mt-2">
                 {!getAdminStatus && !getInstructorStatus && getOtherStatus && <InstructorsListLinks/>}
                 {getInstructorStatus || getAdminStatus ?
