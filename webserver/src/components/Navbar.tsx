@@ -292,7 +292,7 @@ const Navbar = () => {
                     Version
                 </h3>
                 <p>
-                    3.1.0 (1112e18)
+                    3.1.0 (a05ed5a)
                     {/* (Major version).(Minor version).(Revision number).(Build number) */}
                 </p>
                 <Footer/>
