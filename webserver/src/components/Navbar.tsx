@@ -72,7 +72,7 @@ const Navbar = () => {
             setValidSource(false)
             setTimeout(() => {
                 setValidSource(true)
-            }, 8000)
+            }, 5000)
         }
     },[pathname, navigate, document.cookie])
 

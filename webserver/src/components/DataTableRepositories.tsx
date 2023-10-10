@@ -167,7 +167,7 @@ const DataTableRepositories = (props: any) => {
                     </p>
                 : <></>
             } */}
-            {props.usernameChoose
+            {props.usernameChoose || window.location.pathname == "/about"
                 ? 
                 <>
                     {getRepositoryContent ?
