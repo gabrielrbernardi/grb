@@ -31,7 +31,7 @@ const Footer = () => {
         // <div className="mx-3 text-center py-2 sticky bottom-0 border-1 border-100" style={{"backgroundColor": "rgba(30, 30, 30, 0.7)"}} style={{"backgroundColor": "var(--surface-card)" }}>
         <div className="mx-3 mb-4 text-center py-2 sticky bottom-0 border-1 border-100 surface-card border-round z-5">
             <div>
-                <a className={"text-link-special-class"} onClick={() => {window.open(githubLink + "/grb", "_blank")}}>{"Repositório GRB"}</a>
+                <a className={"text-link-special-class"} onClick={() => {window.open(githubLink + "", "_blank")}}>{"Repositório GRB"}</a>
                 <a className={"text-footer ml-4 text-primary"} onClick={() => {window.open(githubLink, "_blank")}}>
                     <text className="h5">Gabriel Bernardi</text>
                     <BsGithub className="ml-2 logo-middle" size={20}/>
