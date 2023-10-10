@@ -11,7 +11,7 @@ import { Button } from 'primereact/button';
 
 const logo = require("../assets/logo.png");
 
-const rootPath = "/"
+const rootPath = "/grb"
 
 const Footer = () => {
     const msgs3: any = useRef(null);

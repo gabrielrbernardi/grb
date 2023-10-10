@@ -44,17 +44,17 @@ function App() {
         <ScrollTop threshold={50}/>
         <div className="md:mx-3 mx-0 mb-4">
           <Routes>
-            <Route path="/">
+            <Route path="/grb">
               {/* <Route path="" element={<Navigate to="uberhub" replace />} /> */}
               {/* <Route path="" element={<Home/>} /> */}
               <Route path="" element={<UHCC/>} />
               <Route path="about" element={<About/>}/>
-              <Route path="index.html" element={<Navigate to="/" replace />}>
+              <Route path="index.html" element={<Navigate to="/grb/" replace />}>
                 <Route path="?source=uberhub" element={<UHCC/>} />
                 <Route path="?source=length" element={<CheckLength/>} />
               </Route>
               {/* <Route path="uberhub" element={<UHCC/>}/> */}
-              <Route path="uberhub" element={<Navigate to="/" replace />}/>
+              <Route path="uberhub" element={<Navigate to="/grb/" replace />}/>
               <Route path="functionalities">
                 <Route path="" element={<Functionalities/>}/>
                 <Route path="compare" element={<Compare/>}/>
@@ -73,14 +73,14 @@ function App() {
                     </>
                   : 
                     <>
-                      <Route path="" element={document.cookie.indexOf("isAuth=true") === -1 && <Navigate to="/404" replace />}/>
+                      <Route path="" element={document.cookie.indexOf("isAuth=true") === -1 && <Navigate to="/grb/404" replace />}/>
                       {/* <Route path="*" element={<Navigate to="/grb/404" replace />}/> */}
                     </>
                 }
               </Route>
             </Route>
             {/* <Route path="*" element={<Navigate to="/grb/404" replace />} /> */}
-            {/* <Route path="/" element={<Navigate to="/grb/" replace />} /> */}
+            <Route path="/" element={<Navigate to="/grb/" replace />} />
           </Routes>
         </div>
         <Footer/>

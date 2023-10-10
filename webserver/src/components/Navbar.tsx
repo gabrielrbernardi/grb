@@ -14,7 +14,7 @@ import Footer from './Footer';
 
 const logo = require("../assets/logo.png");
 
-const rootPath = ""
+const rootPath = "/grb"
 
 const Navbar = () => {
     const navigate = useNavigate();
@@ -214,7 +214,7 @@ const Navbar = () => {
         // document.cookie = "name=false; path=/grb/internal"
         // document.cookie = "username=false; path=/grb/internal"
         // document.cookie = "active=false; path=/grb/internal"
-        navigate("login")
+        navigate("grb/login")
     }
 
     function checkCookie(){
@@ -247,7 +247,7 @@ const Navbar = () => {
             {checkCookie() 
                 ?
                     <>
-                        <Button icon="pi pi-sign-in" className="p-button-rounded p-button-outlined mr-2" tooltip="Login" tooltipOptions={{position: 'left'}} aria-label="Submit" onClick={() => navigate("login")} />
+                        <Button icon="pi pi-sign-in" className="p-button-rounded p-button-outlined mr-2" tooltip="Login" tooltipOptions={{position: 'left'}} aria-label="Submit" onClick={() => navigate("grb/login")} />
                     </>
                 :
                     <>

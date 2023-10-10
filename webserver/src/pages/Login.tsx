@@ -38,7 +38,7 @@ const Login = () => {
                 }
                 document.cookie = `name=${response?.data?.data?.Name}; path=/; Secure`
                 setLoading(false);
-                navigate("/internal")
+                navigate("/grb/internal")
             }, 2000);
             // return
         }).catch((err) =>{

@@ -18,7 +18,7 @@ import { TabPanel } from 'primereact/tabview';
 import Loading from '../components/Loading';
 
 // import getLinkData from '../assets/links.json'; //dev
-const linkConfig = "https://raw.githubusercontent.com/gabrielrbernardi/main/webserver/src/assets/links.json";
+const linkConfig = "https://raw.githubusercontent.com/gabrielrbernardi/grb/main/webserver/src/assets/links.json";
 const errorDataAxiosJson = ["error", "Erro!", "Erro ao buscar configurações."]
 
 const UHCC = () => {
