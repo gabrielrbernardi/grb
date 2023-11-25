@@ -17,6 +17,7 @@ import Terminal from '../../components/TerminalComponent';
 import api from '../../services/apiGithub';
 import DataTableGithubTextLinks from './DataTableGithubTextLinks';
 import Loading from '../../components/Loading';
+import DataTableScoreboard from './DataTableScoreboard';
 
 const HomeInternal = (props:any) => {
     const [getAdminStatus, setAdminStatus] = useState<boolean>();
@@ -102,6 +103,11 @@ const HomeInternal = (props:any) => {
                                 <HomeUsersInstructors/>
                             </>
                         </AccordionTab>
+                        <AccordionTab header="Placar">
+                                <>
+                                    <DataTableScoreboard/>
+                                </>
+                            </AccordionTab>
                         {/* <AccordionTab header="Instruções Mini Maratona">
                             <>
                                 <DataTableGithubTextLinks/>
@@ -134,6 +140,11 @@ const HomeInternal = (props:any) => {
                             <AccordionTab header="Configurações">
                                 <>
                                     <DataTableConfigs isAdmin={getAdminStatus}/>
+                                </>
+                            </AccordionTab>
+                            <AccordionTab header="Placar">
+                                <>
+                                    <DataTableScoreboard/>
                                 </>
                             </AccordionTab>
                             {/* <AccordionTab header="Terminal">

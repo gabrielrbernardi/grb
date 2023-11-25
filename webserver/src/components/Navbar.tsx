@@ -7,6 +7,7 @@ import { Message } from 'primereact/message';
 import { MdCompareArrows } from 'react-icons/md';
 import { AiOutlineColumnWidth } from 'react-icons/ai';
 import { GiTransform } from 'react-icons/gi';
+import { GrScorecard } from "react-icons/gr";
 import { Button } from 'primereact/button';
 import { Avatar } from 'primereact/avatar';
 import { Dialog } from 'primereact/dialog';
@@ -62,6 +63,8 @@ const Navbar = () => {
             navigate(rootPath + '/functionalities/length')
         }else if(queryParams.get("source") === "transform"){
             navigate(rootPath + '/functionalities/transform')
+        }else if(queryParams.get("source") === "score"){
+            navigate(rootPath + '/scoreboard')
         }else if(queryParams.get("options") == "restricted"){
             navigate(rootPath + '/uberhub?options=restricted')
         }
@@ -177,6 +180,22 @@ const Navbar = () => {
                     },
                     command: () => {
                         navigate(rootPath + "/functionalities/transform")
+                    }
+                },
+                {
+                    label: 'Placar',
+                    // icon: 'pi pi-fw pi-calendar-plus',
+                    template: (item:any, options:any) => {
+                        return (
+                            /* custom element */
+                            <p className={options.className + " my-0 ml-3 lg:ml-0"} onClick={options.onClick}>
+                                <GrScorecard size={20} className="mr-2"/>
+                                <span className={options.labelClassName}>{item.label}</span>
+                            </p>
+                        );
+                    },
+                    command: () => {
+                        navigate(rootPath + "/scoreboard");
                     }
                 },
             ]

@@ -14,6 +14,8 @@ import Footer from './components/Footer';
 import FooterMessage from './components/FooterMessage';
 import Login from './pages/Login';
 import HomeInternal from './pages/internal/Home';
+import DataTableScoreboard from './pages/internal/DataTableScoreboard';
+import Scoreboard from './pages/functionalities/Scoreboard';
 
 function App() {
   const [getAuth, setAuth] = useState<boolean>();
@@ -61,6 +63,7 @@ function App() {
                 <Route path="length" element={<CheckLength/>}/>
                 <Route path="transform" element={<Transform/>}/>
               </Route>
+              <Route path="scoreboard" element={<Scoreboard/>}/>
               {/* <Route path="/grb" element={<Navigate to="/" replace />}/> */}
               <Route path="404" element={<NotFound/>}/>
               <Route path="login" element={<Login/>}/>
