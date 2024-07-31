@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom/client';
+import { useSearchParams } from "react-router-dom";
 import ReactDOM1 from 'react-dom/';
 import { Accordion, AccordionTab } from 'primereact/accordion';
 import { Skeleton } from 'primereact/skeleton';
@@ -22,11 +23,12 @@ const linkConfig = "https://raw.githubusercontent.com/gabrielrbernardi/grb/main/
 const errorDataAxiosJson = ["error", "Erro!", "Erro ao buscar configurações."]
 
 const UHCC = () => {
-    const [getLinkData, setLinkData] = useState<any>({actualCycle: "", actualClass: "", rootRepo: "", aula:[], inic1:[], inic2:[], inter1:[], inter2:[], avanc1:[], avanc2:[]});
+    const [getLinkData, setLinkData] = useState<any>({actualCycle: "", actualClass: "", rootRepo: "", aula:[], inic1:[], inic2:[], inter1:[], inter2:[], avanc1:[], avanc2:[], nacional:[]});
     const [getLoading, setLoading] = useState(true);   
     const [getUserOptions, setUserOptions] = useState<any>();
     const [getUserName, setUserName] = useState<any>("");
     const [getSelectedLink, setSelectedLink] = useState<any>('');
+    const [getSearchParams, setSearchParams] = useSearchParams();
 
     const [activeIndex, setActiveIndex] = useState<any>([]);
     
@@ -38,6 +40,7 @@ const UHCC = () => {
         {label: 'Intermediário 2', value: "inter2"},
         {label: 'Avançado 1', value: "avanc1"},
         {label: 'Avançado 2', value: "avanc2"},
+        {label: 'Nacional', value: "nacional"},
     ];
 
     useEffect(() => {        
@@ -92,21 +95,40 @@ const UHCC = () => {
             usuario = "";
         }
 
-        await apiGrb.get(`links/filtered/${usuario}`)
-        .then((response) => {
-            setLinkData(response.data.links); 
-            setLoading(false);
-            if(response?.data?.alert){
+        //condicao para projeto do naca code club
+        if(getSearchParams.get("project") === "nacional"){
+            await apiGrb.get(`links/filtered/level/nacional`)
+            .then((response) => {
+                setLinkData(response.data.links); 
+                setLoading(false);
+                if(response?.data?.alert){
+                    //@ts-ignore
+                    ReactDOM.hydrateRoot(document.getElementById("root") as HTMLElement, <Toast type="warn" title="Alerta" message={response?.data?.alert || "Nível não encontrado."}/>);
+                }
+            })
+            .catch((err) => {
+                setLoading(false);
+                setLinkData(err?.response?.data?.links || []);
                 //@ts-ignore
-                ReactDOM.hydrateRoot(document.getElementById("root") as HTMLElement, <Toast type="warn" title="Alerta" message={response?.data?.alert || "Usuário não encontrado."}/>);
-            }
-        })
-        .catch((err) => {
-            setLoading(false);
-            setLinkData(err?.response?.data?.links || []);
-            //@ts-ignore
-            ReactDOM.hydrateRoot(document.getElementById("root") as HTMLElement, <Toast type={errorDataAxiosJson[0]} title={errorDataAxiosJson[1]} message={err?.response?.data?.error || errorDataAxiosJson[2]}/>);
-        });
+                ReactDOM.hydrateRoot(document.getElementById("root") as HTMLElement, <Toast type={errorDataAxiosJson[0]} title={errorDataAxiosJson[1]} message={err?.response?.data?.error || errorDataAxiosJson[2]}/>);
+            });
+        }else{
+            await apiGrb.get(`links/filtered/${usuario}`)
+            .then((response) => {
+                setLinkData(response.data.links); 
+                setLoading(false);
+                if(response?.data?.alert){
+                    //@ts-ignore
+                    ReactDOM.hydrateRoot(document.getElementById("root") as HTMLElement, <Toast type="warn" title="Alerta" message={response?.data?.alert || "Usuário não encontrado."}/>);
+                }
+            })
+            .catch((err) => {
+                setLoading(false);
+                setLinkData(err?.response?.data?.links || []);
+                //@ts-ignore
+                ReactDOM.hydrateRoot(document.getElementById("root") as HTMLElement, <Toast type={errorDataAxiosJson[0]} title={errorDataAxiosJson[1]} message={err?.response?.data?.error || errorDataAxiosJson[2]}/>);
+            });
+        }        
     }
 
     function getCookie(name:any) {
@@ -249,7 +271,7 @@ const UHCC = () => {
                             {renderComponent(getLinkData.aula)}
                     </AccordionTab>
                     <AccordionTab header="Slides">
-                        <TabView className="" scrollable>
+                        <TabView className="" scrollable activeIndex={getSearchParams.get("project") === "nacional" ? 6 : 0}>
                             {renderComponents()}
                         </TabView>
                     </AccordionTab>
