@@ -16,6 +16,7 @@ import Login from './pages/Login';
 import HomeInternal from './pages/internal/Home';
 import DataTableScoreboard from './pages/internal/DataTableScoreboard';
 import Scoreboard from './pages/functionalities/Scoreboard';
+import CheckTickets from './pages/functionalities/CheckTickets';
 
 function App() {
   const [getAuth, setAuth] = useState<boolean>();
@@ -62,6 +63,7 @@ function App() {
                 <Route path="compare" element={<Compare/>}/>
                 <Route path="length" element={<CheckLength/>}/>
                 <Route path="transform" element={<Transform/>}/>
+                {/* <Route path="tickets" element={<CheckTickets/>}/> */}
               </Route>
               <Route path="scoreboard" element={<Scoreboard/>}/>
               {/* <Route path="/grb" element={<Navigate to="/" replace />}/> */}

@@ -182,22 +182,38 @@ const Navbar = () => {
                         navigate(rootPath + "/functionalities/transform")
                     }
                 },
-                {
-                    label: 'Placar',
-                    // icon: 'pi pi-fw pi-calendar-plus',
-                    template: (item:any, options:any) => {
-                        return (
-                            /* custom element */
-                            <p className={options.className + " my-0 ml-3 lg:ml-0"} onClick={options.onClick}>
-                                <GrScorecard size={20} className="mr-2"/>
-                                <span className={options.labelClassName}>{item.label}</span>
-                            </p>
-                        );
-                    },
-                    command: () => {
-                        navigate(rootPath + "/scoreboard");
-                    }
-                },
+                // {
+                //     label: 'Verificar Tickets',
+                //     // icon: 'pi pi-fw pi-calendar-plus',
+                //     template: (item:any, options:any) => {
+                //         return (
+                //             /* custom element */
+                //             <p className={options.className + " my-0 ml-3 lg:ml-0"} onClick={options.onClick}>
+                //                 <GiTransform size={20} className="mr-2"/>
+                //                 <span className={options.labelClassName}>{item.label}</span>
+                //             </p>
+                //         );
+                //     },
+                //     command: () => {
+                //         navigate(rootPath + "/functionalities/tickets")
+                //     }
+                // },
+                // {
+                //     label: 'Placar',
+                //     // icon: 'pi pi-fw pi-calendar-plus',
+                //     template: (item:any, options:any) => {
+                //         return (
+                //             /* custom element */
+                //             <p className={options.className + " my-0 ml-3 lg:ml-0"} onClick={options.onClick}>
+                //                 <GrScorecard size={20} className="mr-2"/>
+                //                 <span className={options.labelClassName}>{item.label}</span>
+                //             </p>
+                //         );
+                //     },
+                //     command: () => {
+                //         navigate(rootPath + "/scoreboard");
+                //     }
+                // },
             ]
         },
         {
