@@ -29,6 +29,7 @@ const UHCC = () => {
     const [getUserName, setUserName] = useState<any>("");
     const [getSelectedLink, setSelectedLink] = useState<any>('');
     const [getSearchParams, setSearchParams] = useSearchParams();
+    const [getProject, setProject] = useState<boolean>(false);
 
     const [activeIndex, setActiveIndex] = useState<any>([]);
     
@@ -46,7 +47,14 @@ const UHCC = () => {
     useEffect(() => {        
         setUserName({label: "Todos", value: ""})
         fetchUsers()
-        fetchData(true)
+        
+        if(getSearchParams.get("project") === "nacional"){
+            setProject(true);
+            fetchData(true, true)
+        }else{
+            setProject(false);
+            fetchData(true, false)
+        }
     }, [])
     
     const fetchUsers = async () => {
@@ -67,19 +75,23 @@ const UHCC = () => {
         .catch(err => {
             setLoading(false);
             //@ts-ignore
-            ReactDOM.hydrateRoot(document.getElementById("root") as HTMLElement, <Toast type={"error"} title={"Erro!"} message={err?.response?.data?.error || "Erro na listagem de níveis!"}/>)
+            ReactDOM.hydrateRoot(document.getElementById("root") as HTMLElement, <Toast type={"error"} title={"Erro!"} message={err?.response?.data?.error || "Erro na listagem de usuários!"}/>)
         });
     }
 
-    async function fetchData(mode: any = false) {
+    async function fetchData(mode: any = false, project: boolean = false) {
         setLoading(true);
 
         if(mode !== true){
+            console.log(getUserName)
+
             const d = new Date();
             d.setTime(d.getTime() + (30*24*60*60*1000));
             let expires = "expires="+ d.toUTCString();
             document.cookie = `instructor=${getUserName};` + expires + ";path=/; SameSite=None; Secure";
             onClick(0);
+        }else if(project){
+            setUserName("gabriel");
         }else{
             setUserName(getCookie("instructor"))
         }
@@ -96,7 +108,7 @@ const UHCC = () => {
         }
 
         //condicao para projeto do naca code club
-        if(getSearchParams.get("project") === "nacional"){
+        if(project === true){
             await apiGrb.get(`links/filtered/level/nacional`)
             .then((response) => {
                 setLinkData(response.data.links); 
@@ -115,7 +127,7 @@ const UHCC = () => {
         }else{
             await apiGrb.get(`links/filtered/${usuario}`)
             .then((response) => {
-                setLinkData(response.data.links); 
+                setLinkData(response.data.links);
                 setLoading(false);
                 if(response?.data?.alert){
                     //@ts-ignore
@@ -194,6 +206,12 @@ const UHCC = () => {
             componentsList.push(<TabPanel header={findValueInArray(x)}>{renderComponent(getLinkData[x])}</TabPanel>)
         }
         componentsList.shift()
+
+        if(getProject){
+            for(let i = 0; i < 6; i++){
+                componentsList.shift()
+            }
+        }
         return (componentsList.map((chave:any) => chave))
     }
 
@@ -271,7 +289,7 @@ const UHCC = () => {
                             {renderComponent(getLinkData.aula)}
                     </AccordionTab>
                     <AccordionTab header="Slides">
-                        <TabView className="" scrollable activeIndex={getSearchParams.get("project") === "nacional" ? 6 : 0}>
+                        <TabView className="" scrollable activeIndex={0}>
                             {renderComponents()}
                         </TabView>
                     </AccordionTab>

@@ -318,18 +318,18 @@ const Navbar = () => {
                     Libraries and Frameworks
                 </h3>
                 <p>
-                    This platform was built using MongoDB as Database, NodeJS on Back-end to serve the application and ReactJS on Front-end.
+                    This platform was built using MongoDB as Database, NodeJS on Back-end to serve the application and ReactJS on Front-end. Both Back-end and Front-end is using Typescript.
                 </p>
                 <p>
                     As style of this application, we used Primereact and custom CSS configs. Was also used Primeicons and React-icons for the icons on buttons and labels.
                 </p>
-                <h3>
+                {/* <h3>
                     Version
                 </h3>
                 <p>
-                    3.1.0 (a05ed5a)
+                    3.1.0 (a05ed5a) */}
                     {/* (Major version).(Minor version).(Revision number).(Build number) */}
-                </p>
+                {/* </p> */}
                 <Footer/>
             </Dialog>
         </div>
