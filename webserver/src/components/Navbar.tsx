@@ -201,6 +201,7 @@ const Navbar = () => {
                         navigate(rootPath + "/functionalities/transform")
                     }
                 },
+<<<<<<< HEAD
                 {
                     label: 'EJC',
                     // icon: 'pi pi-fw pi-calendar-plus',
@@ -217,6 +218,40 @@ const Navbar = () => {
                         navigate(rootPath + "/scoreboard");
                     }
                 },
+=======
+                // {
+                //     label: 'Verificar Tickets',
+                //     // icon: 'pi pi-fw pi-calendar-plus',
+                //     template: (item:any, options:any) => {
+                //         return (
+                //             /* custom element */
+                //             <p className={options.className + " my-0 ml-3 lg:ml-0"} onClick={options.onClick}>
+                //                 <GiTransform size={20} className="mr-2"/>
+                //                 <span className={options.labelClassName}>{item.label}</span>
+                //             </p>
+                //         );
+                //     },
+                //     command: () => {
+                //         navigate(rootPath + "/functionalities/tickets")
+                //     }
+                // },
+                // {
+                //     label: 'Placar',
+                //     // icon: 'pi pi-fw pi-calendar-plus',
+                //     template: (item:any, options:any) => {
+                //         return (
+                //             /* custom element */
+                //             <p className={options.className + " my-0 ml-3 lg:ml-0"} onClick={options.onClick}>
+                //                 <GrScorecard size={20} className="mr-2"/>
+                //                 <span className={options.labelClassName}>{item.label}</span>
+                //             </p>
+                //         );
+                //     },
+                //     command: () => {
+                //         navigate(rootPath + "/scoreboard");
+                //     }
+                // },
+>>>>>>> refs/remotes/origin/main
             ]
         },
         {
@@ -321,18 +356,18 @@ const Navbar = () => {
                     Libraries and Frameworks
                 </h3>
                 <p>
-                    This platform was built using MongoDB as Database, NodeJS on Back-end to serve the application and ReactJS on Front-end.
+                    This platform was built using MongoDB as Database, NodeJS on Back-end to serve the application and ReactJS on Front-end. Both Back-end and Front-end is using Typescript.
                 </p>
                 <p>
                     As style of this application, we used Primereact and custom CSS configs. Was also used Primeicons and React-icons for the icons on buttons and labels.
                 </p>
-                <h3>
+                {/* <h3>
                     Version
                 </h3>
                 <p>
-                    3.1.0 (a05ed5a)
+                    3.1.0 (a05ed5a) */}
                     {/* (Major version).(Minor version).(Revision number).(Build number) */}
-                </p>
+                {/* </p> */}
                 <Footer/>
             </Dialog>
         </div>

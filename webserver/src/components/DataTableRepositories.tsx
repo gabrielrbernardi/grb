@@ -140,7 +140,7 @@ const DataTableRepositories = (props: any) => {
             if(rowData.name === getActualCycle){
                 return (<>
                     <a className="font-bold text-link-special" onClick={() => {window.open(`${rowData.html_url}`, "_blank")}}>{rowData.name}</a>
-                    <Tag value={"Ciclo atual"} severity={""} className="ml-2"/>
+                    <Tag value={"Ciclo atual"} severity={"info"} className="ml-2"/>
                 </>)
             }else{
                 return <a className="font-bold text-link-special" onClick={() => {window.open(`${rowData.html_url}`, "_blank")}}>{rowData.name}</a>
