@@ -98,6 +98,25 @@ const Navbar = () => {
         }        
     }
 
+    const showEJCMenu = () => {
+        if(!checkCookie()){
+            return {
+                label: 'EJC',
+                icon: 'pi pi-fw pi-lock',
+                command: () => {
+                    navigate(rootPath + '/internal')
+                },
+            }
+        }else{
+            return {
+                label: '',
+                icon: '',
+                className: "hidden"
+            }
+            // return {}
+        }        
+    }
+
     const items = [
         {
             label: 'Home',
@@ -183,7 +202,7 @@ const Navbar = () => {
                     }
                 },
                 {
-                    label: 'Placar',
+                    label: 'EJC',
                     // icon: 'pi pi-fw pi-calendar-plus',
                     template: (item:any, options:any) => {
                         return (
@@ -207,8 +226,8 @@ const Navbar = () => {
                 showDialog()
             },
         },
-        restrictedMenuItem()
-
+        restrictedMenuItem(),
+        showEJCMenu()
     ];
 
     function clearCookie(){

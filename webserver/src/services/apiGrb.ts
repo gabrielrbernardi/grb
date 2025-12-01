@@ -17,7 +17,8 @@ const apiGrb = axios.create({
     // baseURL: 'http://localhost:3333/',
     // baseURL: 'http://192.168.100.11:3333/',
     // baseURL: 'https://grbbackend.herokuapp.com/',
-    baseURL: 'https://grbserver.onrender.com/',
+    // baseURL: 'https://grbserver.onrender.com/',
+    baseURL: 'https://api.backend.gabrielrb.com/',
     // timeout: 1000,
     headers: {
         token: 'senha',

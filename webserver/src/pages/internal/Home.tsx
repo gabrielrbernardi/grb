@@ -103,7 +103,7 @@ const HomeInternal = (props:any) => {
                                 <HomeUsersInstructors/>
                             </>
                         </AccordionTab>
-                        <AccordionTab header="Placar">
+                        <AccordionTab header="EJC">
                                 <>
                                     <DataTableScoreboard/>
                                 </>
@@ -142,11 +142,11 @@ const HomeInternal = (props:any) => {
                                     <DataTableConfigs isAdmin={getAdminStatus}/>
                                 </>
                             </AccordionTab>
-                            <AccordionTab header="Placar">
+                            {/* <AccordionTab header="EJC">
                                 <>
                                     <DataTableScoreboard/>
                                 </>
-                            </AccordionTab>
+                            </AccordionTab> */}
                             {/* <AccordionTab header="Terminal">
                                 <>
                                     <Terminal />
