@@ -201,7 +201,6 @@ const Navbar = () => {
                         navigate(rootPath + "/functionalities/transform")
                     }
                 },
-<<<<<<< HEAD
                 {
                     label: 'EJC',
                     // icon: 'pi pi-fw pi-calendar-plus',
@@ -218,7 +217,6 @@ const Navbar = () => {
                         navigate(rootPath + "/scoreboard");
                     }
                 },
-=======
                 // {
                 //     label: 'Verificar Tickets',
                 //     // icon: 'pi pi-fw pi-calendar-plus',
@@ -251,7 +249,6 @@ const Navbar = () => {
                 //         navigate(rootPath + "/scoreboard");
                 //     }
                 // },
->>>>>>> refs/remotes/origin/main
             ]
         },
         {
